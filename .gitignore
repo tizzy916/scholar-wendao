@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# === Scholar-Wendao Specific ===
+
+# Generated perspective skill source files (these go to ~/.claude/skills/[scholar]-perspective/)
+# We don't commit them to scholar-wendao itself — they're outputs, not inputs
+examples/*/sources/works/
+examples/*/sources/interviews/
+examples/*/sources/secondary/
+examples/*/sources/biographies/
+
+# Downloaded primary materials should NEVER be committed to git
+# (copyright + size). They live locally only.
+**/sources/works/**
+**/sources/interviews/**
+**/sources/secondary/**
+**/sources/biographies/**
+**/_files/
+
+# Allow .gitkeep in sources/ subdirs to preserve structure
+!**/sources/**/.gitkeep
+
+# Cached API responses (Academix / annas-mcp)
+**/.cache/
+**/cached_responses/
+
+# Per-run research outputs (the output of `scholar-wendao distill`)
+# These should be regenerable, not version-controlled
+examples/*/references/research/_strategy.md
+examples/*/references/research/_run_log.txt
+
+# Quality check outputs
+**/quality_report_*.json
+
+# User config (API keys, paths)
+.env
+.env.local
+config.local.yaml
