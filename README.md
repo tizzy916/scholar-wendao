@@ -70,7 +70,7 @@
 
 ```bash
 # 安装到 Claude 标准 skill 目录
-git clone https://github.com/shencong/scholar-wendao.git ~/.claude/skills/scholar-wendao
+git clone https://github.com/tizzy916/scholar-wendao.git ~/.claude/skills/scholar-wendao
 
 # 软链接到通用 agent skill 目录（兼容其他 agent 工具）
 ln -sfn ~/.claude/skills/scholar-wendao ~/.agents/skills/scholar-wendao
@@ -78,17 +78,74 @@ ln -sfn ~/.claude/skills/scholar-wendao ~/.agents/skills/scholar-wendao
 # 重启 Claude 桌面 / Cowork，让新 skill 被发现
 ```
 
+### 配置 Library 路径（重材料归档目录）
+
+学者问道采用**双路径架构**：轻产物（markdown 综述、SKILL.md）进 git，
+重材料（PDF、视频、长 transcript）进你的本地 Library 目录，永远不进 git。
+
+```bash
+# 推荐：把 Library 指向你已有的学术档案目录
+# 如果你用 Obsidian 数字图书馆：
+export SCHOLAR_WENDAO_LIBRARY="$HOME/Documents/Obsidian/Library/_files"
+
+# 如果你用 Zotero / Calibre：
+export SCHOLAR_WENDAO_LIBRARY="$HOME/Zotero/storage"
+
+# 没有特殊偏好：用默认（脚本自动创建）
+# 不设置时默认为 $HOME/scholar-wendao-library/
+
+# 把上面这行加到 ~/.zshrc 或 ~/.bashrc 里持久化
+```
+
+**为什么分流：**
+- ✅ Skill 仓库永远不含版权 PDF（合规、轻量）
+- ✅ 跨学者复用素材（蒸馏 Foucault 时已下载的二手文献，下次蒸馏 Stiegler 不用重下）
+- ✅ 兼容你已有的学术工作流（Obsidian / Zotero / Calibre / 自建文件夹）
+
 ### 推荐附加（用于多源信息采集）
 
 ```bash
 # Academix MCP — 学术 API 聚合（OpenAlex / Crossref / Semantic Scholar / arXiv）
 # 见 https://github.com/xingyulu23/Academix
 
-# annas-mcp — Anna's Archive 集成
+# annas-mcp — Anna's Archive 集成（受版权资料获取）
 # 见 https://github.com/iosifache/annas-mcp
 ```
 
 > 学者问道**不重造采集轮子**——优先调用上述两个已有 MCP，仅在不可用时回落到自实现。
+
+### 端用户的三种使用模式
+
+scholar-wendao 生成的 `[scholar]-perspective` skill 是开源分发的——但**重材料 PDF 永远在每个用户自己的机器上**，不通过 git 流通。所以一个学者 skill 装到不同人电脑上，每人有自己的 Library 副本（可能是空的、可能是部分的、可能是完整的，看他想用到什么程度）：
+
+| 模式 | 适用人群 | 需要做什么 | 需要 PDF 吗 |
+|---|---|---|---|
+| **1. 镜片模式（最常用）** | 想用某个学者的视角分析自己研究材料的人 | `git clone` skill 即可 | ❌ 不需要 |
+| **2. 学术验证模式** | 写论文要引用，需要核对引文出处 | 看 `references/research/07-archive.md`，查 DOI 自行验证 | ❌ 不需要（书目已含 DOI/OA 链接）|
+| **3. 深度档案模式** | 想要这个学者的完整文献库 | 装 scholar-wendao + skill，跑 `download_open_access.sh` 和 `annas_acquire.py` | ✅ 自动下载到你自己的 `$SCHOLAR_WENDAO_LIBRARY` |
+
+**模式 3 的命令示例**（假设已安装 stiegler-perspective）：
+
+```bash
+# 1. 配置你自己的 Library 路径（如未配过）
+export SCHOLAR_WENDAO_LIBRARY="$HOME/Documents/scholar-archive"
+
+# 2. 用 skill 自带的书目跑下载
+bash ~/.claude/skills/scholar-wendao/scripts/download_open_access.sh \
+  ~/.claude/skills/stiegler-perspective/references/research/07-archive.json \
+  "$SCHOLAR_WENDAO_LIBRARY/stiegler"
+
+# 3. 闭源部分（需要 Anna's Archive API key，可选）
+ANNAS_API_KEY=xxx python3 ~/.claude/skills/scholar-wendao/scripts/annas_acquire.py \
+  ~/.claude/skills/stiegler-perspective/references/research/07-archive.json \
+  -o "$SCHOLAR_WENDAO_LIBRARY/stiegler"
+```
+
+**为什么这样设计：**
+- ✅ Skill 仓库永远干净（无版权问题、不膨胀）
+- ✅ 每个用户的 Library 跨学者复用（蒸馏 Foucault 时下载的二手文献，下次蒸馏 Stiegler 不用重下）
+- ✅ 用户可以用任何已有的学术档案系统（Obsidian / Zotero / Calibre / 自建文件夹）
+- ✅ 法律责任清晰（每个人自己机器上的 PDF 是自己的事）
 
 ---
 

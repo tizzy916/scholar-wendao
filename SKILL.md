@@ -135,34 +135,64 @@ description: |
 
 ### Phase 0.5: 创建 skill 目录与采集预案
 
-**收到确认后立即执行**，在调研之前完成：
+**收到确认后立即执行**，在调研之前完成。
+
+#### 双路径架构（核心设计）
+
+学者问道把"轻产物"与"重材料"严格分开，避免 skill 仓库被版权 PDF 与大文件污染：
 
 ```
+路径 A · Skill 产物（轻量，可上 git）
 ~/.claude/skills/[scholar]-perspective/
 ├── SKILL.md                          # 最终产物
-├── scripts/                          # 工具脚本（来自 scholar-wendao 的复制）
+├── scripts/                          # 工具脚本（来自 scholar-wendao）
 └── references/
-    ├── research/                     # 7 个 agent 的调研结果
-    │   ├── 01-monographs.md          # 核心专著与代表论文
-    │   ├── 02-interviews.md          # 学术访谈与公开讲座
-    │   ├── 03-style.md               # 行文风格 + 概念语言
-    │   ├── 04-secondary.md           # 二手文献与学术争论
-    │   ├── 05-debates.md             # 学术立场转变与公开论战
-    │   ├── 06-genealogy.md           # 生平传记 + 智识谱系
-    │   └── 07-archive.md             # 学术档案采集（多语言全文献清单）
-    ├── biography/                    # 生平人格素材（独立目录，不是 agent 但同等重要）
-    │   ├── timeline.md               # 结构化生平时间线
-    │   ├── personality.md            # 性格描写（多源交叉验证）
-    │   └── controversies.md          # 重大争议与处世
-    └── sources/                      # 一手 + 二手语料库
-        ├── works/                    # 学者本人著作（按语言分子目录）
-        │   ├── fr/
-        │   ├── en/
-        │   └── zh/
-        ├── interviews/               # 访谈与讲座 transcript
-        ├── secondary/                # 二手研究
-        └── biographies/              # 传记类
+    ├── research/                     # 7 个 agent 的调研结果（markdown 综述）
+    │   ├── 01-monographs.md
+    │   ├── 02-interviews.md
+    │   ├── 03-style.md
+    │   ├── 04-secondary.md
+    │   ├── 05-debates.md
+    │   ├── 06-genealogy.md
+    │   └── 07-archive.md             # 多语言全文献清单（含获取链接）
+    └── biography/                    # 生平人格素材（独立章节）
+        ├── timeline.md
+        ├── personality.md
+        ├── relations.md
+        └── controversies.md
+
+路径 B · Library 重材料（永远不进 git，永久持有）
+$SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
+├── works/
+│   ├── fr/                           # 学者母语原版 PDF
+│   ├── en/                           # 英译本
+│   └── zh/                           # 中译本（如有）
+├── interviews/                       # 访谈与讲座 transcript
+├── secondary/                        # 二手研究 PDF
+└── biographies/                      # 传记类 PDF
 ```
+
+#### Library 路径配置
+
+`$SCHOLAR_WENDAO_LIBRARY` 是用户全局学术档案目录。优先级：
+
+1. 用户已设置环境变量 `$SCHOLAR_WENDAO_LIBRARY` → 使用之
+2. 用户使用 Obsidian 等知识库系统 → 推荐配置为已有的"数字图书馆"目录
+   - 例：`export SCHOLAR_WENDAO_LIBRARY="$HOME/Documents/Obsidian/Library/_files"`
+3. 都没有 → 默认 `$HOME/scholar-wendao-library/`（脚本自动创建）
+
+**为什么这样设计：**
+- ✅ Skill 产物可干净上 git（无版权 PDF 污染）
+- ✅ Library 跨 skill 复用（蒸馏 Foucault 时已有的二手文献，蒸馏 Stiegler 时不用重下）
+- ✅ 与已有学术工作流兼容（Obsidian / Calibre / Zotero / 自建文件夹都可以）
+- ✅ 用户保留对自己档案的完整控制
+
+#### Phase 0.5 自动检查
+
+- [ ] 路径 A 目录已创建在 `~/.claude/skills/[scholar]-perspective/`
+- [ ] 解析 `$SCHOLAR_WENDAO_LIBRARY`，路径 B 目录已创建（按 slug 子目录）
+- [ ] `references/research/07-archive.md` 中的下载脚本调用使用路径 B 作为 `--output`
+- [ ] 在 `references/research/_library_config.md` 记录使用的 Library 路径（供后续 update 时参照）
 
 **完成检查**（自动执行）：
 

@@ -70,13 +70,38 @@ Each generated perspective skill includes the **thickest chapter**: humble epist
 
 ```bash
 # To Claude's standard skill directory
-git clone https://github.com/shencong/scholar-wendao.git ~/.claude/skills/scholar-wendao
+git clone https://github.com/tizzy916/scholar-wendao.git ~/.claude/skills/scholar-wendao
 
 # Symlink to the generic agent skill directory (compatible with other agent tools)
 ln -sfn ~/.claude/skills/scholar-wendao ~/.agents/skills/scholar-wendao
 
 # Restart Claude Desktop / Cowork to discover the new skill
 ```
+
+### Configure Library path (heavy-materials archive directory)
+
+Scholar-Wendao uses a **dual-path architecture**: light artifacts (markdown summaries,
+SKILL.md) go into git, while heavy materials (PDFs, videos, long transcripts) are
+stored in your local Library directory and **never enter git**.
+
+```bash
+# Recommended: point Library to your existing academic archive
+# If you use Obsidian:
+export SCHOLAR_WENDAO_LIBRARY="$HOME/Documents/Obsidian/Library/_files"
+
+# If you use Zotero / Calibre:
+export SCHOLAR_WENDAO_LIBRARY="$HOME/Zotero/storage"
+
+# No preference: use default (auto-created)
+# When unset, defaults to $HOME/scholar-wendao-library/
+
+# Add the export line to ~/.zshrc or ~/.bashrc to persist
+```
+
+**Why the split:**
+- ✅ Skill repo never contains copyrighted PDFs (legal-clean, lightweight)
+- ✅ Materials are reusable across scholars (secondary literature downloaded for Foucault doesn't need to be re-downloaded for Stiegler)
+- ✅ Compatible with your existing academic workflow (Obsidian / Zotero / Calibre / custom folder)
 
 ### Recommended add-ons (for multi-source acquisition)
 
