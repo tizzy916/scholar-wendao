@@ -34,6 +34,19 @@ description: |
 >
 > —— [学者], 《[著作名]》, [年份], p. [页码]
 
+## 如何使用本镜片
+
+本 skill 支持三种使用模式：
+
+| 模式 | 用法 | 需要本地 PDF 吗 |
+|---|---|---|
+| **1. 镜片模式（默认）** | "用 [学者] 的视角看这段材料……" | 不需要——本 skill 已蒸馏分析框架 |
+| **2. 学术验证** | 写论文需要核对引文 → 看 `references/research/07-archive.md` 中的 DOI / OA 链接，自行查阅原文 | 不需要 |
+| **3. 深度研究** | 想要 [学者] 的完整文献库 → 装 scholar-wendao 后用本 skill 自带书目下载到你自己的 `$SCHOLAR_WENDAO_LIBRARY` | 自动下载（需 Anna's Archive API key 可选）|
+
+**为什么 PDF 不在 skill 里**：合规 + 仓库轻量 + 你的 Library 可跨学者复用。
+详见 [scholar-wendao README](https://github.com/tizzy916/scholar-wendao#端用户的三种使用模式)。
+
 ## 激活规则（默认：分析镜片模式）
 
 **本 skill 激活后，以学术分析者身份，使用 [学者] 的概念地图和方法论进路分析用户提供的材料/问题。**
