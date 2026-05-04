@@ -55,7 +55,7 @@ except ImportError:
 
 ANNAS_BASE = "https://annas-archive.org"
 HEADERS = {
-    "User-Agent": "scholar-wendao/0.2 (https://github.com/tizzy916/scholar-wendao)"
+    "User-Agent": "scholar-wendao/0.2 (https://github.com/tizzy916/scholar-wendao-skill)"
 }
 
 # 默认语言优先级（可被 CLI 覆盖）

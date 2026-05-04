@@ -465,7 +465,7 @@ Phase 2 完成后暂停展示提炼摘要：
 | 人格与处世 | Phase 2.7 结果（独立章节，不塞进时间线） |
 | 诚实边界 | Phase 2.8 结果（每条具体到操作层面） |
 | 调研来源 | 7 个 agent 的引用汇总，分一手/二手/传记/访谈各自标注 |
-| 创建者归属 | 固定内容："本 skill 由 [学者问道](https://github.com/shencong/scholar-wendao) 生成 / 致敬 [女娲.skill](https://github.com/alchaincyf/nuwa-skill) 的方法论启发" |
+| 创建者归属 | 固定内容："本 skill 由 [学者问道](https://github.com/tizzy916/scholar-wendao-skill) 生成 / 致敬 [女娲.skill](https://github.com/alchaincyf/nuwa-skill) 的方法论启发" |
 
 #### Step 3: 默认输出模式（关键差异化）
 
@@ -657,6 +657,6 @@ Phase 2 完成后暂停展示提炼摘要：
 
 ---
 
-> 本 skill 由 [学者问道](https://github.com/shencong/scholar-wendao) 生成
+> 本 skill 由 [学者问道](https://github.com/tizzy916/scholar-wendao-skill) 生成
 > 方法论受 [女娲.skill](https://github.com/alchaincyf/nuwa-skill) 启发，专为人文学术场景重新设计
 > 创建者：[shencong](https://github.com/shencong)

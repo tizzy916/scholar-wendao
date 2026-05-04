@@ -48,7 +48,7 @@ except ImportError:
 
 OPENALEX_BASE = "https://api.openalex.org"
 HEADERS = {
-    "User-Agent": "scholar-wendao/0.2 (https://github.com/tizzy916/scholar-wendao; mailto:noreply@example.com)"
+    "User-Agent": "scholar-wendao/0.2 (https://github.com/tizzy916/scholar-wendao-skill; mailto:noreply@example.com)"
 }
 
 
@@ -306,7 +306,7 @@ def write_markdown_report(result: dict[str, Any], path: Path) -> None:
     lines = [
         f"# 学术档案采集报告 · {result['scholar']}",
         "",
-        f"> Agent 7 (学术档案采集) 输出 · 由 [scholar-wendao](https://github.com/tizzy916/scholar-wendao) 生成",
+        f"> Agent 7 (学术档案采集) 输出 · 由 [scholar-wendao](https://github.com/tizzy916/scholar-wendao-skill) 生成",
         "",
         "## 元数据",
         "",

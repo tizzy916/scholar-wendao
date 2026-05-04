@@ -45,7 +45,7 @@ description: |
 | **3. 深度研究** | 想要 [学者] 的完整文献库 → 装 scholar-wendao 后用本 skill 自带书目下载到你自己的 `$SCHOLAR_WENDAO_LIBRARY` | 自动下载（需 Anna's Archive API key 可选）|
 
 **为什么 PDF 不在 skill 里**：合规 + 仓库轻量 + 你的 Library 可跨学者复用。
-详见 [scholar-wendao README](https://github.com/tizzy916/scholar-wendao#端用户的三种使用模式)。
+详见 [scholar-wendao README](https://github.com/tizzy916/scholar-wendao-skill#端用户的三种使用模式)。
 
 ## 激活规则（默认：分析镜片模式）
 
@@ -319,7 +319,7 @@ description: |
 
 ---
 
-> 本 skill 由 [学者问道](https://github.com/shencong/scholar-wendao) 生成
+> 本 skill 由 [学者问道](https://github.com/tizzy916/scholar-wendao-skill) 生成
 > 方法论受 [女娲.skill](https://github.com/alchaincyf/nuwa-skill) 启发，专为人文学术场景重新设计
 > 创建者：[shencong](https://github.com/shencong)
 ```

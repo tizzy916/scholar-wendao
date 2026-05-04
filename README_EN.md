@@ -70,10 +70,10 @@ Each generated perspective skill includes the **thickest chapter**: humble epist
 
 ```bash
 # To Claude's standard skill directory
-git clone https://github.com/tizzy916/scholar-wendao.git ~/.claude/skills/scholar-wendao
+git clone https://github.com/tizzy916/scholar-wendao-skill.git ~/.claude/skills/scholar-wendao-skill
 
 # Symlink to the generic agent skill directory (compatible with other agent tools)
-ln -sfn ~/.claude/skills/scholar-wendao ~/.agents/skills/scholar-wendao
+ln -sfn ~/.claude/skills/scholar-wendao-skill ~/.agents/skills/scholar-wendao-skill
 
 # Restart Claude Desktop / Cowork to discover the new skill
 ```
@@ -132,12 +132,12 @@ export SCHOLAR_WENDAO_LIBRARY="$HOME/Zotero/storage"
 export SCHOLAR_WENDAO_LIBRARY="$HOME/Documents/scholar-archive"
 
 # 2. Use the skill's bundled bibliography to download
-bash ~/.claude/skills/scholar-wendao/scripts/download_open_access.sh \
+bash ~/.claude/skills/scholar-wendao-skill/scripts/download_open_access.sh \
   ~/.claude/skills/stiegler-perspective/references/research/07-archive.json \
   "$SCHOLAR_WENDAO_LIBRARY/stiegler"
 
 # 3. For closed-access materials (requires Anna's Archive API key, optional)
-ANNAS_API_KEY=xxx python3 ~/.claude/skills/scholar-wendao/scripts/annas_acquire.py \
+ANNAS_API_KEY=xxx python3 ~/.claude/skills/scholar-wendao-skill/scripts/annas_acquire.py \
   ~/.claude/skills/stiegler-perspective/references/research/07-archive.json \
   -o "$SCHOLAR_WENDAO_LIBRARY/stiegler"
 ```
