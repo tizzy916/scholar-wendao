@@ -38,7 +38,7 @@
       "cited_by": 0,
       "acquisition_tier": 4,
       "priority": "P0",
-      "acquisition_status": "pending",
+      "acquisition_status": "intake_completed",
       "acquisition_hints": [
         "annas-archive（Tier 3-4，CLI 受 Cloudflare 反爬限制；用浏览器手动）",
         "Polity Press 官方电子版（如有）",
@@ -46,8 +46,10 @@
         "学者本人 ARS Industrialis / Internation 网站可能含部分章节"
       ],
       "intended_filename": "Stiegler2021_Bifurcate_en.pdf",
-      "intake_completed_at": null,
-      "manually_added": false
+      "intake_completed_at": "2026-05-05",
+      "manually_added": false,
+      "actual_filename": "Stiegler2021_Bifurcate_en.pdf",
+      "actual_source": "/private/tmp/ohp_dl/Bifurcate.pdf"
     },
     {
       "id": "stiegler-2020-bifurquer-fr",
@@ -1083,6 +1085,22 @@
       "intended_filename": "Stiegler1986_La_faute_d_Épiméthée_fr.pdf",
       "intake_completed_at": null,
       "manually_added": false
+    },
+    {
+      "id": "intake-Stiegler2018_The_Neganthropoce",
+      "title": "The_Neganthropocene",
+      "year": 2018,
+      "language": "en",
+      "type": "book",
+      "acquisition_tier": 4,
+      "priority": "P0",
+      "acquisition_status": "intake_completed",
+      "acquisition_hints": [],
+      "intended_filename": "Stiegler2018_The_Neganthropocene_en.pdf",
+      "actual_filename": "Stiegler2018_The_Neganthropocene_en.pdf",
+      "actual_source": "/private/tmp/ohp_dl/Neganthropocene.pdf",
+      "intake_completed_at": "2026-05-05",
+      "manually_added": true
     }
   ]
 }

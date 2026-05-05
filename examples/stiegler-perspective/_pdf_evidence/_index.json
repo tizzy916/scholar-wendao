@@ -96,7 +96,22 @@
   },
   {
     "book": "Stiegler2014_Uncontrollable_Societies_of_Disaffected",
-    "status": "skipped_exists"
+    "pages": 6,
+    "empty_pages": 0,
+    "total_chars": 14546,
+    "total_concept_hits": 3,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 2,
+      "proletarianization": 1,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
   },
   {
     "book": "Stiegler2015",
@@ -213,6 +228,25 @@
     "status": "ok"
   },
   {
+    "book": "Stiegler2018_The_Neganthropocene_en",
+    "pages": 349,
+    "empty_pages": 3,
+    "total_chars": 118585,
+    "total_concept_hits": 336,
+    "hits_per_concept": {
+      "tertiary_retention": 50,
+      "epiphylogenesis": 9,
+      "pharmacology": 50,
+      "general_organology": 50,
+      "symbolic_misery": 7,
+      "proletarianization": 37,
+      "grammatization": 33,
+      "disruption": 50,
+      "neganthropy": 50
+    },
+    "status": "ok"
+  },
+  {
     "book": "Stiegler2020_Nanjing_Lectures_2016_2019",
     "pages": 385,
     "empty_pages": 3,
@@ -247,6 +281,25 @@
       "grammatization": 0,
       "disruption": 0,
       "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2021_Bifurcate_en",
+    "pages": 330,
+    "empty_pages": 4,
+    "total_chars": 121252,
+    "total_concept_hits": 144,
+    "hits_per_concept": {
+      "tertiary_retention": 2,
+      "epiphylogenesis": 0,
+      "pharmacology": 22,
+      "general_organology": 11,
+      "symbolic_misery": 1,
+      "proletarianization": 25,
+      "grammatization": 5,
+      "disruption": 28,
+      "neganthropy": 50
     },
     "status": "ok"
   },
