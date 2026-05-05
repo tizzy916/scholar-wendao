@@ -376,17 +376,46 @@ description: |
 
 (2016/2019 *Dans la disruption*)Stiegler **重定义硅谷术语**:disruption 不是创新,而是**社会器官跟不上技术器官变化速度造成的方向感丧失**。"我们处于一个所有方向感都被算法治理蒸发的时代。"晚期与 *bifurquer*(分岔)对偶——前者是诊断,后者是治疗。
 
-**证据来源**(v0.4):
-- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **36 hits**(主源)
-- `_pdf_evidence/Stiegler2022_Une_limite_au_del_de_laquelle_est_l_inco_fr.md` — 4 hits(法语晚期表述,*Une limite au-delà de laquelle est l'inconnu*)
+**v0.4.4 证据深化**(*Bifurcate* + *Neganthropocene* OA 进库后):disruption 在 Stiegler 晚期不只是技术-社会失衡的诊断,更被嵌入两个新框架:
+1. **海德格尔 *Ereignis* 重读**:thermodynamic 机器(蒸汽机)作为工业革命的 *Ereignis*,disruption 是其延续(*Neganthropocene*, p. 41)
+2. **Lotka *exosomatization* 加速论**:disruption = 体外进化的不受控加速(*Bifurcate*, p. 70)
+
+> "the current epoch is characterized – far beyond the urban question alone – by what is now called disruption, where technologies … destabilize social systems"
+> —— *Bifurcate* (2021), p. 66
+
+> "what we should describe as a disruption in exosomatization"
+> —— *The Neganthropocene* (2018), p. 84
+
+**证据来源**(v0.4.4 升级):
+- `_pdf_evidence/Stiegler2018_The_Neganthropocene_en.md` — **50 hits ⭐**(2018 系统论述 + Ereignis 重读;新主源,本概念在该书出现频率最高)
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — 36 hits(原 v0.4 主源,降为次源)
+- `_pdf_evidence/Stiegler2021_Bifurcate_en.md` — 28 hits(与 *bifurquer* 治疗学对偶;新增)
+- `_pdf_evidence/Stiegler2022_Une_limite_au_del_de_laquelle_est_l_inco_fr.md` — 4 hits(法语晚期表述)
+
+**v0.4.4 升格提示**:本概念全库总命中 42 → **120**(+186%)。晚期重要性提升,**v0.5 重蒸时建议升格为核心概念第 7 项**。
 
 ### 次级概念 C:逆熵 *Néguanthropie* / Neganthropy
 
 (2018 *The Neganthropocene* 起)Stiegler 自创(基于 Schrödinger 的 negentropy + anthropos):**对抗熵增的人类学技术-社会安排能力**。把 *pharmakon* 升级到热力学层,处理"集体方向感"问题。**晚期最重要的工具**——若分析当代生态紧急、气候政治,优先用此概念。
 
-**证据来源**(v0.4):
-- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **50 hits**(neganthropy 体系的英文系统讲授,主源)
-- `_pdf_evidence/Stiegler2025_Towards_a_New_Industrial_Revolution_Entr.md` — 7 hits(死后期刊《Technophany》2.2,与 Montévil 等合著继续 neganthropy 路线)
+**v0.4.4 证据深化**(*The Neganthropocene* OA 进库后):
+
+> "this is why Stiegler describes it as being not just negentropic, but 'neganthropic'."
+> —— *The Neganthropocene* (2018), p. 26 *(neganthropy 自命名的关键说明:它不只是负熵 negentropy,更是关于人 anthropos 的负熵)*
+
+> "It is in order to avoid being trapped in a biological model whose inadequacy was described by Lotka that we thus refer to anthropy and neganthropy."
+> —— *Bifurcate* (2021), p. 25 *(与 Lotka 的关键连接:neganthropy 把 epiphylogenesis 升级到热力学层的桥梁)*
+
+> "We argue that this is also true of what we call negative anthropy, or neganthropy, and we posit that … cases of organizations that we call neganthropic in order to distinguish them from the negentropy constituted by life in general."
+> —— *Bifurcate* (2021), pp. 30-31 *(neganthropy 与 negentropy 的精确区分)*
+
+**证据来源**(v0.4.4 升级):
+- `_pdf_evidence/Stiegler2018_The_Neganthropocene_en.md` — **50 hits ⭐**(*The Neganthropocene* 是本概念命名书;新主源)
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — 50 hits(英文系统讲授;原 v0.4 主源)
+- `_pdf_evidence/Stiegler2021_Bifurcate_en.md` — 50 hits(与 Lotka 整合 + 治疗学应用;新增)
+- `_pdf_evidence/Stiegler2025_Towards_a_New_Industrial_Revolution_Entr.md` — 7 hits(死后期刊延续路线)
+
+**v0.4.4 升格提示**:本概念全库总命中 59 → **159**(+170%)。晚期重要性大幅提升,**v0.5 重蒸时建议升格为核心概念第 8 项**,与 disruption 共同构成 Stiegler 晚期 Anthropocene-Neganthropocene 二元诊断框架。
 
 ---
 
@@ -868,6 +897,38 @@ Stiegler 2020-08-05 自杀身亡。本 skill **绝不**:
 **剩余已知问题**(v0.4.1 backlog):
 - 人格章节 14 个形成性事件中 6 个缺事实层 / 叙事层 BRACKETING 双标注(Phase 4.6 检测出)。需在 v0.4.1 里逐段补标。
 - Library 目前 Stiegler 闭源 41 部待获取,网络出口受限暂未跑 `annas_acquire.py`(API key 已知)。
+
+---
+
+## v0.4.4 修订记录(轻量 update + Library 扩充)
+
+> 与 v0.4.1 相比,本版本由 scholar-wendao v0.4.2 → v0.4.4 元 skill 生成,主要增量来自:
+> 1. Library 经 Workflow A.4 主动导入 + harvest_oa_publishers.py 扩充至 **19 部 PDF**(+2 部 P0 OA)
+> 2. 概念命中矩阵显著重构(disruption +186%, neganthropy +170%)
+
+**新进证据库的两部 P0 OA 专著**(经 OHP 公开 OA 路径,绕开 annas Cloudflare 反爬):
+- *Bifurcate: There Is No Alternative*(2021, Stiegler & Internation Collective)— 330 页 / **144 hits**
+- *The Neganthropocene*(2018, ed. Daniel Ross)— 349 页 / **336 hits**(超过 Nanjing Lectures 的 329,新 mega anchor)
+
+**次级概念 B(disruption)证据深化**:
+- 主源从 Nanjing Lectures(36 hits)切换到 **The Neganthropocene 2018(50 hits)**
+- 新增 *Bifurcate*(28 hits)作为治疗学对偶
+- 新增两个嵌入框架:海德格尔 *Ereignis* 重读(Neganthropocene p. 41)+ Lotka *exosomatization* 加速论
+- v0.4.4 升格提示:全库总命中 42 → **120**,v0.5 重蒸时建议升格为核心概念第 7 项
+
+**次级概念 C(neganthropy)证据深化**:
+- 新增 *The Neganthropocene*(50 hits)作为本概念命名书的主源
+- 新增 *Bifurcate*(50 hits)与 Lotka 整合 + 治疗学应用
+- 三条可定位 verbatim 引文(Neganthropocene p. 26 / Bifurcate pp. 25 / 30-31)
+- v0.4.4 升格提示:全库总命中 59 → **159**,v0.5 重蒸时建议升格为核心概念第 8 项
+
+**v0.5 重蒸建议**:Library 长到 25+ 部 PDF 时(增补 OCR 5 部 + annas 闭源关键 P0 后)整体重做 Phase 2.x。届时核心概念可扩为 **8 项**(原 6 + disruption + neganthropy),次级 1 项(grammatization)。
+
+**仍未修复**(v0.4.x 全程 backlog):
+- BRACKETING 6 个形成性事件双层标注
+- 5 部扫描 PDF OCR(`brew install ocrmypdf`,本地任务)
+- annas 闭源 41 部(代理出口黑名单 + Cloudflare 反爬,仅可走 Tier 4 浏览器手动 → intake_manual_pdf.py)
+- 4 个原计划 harvester(lectures/french_journals/homepages/collectives)
 
 ---
 
