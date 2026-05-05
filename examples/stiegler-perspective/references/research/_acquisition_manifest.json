@@ -16,14 +16,16 @@
     2022
   ],
   "stats": {
-    "total_items": 46,
+    "total_items": 50,
     "tier_1": 0,
-    "tier_2": 0,
-    "tier_3": 0,
-    "tier_4": 46,
-    "p0": 11,
-    "p1": 4,
-    "p2": 31
+    "tier_2": 4,
+    "tier_3": 1,
+    "tier_4": 45,
+    "p0": 12,
+    "p1": 7,
+    "p2": 31,
+    "intake_completed": 2,
+    "discovered_oa": 2
   },
   "items": [
     {
@@ -36,10 +38,11 @@
       "doi": null,
       "openalex_id": "https://openalex.org/W4413851884",
       "cited_by": 0,
-      "acquisition_tier": 4,
+      "acquisition_tier": 2,
       "priority": "P0",
       "acquisition_status": "intake_completed",
       "acquisition_hints": [
+        "OA 直链: ohp (Open Humanities Press)",
         "annas-archive（Tier 3-4，CLI 受 Cloudflare 反爬限制；用浏览器手动）",
         "Polity Press 官方电子版（如有）",
         "中国国家图书馆 / 大学图书馆机构外借",
@@ -49,7 +52,8 @@
       "intake_completed_at": "2026-05-05",
       "manually_added": false,
       "actual_filename": "Stiegler2021_Bifurcate_en.pdf",
-      "actual_source": "/private/tmp/ohp_dl/Bifurcate.pdf"
+      "actual_source": "/private/tmp/ohp_dl/Bifurcate.pdf",
+      "pdf_url": "http://openhumanitiespress.org/books/download/Stiegler_2021_Bifurcate.pdf"
     },
     {
       "id": "stiegler-2020-bifurquer-fr",
@@ -1088,19 +1092,92 @@
     },
     {
       "id": "intake-Stiegler2018_The_Neganthropoce",
-      "title": "The_Neganthropocene",
+      "title": "The Neganthropocene",
       "year": 2018,
       "language": "en",
       "type": "book",
-      "acquisition_tier": 4,
+      "acquisition_tier": 2,
       "priority": "P0",
       "acquisition_status": "intake_completed",
-      "acquisition_hints": [],
+      "acquisition_hints": [
+        "OA 直链已知:OHP + archive.org"
+      ],
       "intended_filename": "Stiegler2018_The_Neganthropocene_en.pdf",
       "actual_filename": "Stiegler2018_The_Neganthropocene_en.pdf",
       "actual_source": "/private/tmp/ohp_dl/Neganthropocene.pdf",
       "intake_completed_at": "2026-05-05",
-      "manually_added": true
+      "manually_added": true,
+      "pdf_url": "http://openhumanitiespress.org/books/download/Stiegler_2018_The-Neganthropocene.pdf",
+      "details_url": "https://openhumanitiespress.org/books/titles/the-neganthropocene/"
+    },
+    {
+      "id": "stiegler-2021-psychopolitical-anaphylaxis-r-en",
+      "title": "Psychopolitical Anaphylaxis (Ross 2021, on Stiegler)",
+      "year": 2021,
+      "language": "en",
+      "type": "book",
+      "publisher": "Open Humanities Press",
+      "doi": null,
+      "openalex_id": null,
+      "acquisition_tier": 2,
+      "priority": "P1",
+      "acquisition_status": "discovered_oa",
+      "acquisition_hints": [
+        "OA 直链: ohp (Open Humanities Press)",
+        "discovered_via: ohp_known_titles"
+      ],
+      "pdf_url": "http://openhumanitiespress.org/books/download/Ross_2021_Psychopolitical-Anaphylaxis.pdf",
+      "details_url": "https://openhumanitiespress.org/books/titles/psychopolitical-anaphylaxis/",
+      "intended_filename": null,
+      "intake_completed_at": null,
+      "manually_added": false,
+      "discovered_by": "harvest_oa_publishers.py"
+    },
+    {
+      "id": "stiegler-2012-telemorphosis-theory-in-the-e-en",
+      "title": "Telemorphosis: Theory in the Era of Climate Change",
+      "year": 2012,
+      "language": "en",
+      "type": "book",
+      "publisher": "Open Humanities Press",
+      "doi": null,
+      "openalex_id": null,
+      "acquisition_tier": 2,
+      "priority": "P1",
+      "acquisition_status": "discovered_oa",
+      "acquisition_hints": [
+        "OA 直链: ohp (Open Humanities Press)",
+        "discovered_via: ohp_known_titles"
+      ],
+      "pdf_url": "http://openhumanitiespress.org/books/download/Cohen_2012_Telemorphosis.pdf",
+      "details_url": "https://openhumanitiespress.org/books/titles/telemorphosis/",
+      "intended_filename": null,
+      "intake_completed_at": null,
+      "manually_added": false,
+      "discovered_by": "harvest_oa_publishers.py"
+    },
+    {
+      "id": "stiegler-2020-nanjing-lectures-2016-2019--English",
+      "title": "Nanjing Lectures (2016-2019)",
+      "year": 2020,
+      "language": "English",
+      "type": "book",
+      "publisher": "",
+      "doi": null,
+      "openalex_id": null,
+      "acquisition_tier": 3,
+      "priority": "P1",
+      "acquisition_status": "manifest_only",
+      "acquisition_hints": [
+        "OA 直链: archive.org ()",
+        "discovered_via: archive_org_texts"
+      ],
+      "pdf_url": null,
+      "details_url": "https://archive.org/details/stiegler-nanjing-lectures",
+      "intended_filename": null,
+      "intake_completed_at": null,
+      "manually_added": false,
+      "discovered_by": "harvest_oa_publishers.py"
     }
   ]
 }

@@ -1,0 +1,83 @@
+{
+  "scholar": "Bernard Stiegler",
+  "items": [
+    {
+      "source": "ohp",
+      "title": "The Neganthropocene",
+      "year": 2018,
+      "author": "Bernard Stiegler",
+      "publisher": "Open Humanities Press",
+      "language": "en",
+      "title_url": "https://openhumanitiespress.org/books/titles/the-neganthropocene/",
+      "pdf_url": "http://openhumanitiespress.org/books/download/Stiegler_2018_The-Neganthropocene.pdf",
+      "pdf_size_bytes": 2454177,
+      "discovered_via": "ohp_known_titles",
+      "is_direct_stiegler": true
+    },
+    {
+      "source": "ohp",
+      "title": "Bifurcate: There Is No Alternative",
+      "year": 2021,
+      "author": "Bernard Stiegler",
+      "publisher": "Open Humanities Press",
+      "language": "en",
+      "title_url": "https://openhumanitiespress.org/books/titles/bifurcate/",
+      "pdf_url": "http://openhumanitiespress.org/books/download/Stiegler_2021_Bifurcate.pdf",
+      "pdf_size_bytes": 3068148,
+      "discovered_via": "ohp_known_titles",
+      "is_direct_stiegler": true
+    },
+    {
+      "source": "ohp",
+      "title": "Psychopolitical Anaphylaxis (Ross 2021, on Stiegler)",
+      "year": 2021,
+      "author": "",
+      "publisher": "Open Humanities Press",
+      "language": "en",
+      "title_url": "https://openhumanitiespress.org/books/titles/psychopolitical-anaphylaxis/",
+      "pdf_url": "http://openhumanitiespress.org/books/download/Ross_2021_Psychopolitical-Anaphylaxis.pdf",
+      "pdf_size_bytes": 2656260,
+      "discovered_via": "ohp_known_titles",
+      "is_direct_stiegler": false
+    },
+    {
+      "source": "ohp",
+      "title": "Telemorphosis: Theory in the Era of Climate Change",
+      "year": 2012,
+      "author": "",
+      "publisher": "Open Humanities Press",
+      "language": "en",
+      "title_url": "https://openhumanitiespress.org/books/titles/telemorphosis/",
+      "pdf_url": "http://openhumanitiespress.org/books/download/Cohen_2012_Telemorphosis.pdf",
+      "pdf_size_bytes": 1561000,
+      "discovered_via": "ohp_known_titles",
+      "is_direct_stiegler": false
+    },
+    {
+      "source": "archive.org",
+      "title": "Nanjing Lectures (2016-2019)",
+      "year": 2020,
+      "author": "Bernard Stiegler and Dan Ross",
+      "language": "English",
+      "publisher": "",
+      "ia_identifier": "stiegler-nanjing-lectures",
+      "details_url": "https://archive.org/details/stiegler-nanjing-lectures",
+      "download_dir_url": "https://archive.org/download/stiegler-nanjing-lectures/",
+      "pdf_url": null,
+      "discovered_via": "archive_org_texts"
+    },
+    {
+      "source": "archive.org",
+      "title": "The Neganthropocene",
+      "year": 2018,
+      "author": "Bernard Stiegler",
+      "language": "eng",
+      "publisher": "",
+      "ia_identifier": "TheNeganthropocene",
+      "details_url": "https://archive.org/details/TheNeganthropocene",
+      "download_dir_url": "https://archive.org/download/TheNeganthropocene/",
+      "pdf_url": null,
+      "discovered_via": "archive_org_texts"
+    }
+  ]
+}
