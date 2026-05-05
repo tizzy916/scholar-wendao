@@ -25,12 +25,9 @@ from pathlib import Path
 from typing import Any
 
 
-# 默认重要概念列表（按 _concepts.json 的 keys 顺序）
-DEFAULT_CONCEPTS_ORDER = [
-    "tertiary_retention", "epiphylogenesis", "pharmacology",
-    "general_organology", "symbolic_misery", "proletarianization",
-    "grammatization", "disruption", "neganthropy",
-]
+# v0.5: 不再 hardcode 概念列表(那是 Stiegler 专用),改为从 _index.json 动态推断
+# 仅作为 fallback 在 _index.json 没数据时用
+FALLBACK_CONCEPTS_ORDER: list[str] = []
 
 
 def regenerate(evidence_dir: Path, scholar_name: str = "") -> str:
@@ -50,19 +47,20 @@ def regenerate(evidence_dir: Path, scholar_name: str = "") -> str:
     # 从 readable 移除 metadata_fragments
     readable_main = [i for i in readable if i not in metadata_fragments]
 
-    # 概念命中矩阵
-    concept_keys = DEFAULT_CONCEPTS_ORDER
+    # 概念命中矩阵 (v0.5: 完全从 _index.json 动态推断,避免 hardcode)
+    concept_keys: list[str] = []
     if readable_main:
-        # 从第一个 readable item 推断真实 concept keys（如果与默认不一致）
-        first_hits = readable_main[0].get("hits_per_concept", {})
-        if first_hits:
-            # 取 union
-            all_concepts = set(concept_keys)
-            for r in readable_main:
-                all_concepts.update((r.get("hits_per_concept") or {}).keys())
-            # 保持默认顺序优先,其他附加
-            extra = sorted(all_concepts - set(concept_keys))
-            concept_keys = concept_keys + extra
+        all_concepts: set[str] = set()
+        for r in readable_main:
+            all_concepts.update((r.get("hits_per_concept") or {}).keys())
+        # 按全库总命中降序排列(最相关的概念在前)
+        concept_totals_temp: dict[str, int] = {c: 0 for c in all_concepts}
+        for r in readable_main:
+            for c, n in (r.get("hits_per_concept") or {}).items():
+                concept_totals_temp[c] = concept_totals_temp.get(c, 0) + n
+        concept_keys = sorted(all_concepts, key=lambda c: -concept_totals_temp.get(c, 0))
+    if not concept_keys:
+        concept_keys = FALLBACK_CONCEPTS_ORDER
 
     # 计算每概念 top-3 anchor
     concept_top: dict[str, list[tuple[str, int]]] = {}

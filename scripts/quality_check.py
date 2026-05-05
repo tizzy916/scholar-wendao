@@ -351,13 +351,16 @@ CITATION_PATTERNS = [
 
 
 def _extract_citations(text: str) -> list[dict[str, Any]]:
+    """v0.5: page 字段保留为字符串(支持 Bekker '1097b22-1098a20' / Stephanus '514a-518b' / 中典 '第三章')。"""
     citations: list[dict[str, Any]] = []
     for pat in CITATION_PATTERNS:
         for m in pat.finditer(text):
+            page_raw = m.group("page")
             citations.append({
                 "quote": m.group("quote").strip(),
                 "source": m.group("source").strip().strip("*").strip("《》"),
-                "page": int(m.group("page")),
+                "page": page_raw,            # v0.5: 保留字符串
+                "page_int": int(page_raw) if page_raw.isdigit() else None,  # 仅纯数字时给 int
             })
     return citations
 
@@ -462,18 +465,20 @@ def check_citation_anchors(skill_text: str, evidence_dir: Path) -> dict[str, Any
         # v0.4 修：evidence 里 page anchor 有两种格式：
         #   "### p.{N}\n" （head/tail 段，逐页 dump）
         #   "- **p.{N}** [`...`]: …" （concept_hits 段，单行片段）
+        # v0.5: 古典编号(Bekker 1097b22 / Stephanus 514a / 中典 第三章) 不能定位 page anchor,
+        #       直接走 fulltext fallback
         page = c["page"]
         page_text = ""
-        # 优先 head/tail 全页
-        m1 = re.search(rf"### p\.{page}\s*\n", ev_text)
-        if m1:
-            # 取到下一个 ### 标题前
-            tail = ev_text[m1.end():]
-            next_h = re.search(r"\n### ", tail)
-            page_text = tail[: next_h.start() if next_h else 3500]
-        # 同时也吸收 concept_hits 里指向同页的所有片段
-        for m2 in re.finditer(rf"-\s*\*\*p\.{page}\*\*[^\n]*", ev_text):
-            page_text += "\n" + m2.group(0)
+        if c.get("page_int") is not None:
+            # 仅纯数字 page 走 page anchor 提取
+            m1 = re.search(rf"### p\.{page}\s*\n", ev_text)
+            if m1:
+                tail = ev_text[m1.end():]
+                next_h = re.search(r"\n### ", tail)
+                page_text = tail[: next_h.start() if next_h else 3500]
+            for m2 in re.finditer(rf"-\s*\*\*p\.{page}\*\*[^\n]*", ev_text):
+                page_text += "\n" + m2.group(0)
+        # 古典编号 / 字符串 page → page_text 留空,直接 fallback fulltext
 
         if not page_text.strip():
             # v0.4 fallback：page anchor 不存在 → 全文搜

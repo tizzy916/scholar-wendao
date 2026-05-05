@@ -1,0 +1,90 @@
+{
+  "ousia": [
+    "ousia", "οὐσία", "Ousia",
+    "substance", "essence",
+    "实体", "本质", "本体",
+    "essentia", "substantia"
+  ],
+  "form_matter": [
+    "form", "matter", "hylomorphism", "hyle", "morphe",
+    "ὕλη", "μορφή", "εἶδος", "eidos",
+    "形式", "质料", "形质论", "形相"
+  ],
+  "four_causes": [
+    "four causes", "material cause", "formal cause", "efficient cause", "final cause",
+    "causa materialis", "causa formalis", "causa efficiens", "causa finalis",
+    "四因", "四因说", "材料因", "形式因", "动力因", "目的因",
+    "aitia", "αἰτία", "αἴτιον"
+  ],
+  "potentiality_actuality": [
+    "potentiality", "actuality", "potency", "act",
+    "δύναμις", "ἐνέργεια", "ἐντελέχεια",
+    "dynamis", "energeia", "entelecheia",
+    "潜能", "现实", "实现", "实在"
+  ],
+  "telos": [
+    "telos", "τέλος", "final cause", "end",
+    "purpose", "teleology",
+    "目的", "终极", "目的因", "目的论",
+    "ergon", "ἔργον", "function"
+  ],
+  "psyche": [
+    "psyche", "ψυχή", "soul",
+    "anima",
+    "灵魂", "心灵",
+    "vegetative soul", "sensitive soul", "rational soul",
+    "nous", "νοῦς", "intellect", "intellectus"
+  ],
+  "virtue": [
+    "virtue", "ἀρετή", "arete",
+    "virtus",
+    "德性", "美德", "卓越",
+    "moral virtue", "intellectual virtue",
+    "habit", "hexis", "ἕξις"
+  ],
+  "eudaimonia": [
+    "eudaimonia", "εὐδαιμονία",
+    "happiness", "flourishing", "human flourishing", "well-being",
+    "幸福", "至善", "繁盛"
+  ],
+  "phronesis": [
+    "phronesis", "φρόνησις",
+    "practical wisdom", "prudence", "prudentia",
+    "明智", "实践智慧", "审慎"
+  ],
+  "mean_doctrine": [
+    "mean", "doctrine of the mean", "μεσότης", "mesotes",
+    "中庸", "中道", "适度"
+  ],
+  "polis_politike": [
+    "polis", "πόλις", "city-state",
+    "political animal", "zoon politikon", "ζῷον πολιτικόν",
+    "polity", "politeia", "πολιτεία",
+    "城邦", "政治动物", "政体", "政治"
+  ],
+  "categories": [
+    "categories", "κατηγορίαι", "kategoriai",
+    "predication",
+    "范畴", "述语", "类",
+    "Categoriae"
+  ],
+  "physis": [
+    "physis", "φύσις", "nature", "natural",
+    "natura",
+    "自然", "本性",
+    "physical", "phys"
+  ],
+  "first_philosophy": [
+    "first philosophy", "πρώτη φιλοσοφία", "prote philosophia",
+    "metaphysics", "Metaphysica",
+    "第一哲学", "形而上学",
+    "being qua being", "ὂν ᾗ ὄν"
+  ],
+  "praxis_poiesis_theoria": [
+    "praxis", "πρᾶξις", "action",
+    "poiesis", "ποίησις", "production", "making",
+    "theoria", "θεωρία", "contemplation",
+    "实践", "制作", "沉思",
+    "techne", "τέχνη", "art", "craft"
+  ]
+}

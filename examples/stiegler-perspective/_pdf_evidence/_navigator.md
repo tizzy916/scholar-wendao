@@ -54,15 +54,15 @@ python3 scripts/extract_pdf_evidence.py --filter "<filename>.pdf" --force ...
 
 | 概念 | rank 1 | rank 2 | rank 3 | 全库总 |
 | --- | --- | --- | --- | ---: |
-| `tertiary_retention` | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 23 Stiegler2015 | 156 |
-| `epiphylogenesis` | 9 Stiegler2018_The_Neganthropoce | 8 Stiegler2020_Nanjing_Lectures_ | 7 Stiegler2014 | 37 |
-| `pharmacology` | 50 Stiegler2013 | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 174 |
 | `general_organology` | 50 Stiegler2015 | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 198 |
-| `symbolic_misery` | 29 Stiegler2014 | 29 Stiegler2015 | 7 Stiegler2018_The_Neganthropoce | 81 |
+| `pharmacology` | 50 Stiegler2013 | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 174 |
+| `neganthropy` | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 50 Stiegler2021_Bifurcate_en | 159 |
+| `tertiary_retention` | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 23 Stiegler2015 | 156 |
 | `proletarianization` | 43 Stiegler2013 | 37 Stiegler2018_The_Neganthropoce | 34 Stiegler2020_Nanjing_Lectures_ | 155 |
 | `grammatization` | 44 Stiegler2020_Nanjing_Lectures_ | 33 Stiegler2018_The_Neganthropoce | 24 Stiegler2014 | 143 |
 | `disruption` | 50 Stiegler2018_The_Neganthropoce | 36 Stiegler2020_Nanjing_Lectures_ | 28 Stiegler2021_Bifurcate_en | 120 |
-| `neganthropy` | 50 Stiegler2018_The_Neganthropoce | 50 Stiegler2020_Nanjing_Lectures_ | 50 Stiegler2021_Bifurcate_en | 159 |
+| `symbolic_misery` | 29 Stiegler2014 | 29 Stiegler2015 | 7 Stiegler2018_The_Neganthropoce | 81 |
+| `epiphylogenesis` | 9 Stiegler2018_The_Neganthropoce | 8 Stiegler2020_Nanjing_Lectures_ | 7 Stiegler2014 | 37 |
 
 ## 三、Workflow B 蒸馏推荐阅读序(按命中数降序)
 
