@@ -68,7 +68,59 @@
 
 ---
 
-## 端到端工作流
+## 双工作流架构（v0.4.2）
+
+> 本节面向 agent。scholar-wendao 显式分为**两个独立可触发的子工作流** + 共享数据层。每个 Workflow 可单独跑、可重复跑，组合形式由触发词决定。
+
+### 触发词路由
+
+| 用户输入意图 | Workflow | 路径 |
+|---|---|---|
+| "**搜集 X 的资料**" / "**为 X 建图书馆**" / `build-library X` | **A 单跑** | A.0 → A.5 |
+| "**蒸馏 X**" / "**做 X 的分析镜片**" / `distill X` | **B 单跑** | B.1 → B.6 |
+| "**学者问道 X**"（默认端到端） | **A → B** | 完整流程 |
+| "**重蒸 X**" | **B 重做模式** | 旧 SKILL.md 进 archive |
+| "**更新 X 的 skill**" | **B 轻量 update** | 增补不重写 |
+| "**我有 PDF 想加到 X 的库**" / "intake PDF for X" | **A.4 单步** | `intake_manual_pdf.py` |
+
+### Workflow A · 图书馆建设
+
+| Phase | 内容 | 工具 |
+|---|---|---|
+| **A.0** | 配置（`_library_config.md`）+ Library 覆盖率扫描 | (config) |
+| **A.1** | Metadata 全收集（"无漏" manifest） | `harvest_works.py` + 4 harvester(v0.4.3) |
+| **A.2** | Tier 1+2 自动下载（OA / yt-dlp / scrape） | `download_open_access.sh` |
+| **A.3** | Tier 3+4 manifest 输出（待手动 / 浏览器助手项） | `annas_acquire.py`（默认 manifest-only） |
+| **A.4** | **用户主动导入** ← 一等公民入口 | `intake_manual_pdf.py` |
+| **A.5** | 生成 / 增量更新 Library Cards | `generate_library_cards.py` |
+
+### Workflow B · 学者蒸馏
+
+| Phase | 内容 | 工具 |
+|---|---|---|
+| **B.1** | extract_pdf_evidence（基于 Library 当前状态） | `extract_pdf_evidence.py` |
+| **B.2** | 7 agent 调研（research / biography） | spawn agents |
+| **B.3** | 框架提炼（concepts / heuristics / genealogy / etc） | (LLM synthesis) |
+| **B.4** | SKILL.md 构建 | (template fill) |
+| **B.5** | 质量验证（含引文 page-anchor 核验） | `quality_check.py` |
+| **B.6** | Vault 同步（回灌 wikilinks） | `sync_to_vault.py` |
+
+### 4 层资料采集架构（acquisition_tier）
+
+每条资料在 `_acquisition_manifest.json` 中标注 `acquisition_tier` + `priority`：
+
+| Tier | 自动化程度 | 适用源 | 工具 |
+|---|---|---|---|
+| **1 · 完全 API** | 100% 自动 | OpenAlex / Crossref / Semantic Scholar / unpaywall | `harvest_works.py` |
+| **2 · 友好 scrape** | 90% 自动 | YouTube / Vimeo / 学者主页 / 出版社 OA | `harvest_*.py`（4 个 v0.4.3） |
+| **3 · 浏览器助手** | 50% 自动 | annas / paywall / Cairn 锁定文章 | 浏览器 cookies → 工具 |
+| **4 · 完全手动** | 0% 自动，工具辅助归档 | annas 严格反爬 / 闭源专著 / 罕见档案 | `intake_manual_pdf.py` |
+
+**核心设计原则**：scholar-wendao 不假设"全自动化采集"。**"无漏"原则的实操含义是 metadata 无漏，不是 PDF 全到手**。Tier 3+4 资料显式列入 manifest，让用户决策。
+
+---
+
+## 端到端工作流（命令清单）
 
 > 本节面向 agent。每一 Phase 给出**具体命令**与**退出条件**。
 
@@ -120,16 +172,64 @@ bash scripts/download_open_access.sh \
     flat \
     "${PREFIX}"
 
-# v0.4.1 新增 4 个非 book harvester（"无漏"原则）
-python3 scripts/harvest_lectures.py "Bernard Stiegler" \
-    --output examples/${SLUG}-perspective/references/research/08-lectures
-python3 scripts/harvest_french_journals.py "Bernard Stiegler" \
-    --output examples/${SLUG}-perspective/references/research/09-french-journals
-python3 scripts/harvest_homepages.py "Bernard Stiegler" \
-    --output examples/${SLUG}-perspective/references/research/10-homepages
-python3 scripts/harvest_collectives.py "Bernard Stiegler" \
-    --output examples/${SLUG}-perspective/references/research/11-collectives
+# v0.4.3 backlog: 4 个非 book harvester（"无漏"原则）—— 待写
+# python3 scripts/harvest_lectures.py "Bernard Stiegler"        # YouTube/Vimeo
+# python3 scripts/harvest_french_journals.py "Bernard Stiegler" # Cairn/OpenEdition
+# python3 scripts/harvest_homepages.py "Bernard Stiegler"       # Semantic Scholar/PhilPapers
+# python3 scripts/harvest_collectives.py "Bernard Stiegler"     # ARS Industrialis/Internation
 ```
+
+### Phase A.3：Tier 3+4 acquisition manifest 输出（v0.4.2）
+
+把 annas-archive 等反爬严格的源**仅生成 manifest 不实际下载**。manifest 写出待手动下载清单 + 获取建议。
+
+```bash
+# v0.4.2 默认即 manifest-only（不实际下载）
+python3 scripts/annas_acquire.py \
+    examples/${SLUG}-perspective/references/research/07-archive.json \
+    -o examples/${SLUG}-perspective/references/research/ \
+    --archive-layout flat \
+    --prefix "${PREFIX}"
+```
+
+输出：
+- `_acquisition_manifest.json`（机器可读，4 tier 标注 + priority）
+- `_acquisition_manifest.md`（人类可读，按 priority 排序）
+
+### Phase A.4：用户主动导入（v0.4.2 一等公民入口）
+
+用户从浏览器手动下载 PDF 后，用本工具一行命令归档：
+
+```bash
+# 单部导入（fully spec）
+python3 scripts/intake_manual_pdf.py \
+    ~/Downloads/Bifurquer-Stiegler.pdf \
+    --config examples/${SLUG}-perspective/references/research/_library_config.md \
+    --year 2020 --slug Bifurquer --lang fr \
+    --execute
+
+# 关联 manifest 中已有条目
+python3 scripts/intake_manual_pdf.py PDF \
+    --config CONFIG \
+    --manifest-id stiegler-2020-bifurquer-fr \
+    --execute
+
+# 批量（auto-infer year + lang from filenames）
+python3 scripts/intake_manual_pdf.py \
+    ~/Downloads/Stiegler*.pdf \
+    --config CONFIG \
+    --auto-infer \
+    --execute
+```
+
+自动行为：
+1. 重命名为 `{prefix}{year}_{slug}_{lang}.pdf`（按 `archive_layout`）
+2. 移动（`--copy` 改为复制）到 Library/_files
+3. 跑 `extract_pdf_evidence`（仅该新 PDF）
+4. 跑 `generate_library_cards`（增量）→ Card
+5. 在 `_acquisition_manifest.json` 标记 `intake_completed`
+
+**Phase A.4 是可重复入口** —— 用户每天补一两本，scholar-wendao 累积式增长 Library。不需要重跑 Workflow A 全部。
 
 ### Phase 1.0.5：PDF Evidence 强制提取（v0.4 新增）
 

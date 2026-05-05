@@ -1,26 +1,35 @@
 #!/usr/bin/env python3
 """
-annas_acquire.py · Anna's Archive 学术著作获取（多语言版本优先级）
+annas_acquire.py · Anna's Archive 学术著作 manifest 生成器（v0.4.2 重定位）
 
-为 scholar-wendao 的 Phase 1 服务：处理 download_open_access.sh 之后
-仍未获取的闭源专著。
+scholar-wendao 双工作流架构中 Workflow A.3 的工具。
+v0.4.2 起，本脚本**默认只生成 manifest，不实际下载**——这是因为：
+
+  annas-archive 反爬现状（实测 2026 年）：
+    - .org / .se 没有公开 IPv4 A 记录（IPv6-only 或 Cloudflare 代理）
+    - .li 流量被 ParkLogic 反爬层接管，所有非真浏览器请求返回 JS challenge
+    - .gs 重定向到 robot.parktons.com 反爬验证页
+    - Tor 出口被 Cloudflare bot block
+    - 商用 VPN 出口段（OppaVPN/Astrill SG/JP）被 annas Cloudflare 黑名单
+
+  结论：CLI 工具几乎不可能稳定调 fast_download.json API。
+
+设计哲学（v0.4.2）：
+  - 默认 manifest-only：跑搜索 + 输出待手动下载清单 → _acquisition_manifest.{md,json}
+  - 用户拿到 manifest 后，用浏览器手动下载（Tier 4）→ scripts/intake_manual_pdf.py 归档
+  - 仅当用户显式 --force-download 才尝试实际下载（极有可能失败，但保留接口）
 
 核心功能：
   - 读取 harvest_works.py 输出的 JSON
   - 对每部 is_oa=false 的专著（type=book），按"原版语言 > 英译 > 其他"
-    优先级在 Anna's Archive 搜索 + 下载
-  - 至少保证一个语言版本被获取（设计理念之一）
+    优先级在 annas-py 搜索（如果网络可达）
+  - 输出 _acquisition_manifest.json (4 tier 标注 schema, v0.4.2 新格式)
+  - 输出 _acquisition_manifest.md (人类可读，按 priority 排序，含获取建议)
 
 依赖与认证：
-  - 优先尝试 annas-py 库（pip install annas-py）
-  - 或 annas-mcp（https://github.com/iosifache/annas-mcp）
-  - 下载需要 Anna's Archive 会员 API key（捐助获得）
-  - 设置环境变量：ANNAS_API_KEY=你的key
-
-设计理念：
-  - 不重造轮子，包装现有工具
-  - 多语言优先级可配置（CLI 参数）
-  - 失败优雅降级：API key 没设就只搜索不下载，输出待下载清单
+  - annas-py 库（pip install annas-py），用于搜索
+  - 下载需要 Anna's Archive 会员 API key（捐助获得）+ --force-download flag
+  - 设置环境变量：ANNAS_API_KEY=你的key（仅 --force-download 时使用）
 
 许可：MIT
 
@@ -28,6 +37,7 @@ annas_acquire.py · Anna's Archive 学术著作获取（多语言版本优先级
   Anna's Archive 是档案聚合服务，对版权状态因国家和作品而异。
   使用本脚本下载受版权保护的著作，由用户自行评估法律风险。
   本工具仅为学术研究提供便利，不参与版权判断。
+  推荐用户走合法获取路径：机构图书馆借阅 / 出版社官方电子版 / 公益开放档案。
 """
 
 import argparse
@@ -355,13 +365,24 @@ def main():
                    help="输出布局：flat (扁平命名，v0.4 推荐) 或 by-language (子目录)")
     p.add_argument("--prefix", default="",
                    help="flat 布局下的文件名前缀（如 'Stiegler'）")
-    # v0.4 P2 #8：manifest-only
+    # v0.4.2：默认 manifest-only，反转语义（v0.4.1 是 --manifest-only opt-in）
+    p.add_argument("--force-download", action="store_true",
+                   help="尝试实际下载（极可能失败，annas 反爬严格；默认仅生成 manifest）")
+    # 向后兼容 v0.4.1 旧 flag
     p.add_argument("--manifest-only", action="store_true",
-                   help="仅搜索 + 写清单，不实际下载（受限网络 / 提前规划用）")
+                   help="（向后兼容 v0.4.1）等价于不传 --force-download")
     args = p.parse_args()
 
     api_key = os.environ.get("ANNAS_API_KEY")
     lang_priority = [s.strip() for s in args.lang_priority.split(",") if s.strip()]
+
+    # v0.4.2 默认就是 manifest_only。仅当用户明确 --force-download 才尝试下载
+    manifest_only = not args.force_download
+
+    if manifest_only:
+        print("ℹ️  v0.4.2 默认 manifest-only 模式：只搜索 + 写清单。", file=sys.stderr)
+        print("   实际下载用 --force-download（极可能失败，annas 反爬严格）。", file=sys.stderr)
+        print("   推荐路径：用浏览器手动下载 → scripts/intake_manual_pdf.py 归档。", file=sys.stderr)
 
     acquire_for_scholar(
         Path(args.json_input),
@@ -371,7 +392,7 @@ def main():
         only_books=not args.all_types,
         archive_layout=args.archive_layout,
         prefix=args.prefix,
-        manifest_only=args.manifest_only,
+        manifest_only=manifest_only,
     )
 
 
