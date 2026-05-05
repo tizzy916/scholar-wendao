@@ -1,3 +1,56 @@
+---
+# v0.4.1 标准 frontmatter（Phase 5.5 / 6 必读）
+scholar_slug: "stiegler"
+scholar_name: "贝尔纳·斯蒂格勒"
+scholar_name_en: "Bernard Stiegler"
+scholar_birth_year: 1952
+scholar_death_year: 2020
+
+research_started_at: "2026-05-05"
+research_completed_at: "2026-05-05"
+
+project_repo_path: "/Users/shencong/Desktop/scholar-wendao-skill"
+example_path: "examples/stiegler-perspective"
+
+library_root: "/Users/shencong/Desktop/obsidian/tizzyVault/02 · Knowledge 知识库/Library 数字图书馆"
+archive_layout: "flat"
+file_prefix: "Stiegler"
+
+vault_archive_path: "/Users/shencong/Desktop/obsidian/tizzyVault/02 · Knowledge 知识库"
+library_files_path: "Library 数字图书馆/_files"
+library_cards_path: "Library 数字图书馆/Cards"
+concepts_path: "Concepts 概念与理论"
+permanent_notes_path: "Permanent Notes 永久笔记"
+moc_path: "MOC Maps 主题地图"
+people_path: "People 人物志"
+project_workspace_path: "Projects 项目/学者问道 Scholar-Wendao/Stiegler 蒸馏"
+
+examples_retention: "lightweight"
+
+coverage_report:
+  local_pdfs_count: 17
+  expected_books_count: 46
+  coverage_percent: 37
+  mode: "本地优先"
+
+harvest_summary:
+  total_works_openalex: 395
+  books: 46
+  oa_count: 42
+  oa_downloaded: 12
+  closed_count: 41
+  lectures_youtube: 0
+  french_journals: 0
+  homepages_links: 0
+  collective_works: 0
+
+# 死亡-尊重边界声明（v0.4 humble-epistemics 第六项）
+death_respect_required: true
+death_respect_note: |
+  Stiegler 2020 年 8 月 5 日自杀身亡。本案例任何关于其死亡的引用必须保持节制，
+  绝不写"思想完成""哲学行动"等戏剧化句式。监禁经历同样要 BRACKETING 双标注。
+---
+
 # Library 路径配置 · stiegler-perspective
 
 **调研时间**:2026-05-05

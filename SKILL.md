@@ -568,6 +568,42 @@ done
 
 ---
 
+#### 2.9 Library Card 自动生成（v0.4.1 新增 · 学者问道核心差异化）
+
+**为什么这一步存在**：scholar-wendao 的真正定位不是只产出 SKILL.md，而是 **同时为用户的图书馆体系增建标准 Card**——让蒸馏过程变成研究知识库的实际增长。每个进入 Library 的 PDF 都应当配套生成符合用户 Vault 命名约定的 markdown Card，这样研究者在写作时可直接 `[[Cards/{ScholarSlug}{year}]]` 引用。
+
+**触发条件**：本地优先 / 纯本地模式（即 `_pdf_evidence/` 已生成）。
+
+**操作步骤**：
+
+调用 `scripts/generate_library_cards.py`，对每部已抽取 evidence 的 PDF 执行：
+
+1. **读源**：
+   - `_pdf_evidence/{book}.md`（PDF 提取的页码上下文 + 概念命中）
+   - `references/research/07-archive.json`（OpenAlex 元数据：title / year / language / coauthors / DOI / publisher）
+   - 已有 Card（如果存在 `{vault_cards_path}/{ScholarSlug}{year}.md`）—— **增量更新模式**，保留用户手写的"文献笔记 wikilink""引用章节"等
+
+2. **填充 Card 模板**（参见 `references/library-card-template.md`）：
+   - frontmatter：`title / author / year / grade / has_pdf / status / tags / versions`
+   - 关键词（从 evidence 的 concept_hits top-3 推断）
+   - 完整引用（APA 7th，自动构造）
+   - 多语言版本表（按 archive.json 的 versions 字段）
+   - 一句话摘要（取自 evidence head pages 第一段，或 LLM 摘要）
+   - 论文引用摘录（取自 evidence head/tail/concept_hits 中的高质量片段，带页码）
+   - 关联：自动加"人物：[[{vault_people_path}/{ScholarName}]]"+"文献笔记：[[…读书笔记]] (待写)"
+
+3. **写出**：
+   - 路径：`{vault_archive_path}/{vault_cards_path}/{ScholarSlug}{year}.md`
+   - 增量模式：合并现有 Card 的"📝 论文引用摘录"、"🔗 关联"、"## 一句话摘要"段（用户可能已手写过）
+
+**v0.4.1 关键设计点**：Library Cards 写到用户的 Vault，**不**写到项目仓库的 `examples/{slug}-perspective/`。项目仓库内的 `examples/{slug}-perspective/` 仅保留：
+- `SKILL.md`（perspective skill 主产物）
+- `_vault_paths.md`（指向 Vault 内真实素材路径的索引）
+
+这样的双源架构：用户 Vault 是单一真源 + 项目仓库是开源共享层。
+
+---
+
 ### Phase 2.5: 提炼确认检查点
 
 Phase 2 完成后暂停展示提炼摘要：
@@ -770,6 +806,101 @@ for event in formative_events:
 - 输出 2-3 处具体修订建议
 
 主 agent 综合两份报告 → 应用不冲突的改进 → 展示变更摘要请用户确认。
+
+---
+
+### Phase 5.5: Vault 同步（v0.4.1 新增 · 端到端工作流的关键步骤）
+
+**为什么这一步存在**：scholar-wendao 是为 agent 准备的 **学术研究全栈工作流系统**——它的输出不只是给 GitHub 看的 demo，而是要 **进入用户的真实研究知识库**。前面所有 Phase 产出的素材如果只留在项目仓库的 `examples/{slug}-perspective/`，就只是 demo。Phase 5.5 的工作是把它们落到用户 Vault 的对应位置，让蒸馏过程同时增长用户的图书馆 + 概念笔记 + 谱系网络。
+
+**触发条件**：用户在 `_library_config.md` 中配置了 `vault_archive_path` 字段。
+
+**配置项**（`_library_config.md`）：
+
+```yaml
+vault_archive_path: "$HOME/Documents/Obsidian/MyVault/02 · Knowledge"
+library_files_path: "Library/_files"      # PDF 落点（已有路径）
+library_cards_path: "Library/Cards"        # Card 落点
+concepts_path: "Concepts"                  # 概念笔记落点
+permanent_notes_path: "Permanent Notes"   # 谱系永久笔记落点
+moc_path: "MOC Maps"                      # 主题地图落点
+people_path: "People"                     # 人物志落点
+project_workspace_path: "Projects/scholar-wendao/{slug}"  # research/biography 落点
+```
+
+**操作步骤**：调用 `scripts/sync_to_vault.py` 执行：
+
+1. **PDF Library**：
+   - `_files/{ScholarSlug}{year}.pdf` 已经在用户 Vault 里（download_open_access.sh 直接下到那里）—— 不需移动
+   - 验证扁平命名一致性（`flat` archive_layout）
+
+2. **Library Cards**（来自 Phase 2.9）：
+   - 从项目仓库的 `_pdf_evidence/` + `07-archive.json` 生成 → 写到 `{vault}/{library_cards_path}/{ScholarSlug}{year}.md`
+   - 增量模式：保留用户已手写的内容
+
+3. **概念笔记**（Concepts）：
+   - 检测 Vault 内是否已有匹配的概念笔记（如 `第三持存.md`）
+   - 已有 → 末尾追加"📎 v{X} PDF 证据来源"小节，链接到对应 Cards
+   - 不存在 → 不创建（避免污染用户已有的概念体系，等用户主动建）
+
+4. **永久笔记**（Permanent Notes / 谱系）：
+   - 类似 Concepts：仅在已有谱系笔记上追加 wikilink，不创建新文件
+
+5. **MOC**（主题地图）：
+   - 检测 `{vault}/{moc_path}/{学者中文名}研究 MOC.md` 是否存在
+   - 已有 → 在末尾"🔬 v{X} 蒸馏素材"小节追加：
+     - 链接到 perspective skill SKILL.md
+     - 链接到 Library Cards（按年份分组）
+     - 链接到 research/ 文档
+     - 链接到 biography 时间线
+   - 不存在 → 创建新 MOC（最小骨架），用户后续手动扩展
+
+6. **人物志**（People）：
+   - 类似：在已有 `{ScholarName}.md` 末尾追加 v{X} 蒸馏 biography 的精华摘录 + 完整文档 wikilink
+
+7. **research / biography 工作区**：
+   - 复制（or 软链）`references/research/` + `references/biography/` 到 `{vault}/{project_workspace_path}/`
+   - markdown 内的相对路径引用全部 wikilink 化
+
+8. **项目仓库瘦身**：
+   - 在项目仓库 `examples/{slug}-perspective/` 生成 `_vault_paths.md`（索引,内容是 Vault 路径列表）
+   - 选项 (a) 极简：删除 `references/` 和 `_pdf_evidence/`（仅保留 SKILL.md + _vault_paths.md）
+   - 选项 (b) 轻量（默认）：保留 `references/research/` 7 篇 + `_pdf_evidence/_navigator.md`，作为开源访客可见的"产出形态"参考
+   - 选项 (c) 照旧：保留全部（Vault 也有副本，双份）
+
+**Phase 5.5 退出条件**：
+- 用户 Vault 内的 7 个目标位置全部接收到对应素材
+- 项目仓库 `examples/{slug}-perspective/` 已按选项 a/b/c 处理
+- `_vault_paths.md` 写入完整路径索引
+
+---
+
+### Phase 6: GitHub 工作流（v0.4.1 新增 · 端到端可重现）
+
+**为什么这一步存在**：scholar-wendao 的开源价值在于 **整套工作流可被其他研究者复用**。Phase 6 把项目仓库的更新提交并推送，让蒸馏成果可被开源社区追溯。
+
+**触发条件**：在 Phase 5.5 完成后，且项目仓库有 staged 改动。
+
+**操作步骤**：
+
+1. **生成 commit message**：
+   - 标题：`v{X}: {ScholarName} perspective skill — distilled from {N} PDFs + {M} non-book sources`
+   - 摘要：核心概念列表 + quality_check 得分 + page-anchor 通过率 + Vault 同步路径概览
+   - 工具尾行：`Created by https://github.com/tizzy916/scholar-wendao-skill`
+
+2. **stage + commit**：
+   ```bash
+   git add SKILL.md scripts/ references/ examples/{slug}-perspective/ README.md
+   git commit -F <(echo "$COMMIT_MSG")
+   ```
+
+3. **询问 push**（不直接 push，用户确认）：
+   - 默认推送到 `origin/main`
+   - 如果用户配置了 `dev_branch`，推送到 dev 分支让用户 review 后 merge
+
+**Phase 6 不应该**：
+- 把 Vault 内素材推到 git（Vault 内可能含版权 PDF + 私人笔记）
+- 在用户未确认时执行 `git push --force` 或修改历史
 
 ---
 
