@@ -1,0 +1,310 @@
+[
+  {
+    "book": "Stiegler1998_zh",
+    "pages": 329,
+    "empty_pages": 60,
+    "total_chars": 0,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2003_De_l_actualit_la_m_moire_de_l_actualit_fr",
+    "pages": 38,
+    "empty_pages": 0,
+    "total_chars": 106862,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2010_Le_circuit_du_d_sir_musical_fr",
+    "pages": 17,
+    "empty_pages": 0,
+    "total_chars": 49300,
+    "total_concept_hits": 17,
+    "hits_per_concept": {
+      "tertiary_retention": 4,
+      "epiphylogenesis": 2,
+      "pharmacology": 0,
+      "general_organology": 6,
+      "symbolic_misery": 3,
+      "proletarianization": 0,
+      "grammatization": 2,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2013",
+    "pages": 177,
+    "empty_pages": 2,
+    "total_chars": 102587,
+    "total_concept_hits": 156,
+    "hits_per_concept": {
+      "tertiary_retention": 12,
+      "epiphylogenesis": 5,
+      "pharmacology": 50,
+      "general_organology": 26,
+      "symbolic_misery": 3,
+      "proletarianization": 43,
+      "grammatization": 15,
+      "disruption": 1,
+      "neganthropy": 1
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2014",
+    "pages": 128,
+    "empty_pages": 1,
+    "total_chars": 116674,
+    "total_concept_hits": 81,
+    "hits_per_concept": {
+      "tertiary_retention": 15,
+      "epiphylogenesis": 7,
+      "pharmacology": 0,
+      "general_organology": 5,
+      "symbolic_misery": 29,
+      "proletarianization": 0,
+      "grammatization": 24,
+      "disruption": 0,
+      "neganthropy": 1
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2014_Uncontrollable_Societies_of_Disaffected",
+    "status": "skipped_exists"
+  },
+  {
+    "book": "Stiegler2015",
+    "pages": 210,
+    "empty_pages": 0,
+    "total_chars": 119019,
+    "total_concept_hits": 140,
+    "hits_per_concept": {
+      "tertiary_retention": 23,
+      "epiphylogenesis": 6,
+      "pharmacology": 0,
+      "general_organology": 50,
+      "symbolic_misery": 29,
+      "proletarianization": 11,
+      "grammatization": 20,
+      "disruption": 1,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2016",
+    "pages": 202,
+    "empty_pages": 60,
+    "total_chars": 0,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2017",
+    "pages": 288,
+    "empty_pages": 60,
+    "total_chars": 0,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2017_Contents",
+    "pages": 1,
+    "empty_pages": 0,
+    "total_chars": 521,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2017_Frontmatter",
+    "pages": 4,
+    "empty_pages": 1,
+    "total_chars": 1443,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2017_Notes_on_the_English_Translation",
+    "pages": 3,
+    "empty_pages": 1,
+    "total_chars": 3841,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2020_Nanjing_Lectures_2016_2019",
+    "pages": 385,
+    "empty_pages": 3,
+    "total_chars": 115611,
+    "total_concept_hits": 329,
+    "hits_per_concept": {
+      "tertiary_retention": 50,
+      "epiphylogenesis": 8,
+      "pharmacology": 50,
+      "general_organology": 50,
+      "symbolic_misery": 7,
+      "proletarianization": 34,
+      "grammatization": 44,
+      "disruption": 36,
+      "neganthropy": 50
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2021",
+    "pages": 168,
+    "empty_pages": 60,
+    "total_chars": 0,
+    "total_concept_hits": 1,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 1,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2022",
+    "pages": 288,
+    "empty_pages": 60,
+    "total_chars": 0,
+    "total_concept_hits": 0,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 0,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 0,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2022_Une_limite_au_del_de_laquelle_est_l_inco_fr",
+    "pages": 6,
+    "empty_pages": 0,
+    "total_chars": 14924,
+    "total_concept_hits": 6,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 1,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 1,
+      "grammatization": 0,
+      "disruption": 4,
+      "neganthropy": 0
+    },
+    "status": "ok"
+  },
+  {
+    "book": "Stiegler2025_Towards_a_New_Industrial_Revolution_Entr",
+    "pages": 28,
+    "empty_pages": 0,
+    "total_chars": 81048,
+    "total_concept_hits": 11,
+    "hits_per_concept": {
+      "tertiary_retention": 0,
+      "epiphylogenesis": 0,
+      "pharmacology": 1,
+      "general_organology": 0,
+      "symbolic_misery": 0,
+      "proletarianization": 3,
+      "grammatization": 0,
+      "disruption": 0,
+      "neganthropy": 7
+    },
+    "status": "ok"
+  }
+]

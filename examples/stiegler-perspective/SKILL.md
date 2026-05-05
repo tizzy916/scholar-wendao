@@ -81,6 +81,12 @@ description: |
 
 **定义**(Stiegler 1996/2009 *Technique et le temps 2*):在胡塞尔时间意识分析(第一持存=当下知觉的"刚刚过去";第二持存=回忆/想象)的基础上,Stiegler 增加**第三持存**——技术化的外在记忆(文字、录音、照片、数据库、算法日志)。**关键论点**:第一与第二持存从来就不是"纯粹"的——它们总是已经被第三持存所塑造。
 
+**Stiegler 的四阶段分期**(据 *Nanjing Lectures*, 2020, pp. 22-39 系统化陈述):
+1. **literal tertiary retention**(字母性,~800 BCE 始于地中海)——字母书写,具有 *orthothetic synthesis* 属性,是希腊 *aletheia* 经验与几何学起源的技术条件
+2. **mechanical tertiary retention**(机械性,工业革命以降)——蒸汽机+离散化,对应 savoir-faire 的废人化(无产阶级化)
+3. **analogue tertiary retention**(模拟性,20 世纪)——音视频录制,对应 savoir-vivre 的废人化
+4. **digital tertiary retention**(数字性,当代)——网络化+算法,对应理论性思维(savoir théoriser)的废人化(p. 30)
+
 **反复出现的著作**:
 - *La technique et le temps 2: La désorientation*(1996/2009)— 概念奠基章节
 - *La technique et le temps 3: Le temps du cinéma*(2001/2010)— 电影作为统一时间体验的第三持存
@@ -88,19 +94,31 @@ description: |
 - *Pour une nouvelle critique de l'économie politique*(2009/2010)— 重写马克思的劳动价值论
 - *La société automatique*(2015/2017)— 算法治理作为第三持存的极端形态
 - *Dans la disruption*(2016/2019)— 第三持存的极速更迭与方向感丧失
+- *Nanjing Lectures*(2016-2019)— 四阶段分期的系统讲授;**进入概念全部分支的最佳英文起点**
 
 **典型应用场景**:任何讨论媒介、技术对象、记忆装置、注意力工业、信息基础设施的材料
 
 **与该学者其他概念的关系**:
 - 与 *epiphylogenesis*(后种系生成):后种系生成是本体论层(技术作为人类存在的构成性条件),第三持存是时间哲学层(具体机制——技术如何保存与传递经验)
-- 与 *pharmakon*:第三持存总是 pharmakon——它既扩展记忆又可能标准化记忆
+- 与 *pharmakon*:第三持存总是 pharmakon——它既扩展记忆又可能标准化记忆;Stiegler 在 Nanjing 中明确说"the technical artefact – for example, writing – is a pharmakon"(p. 26)
 - 与 *organology*:第三持存是"技术器官"层在时间性中的展开
+- 与 *grammatization*:第三持存是 grammatization 过程的产物——离散化-形式化-可复制的"流"(p. 39)
+- 与 *proletarianization*:**每一种新阶段的第三持存都成为新一波废人化的运营者**(p. 20:"digital tertiary retention is the current operator of proletarianization")
 
 **局限**:此概念**不**适合分析**前技术性纯粹经验**类问题(本来就反对这种纯粹性);**不**适合分析**完全形式化数学结构**(超出"持存"的现象学框架)
 
-**关键引文**:
-> "Tertiary retention is constitutive of temporality — it is not merely an empirical supplement to lived time, but a condition of its very possibility."
-> —— Stiegler, B. (2009). *Technics and Time, 2: Disorientation* (S. Barker, Trans.). Stanford UP, p. 12.
+**关键引文**(以可机读本地 PDF 中可定位的为准):
+
+> "...the noetic faculties of theorization and deliberation are being short-circuited by the current operator of proletarianization, which is digital tertiary retention, or the mnemotechnical artefact – just as analogue tertiary retention was in the twentieth century the operator of the proletarianization of *savoir-vivre*, and just as mechanical tertiary retention..."
+> —— *Nanjing Lectures 2016-2019*, p. 20
+
+> "Knowledge cannot be thought today if such a thought is not capable of understanding what a tertiary retention is, which is also called, here, fixed capital."
+> —— *Nanjing Lectures*, p. 41(将马克思《大纲》中的"固定资本"重读为第三持存)
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **50 hits**(本概念主源,pp.19-66)
+- `_pdf_evidence/Stiegler2015.md` — 23 hits(*Symbolic Misery 2*,文化工业语境)
+- `_pdf_evidence/Stiegler2014.md` — 15 hits(*Symbolic Misery 1*,与文化工业的初步整合)
 
 ---
 
@@ -110,24 +128,42 @@ description: |
 
 **核心命题**:人类从来就不是纯粹的生物存在——技术从一开始就构成了人之为人的条件。爱比米修斯(Epimetheus)分配能力时遗忘了人类 → 普罗米修斯盗火补救 → **技术(火)成为人类生存的补充性条件** → 因此人类的本质是"缺省的存在"(*défaut d'origine*)。
 
+**与第三持存的精确关系**(*Symbolic Misery 1*, 2014, p. 43,§18 标题"Epiphylogenesis and tertiary retentions"):**Epiphylogenesis 是第三持存被生产出来的过程**——前者是过程,后者是过程的产物-沉积物。这是 v0.3 没有讲清楚的精确表述。
+
+**晚期升级**(*Nanjing Lectures*, 2020, p. 79):Stiegler 借 Alfred J. Lotka 的"exosomatic evolution"(体外进化)概念,把 epiphylogenesis 重新表述为 *exosomatization*——技术作为身体之外的器官化进化。这一升级把 epiphylogenesis 从单纯的"人类学命题"扩展为**与生命科学/系统生态学对话**的概念,是与 *neganthropy* 框架整合的关键步骤。
+
 **反复出现的著作**:
-- *T&T 1*(1994/1998)— 概念奠基,基于 Leroi-Gourhan
+- *T&T 1*(1994/1998)— 概念奠基,基于 Leroi-Gourhan 的"第三记忆"
 - *T&T 2*(1996/2009)— 与第三持存的本体论联结
+- *De la misère symbolique 1*(2004/2014)— 与时间-事件-个体化的整合(p. 42-44)
 - *Ce qui fait que la vie vaut la peine d'être vécue / Pharmacology*(2010/2013)— 与 pharmakon 的整合
 - *Acting Out*(2003/2009)— 自传性反思:监狱时期对"缺省"的体验
+- *Nanjing Lectures*(2016-2019)— 与 *exosomatization* / *neganthropy* 的整合(pp. 50, 79, 256, 271, 295)
 
 **典型应用场景**:讨论"技术与人本质"、人机融合、transhumanism、AI 主体性时;反对线性的"先有人后有技术"叙事
 
 **与其他概念的关系**:
-- 是 *第三持存* 的**本体论前提**——第三持存之所以可能,是因为人类本来就是 epiphylogenetic
+- 是 *第三持存* 的**生产过程**——第三持存是其沉积物;两者一前一后,不是同义(*SymMis 1*, p. 43 明确)
 - 是 *pharmakon* 的本体论基础——技术既构成又威胁人的存在,这是同一过程的两面
 - 是 *organology* 的奠基命题——三层器官共演化的人类学根据
+- 在晚期等同于 *exosomatization*(借自 Lotka),从而与 *neganthropy* 体系打通
 
-**局限**:此概念**不**应用于讨论非人类动物的工具使用(虽然有些动物使用工具,但不形成 epiphylogenesis 意义上的跨代积累);**不**应被用作 transhumanism 的支持(Stiegler 一贯反对)
+**局限**:此概念**不**应用于讨论非人类动物的工具使用(虽然有些动物使用工具,但不形成 epiphylogenesis 意义上的跨代积累);**不**应被用作 transhumanism 的支持(Stiegler 一贯反对——他认为 transhumanism 误读了 epiphylogenesis 为"人之超越"而非"人之构成性条件")
 
 **关键引文**:
 > "Epiphylogenesis [...] is the conservation, accumulation, and sedimentation of successive epigeneses, mutually articulated."
-> —— Stiegler, B. (1998). *Technics and Time, 1*. Stanford UP, p. 177.
+> —— *Technics and Time, 1*, Stanford UP, 1998, p. 177. *(标准学术引用·本地 evidence 库无 T&T 1 英译 PDF,该条按已公开学界引证)*
+
+> "Epiphylogenesis is the process of production of what I call tertiary retentions, in order to distinguish them from primary and secondary retentions as defined by Husserl."
+> —— *Symbolic Misery 1: The Hyper-industrial Epoch*, Polity, 2014, p. 43
+
+> "The history of truth is the epiphylogenetic history of a form of life that, with Georges Canguilhem, I also call technical life, and more recently, with Lotka, exosomatic life."
+> —— *Nanjing Lectures 2016-2019*, p. 79
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — 8 hits(*exosomatization* 升级主源)
+- `_pdf_evidence/Stiegler2014.md` — 7 hits(*Symbolic Misery 1*,§18 主定义在 p.43)
+- `_pdf_evidence/Stiegler2015.md` — 6 hits(与 *organology* 的整合)
 
 ---
 
@@ -137,25 +173,47 @@ description: |
 
 **关键转化**(德里达 → Stiegler):德里达倾向于揭示 *undecidability*(不可决断性);Stiegler 追求 *décision*——必须发明方式让 pharmakon 发挥其"药"的功能。
 
+**Stiegler 比德里达推进的两步**(据 *What Makes Life Worth Living: On Pharmacology*, 2013):
+1. **三层谱系扩展**:pharmakon 不只是书写;Stiegler 把它扩展为 *pharmakon ↔ pharmakos(替罪羊) ↔ pharmacology*——技术既是物(pharmakon),也成为社会内部的牺牲机制(pharmakos),也呼唤诊断方法(pharmacology)(*WMLWL* §8, pp. 27-28)
+2. **过渡客体作为"第一 pharmakon"**:Stiegler 把 Winnicott 的"过渡客体"(transitional object)读为 pharmakon 的本体范式——在母婴情感空间中,过渡客体既是分离的工具也是连接的工具,这是 pharmacology 的最早形态(*WMLWL*, pp. 10-12)。这是 v0.3 没提的关键步骤——它把 pharmacology 从"技术哲学"扩展到"心理分析-精神生活"
+
+**Pharmacology 与 organology 的依存关系**(*WMLWL*, p. 30):"Pharmacology presupposes organology, itself including and necessitating a history of the process of grammatization." —— 这意味着任何 pharmakon 的具体诊断都必须通过 organology 的三层视角和 grammatization 的历史展开。
+
 **反复出现的著作**:
 - *De la misère symbolique 1*(2004/2014)— 文化工业作为 pharmakon
 - *Prendre soin / Taking Care of Youth and the Generations*(2008/2010)— "治疗学"概念正式登场
-- *Ce qui fait que la vie vaut la peine d'être vécue / Pharmacology*(2010/2013)— pharmakon 系统化为方法论
+- *Ce qui fait que la vie vaut la peine d'être vécue / What Makes Life Worth Living: On Pharmacology*(2010/2013)— **pharmakon 系统化为方法论的代表作**;副标题直接是"On Pharmacology"
 - *États de choc / States of Shock*(2012/2015)— 三重无产阶级化作为 pharmakon 的毒性面
 - *Dans la disruption / The Age of Disruption*(2016/2019)— 算法资本主义条件下 pharmakon 的极端配比
+- *Nanjing Lectures*(2016-2019)— pharmakon 与 grammatization 各阶段的精确对位
 
 **典型应用场景**:**任何**讨论新技术(AI、社交媒体、区块链、ChatGPT、监控、算法)的好坏判断 → Stiegler 镜片**总是**回答"它既是毒也是药,问题在于当前条件如何决定其偏向"
 
 **与其他概念的关系**:
-- *pharmakon* 是诊断与治疗工具;*organology* 是分析其运作的方法论
-- pharmakon 总是通过具体的 *第三持存* 体现
+- *pharmakon* 是诊断与治疗工具;*organology* 是分析其运作的方法论(p. 30 明确依存)
+- pharmakon 总是通过具体的 *第三持存* 体现(p. 26 *Nanjing*:writing-as-pharmakon)
 - pharmakon 在工业-资本主义条件下倾向于"毒"面 → 导致 *废人化* 与 *象征贫困*
+- 与 *Winnicott* 的"过渡客体"等同——这是 Stiegler 把精神分析-客体关系学派引入技术哲学的桥梁
 
 **局限**:不是"任何技术都是 pharmakon"的废话——重要的是**配比分析**(在什么条件下哪一面被强化);**不**应被读为"二元论",pharmakon 是要求**复杂诊断**的开口,不是简化结论
 
 **关键引文**:
-> "To live is always to take care of a pharmakon — to know how to distinguish in each case between its curative and its toxic aspects."
-> —— Stiegler, 2013, *Pharmacology*, p. 19.
+
+> "The pharmakon is at once what enables care to be taken and that of which care must be taken — in the sense that it is necessary to pay attention: its power is curative to the immeasurable extent that it is also destructive."
+> —— *What Makes Life Worth Living: On Pharmacology*, Polity, 2013, p. 12
+
+> "I argue in this work that the transitional object is the first pharmakon."
+> —— *WMLWL*, p. 10
+
+> "Pharmacology presupposes organology, itself including and necessitating a history of the process of grammatization."
+> —— *WMLWL*, p. 30 *(标 Stiegler 把 pharmacology 嵌入 organology + grammatization 的方法论依存命题)*
+
+> ⚠️ v0.3 曾引"To live is always to take care of a pharmakon..."(标 p. 19)——本地 PDF 中 p. 19 实际为 *"The evidence for this pharmacology, for this ambiguity and for this fragility of spirit, impressed itself on Valéry..."*。**v0.3 引文页码不可证,可能为转引误差,本版不再使用**。
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2013.md` — **50 hits**(本概念主源,*WMLWL* 整本即"On Pharmacology")
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **50 hits**(与 grammatization/organology 整合)
+- `_pdf_evidence/Stiegler2022_Une_limite_au_del_de_laquelle_est_l_inco_fr.md` — 1 hit(法语晚期表述)
 
 ---
 
@@ -168,29 +226,52 @@ description: |
 
 **核心命题**:这三种器官**共同进化**——不存在脱离技术器官的"纯粹"心理或社会。当社会器官**跟不上**技术器官的变化速度时 → 产生危机(*disruption*)。
 
+**美学维度**(*Symbolic Misery 2*, 2015,§22 标题):general organology 不仅是社会学/技术哲学方法,在 Stiegler 这里它**首先是 *aesthetics* 的方法论**——他自命名为"general organology as theory and practice in the struggle for the organization of the sensible"(p. 60)。这一面在 v0.3 没有强调,但它解释了为什么 Stiegler 反复以艺术(尤其音乐/电影)为 organology 的主要案例。
+
+**与第三持存的统合命题**(*SymMis 2*, p. 25):"the organological is the system of these tertiary retentions" —— 即 organology 三层 = 三种持存(心理-第一第二持存 / 技术-第三持存 / 社会-集体持存)的统合系统。这是 v0.4 应当强调的"概念整合命题"。
+
 **反复出现的著作**:
 - *De la misère symbolique 1*(2004/2014)— 三层结构初步阐述
-- *Pharmacology*(2010/2013)— 系统化为方法论(p. 46 标准定义)
+- *De la misère symbolique 2*(2005/2015)— **organology 作为美学方法论的代表作**;§22 标题即"General organology as theory and practice"(pp. 60-69)
+- *Ce qui fait que la vie vaut la peine d'être vécue / WMLWL*(2010/2013)— 与 pharmacology 的依存关系明确化(p. 43:"three organological levels arrange psychosomatic, technical and socio-ethnic programmes")
 - *States of Shock*(2012/2015)— 应用于三重废人化诊断
 - *La société automatique*(2015/2017)— 算法治理作为三层失衡极端案例
 - *The Neganthropocene*(2018)— 与逆熵框架整合
 - *Qu'appelle-t-on panser?*(2018-2020)— 与生态 / 教育议题整合
+- *Nanjing Lectures*(2016-2019,p. 39):"General organology defines the rules for analysing, thinking and prescribing human facts at three parallel but indissociable levels"——晚期最简洁的自我定义
 
 **典型应用场景**:
 - 任何"技术变革引发社会问题"的诊断 → 用 organology 三层分析
 - 制度设计 / 教育改革 / 政策评估 → 三层协调原则
+- **美学/艺术分析**(尤其音乐与电影)→ Stiegler 最常用 organology 切美学问题
 - 60 年代艺术实践分析 → 同时改造三层器官的实验
 
 **与其他概念的关系**:
-- *organology* 是分析 *pharmakon* 运作的方法论工具
+- *organology* 是分析 *pharmakon* 运作的方法论工具(*WMLWL* p. 30:"pharmacology presupposes organology")
 - 没有 *organology* 的三层视野,*pharmakon* 容易被读为二元论
 - *废人化* 是 organology 三层失衡的诊断结果
+- organology 三层 = 三种持存系统的统合(*SymMis 2* p. 25)
+- 晚期是 "noetic organology"(*SymMis 2* p. 68)——延伸亚里士多德 *De Anima* 的 *noesis* 谱系
 
 **局限**:**不**适合纯粹形式化分析(数学、逻辑学,虽然 Stiegler 也讨论这些,但 organology 主要面向"组织化"现象);**警惕**把"三层"读为本质主义结构——它是**分析角度**,不是本体论清单
 
 **关键引文**:
-> "General organology is the study of the relations between psychic organs, social organs, and technical organs."
-> —— Stiegler, 2013, *Pharmacology*, p. 46.
+
+> "General organology defines the rules for analysing, thinking and prescribing human facts at three parallel but indissociable levels."
+> —— *Nanjing Lectures 2016-2019*, p. 39
+
+> "General organology, where the organs of the living, together with artificial organs and social organizations, constitute the total aesthetic occurrence, combining in what Gilbert Simondon refers to as transductive relations."
+> —— *Symbolic Misery, Vol. 2: The katastrophe of the sensible*, Polity, 2015, p. 16
+
+> "The organological is the system of these tertiary retentions."
+> —— *Symbolic Misery 2*, 2015, p. 25
+
+> ⚠️ v0.3 曾引"General organology is the study of the relations between psychic organs, social organs, and technical organs"(标 *Pharmacology* p. 46)。本地 PDF *WMLWL* p. 43 实际为"the three organological levels arrange psychosomatic, technical and socio-ethnic programmes"。**v0.3 引文应为意译而非直接引,本版改用三条可直接定位的原文引文**。
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2015.md` — **50 hits**(本概念 aesthetics 维度主源)
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — 50 hits(晚期最简定义在 p. 39)
+- `_pdf_evidence/Stiegler2013.md` — 26 hits(与 pharmacology 的依存关系)
 
 ---
 
@@ -226,7 +307,13 @@ description: |
 
 **关键引文**:
 > "The symbolic misery in which we live results from a loss of participation in the production of symbols."
-> —— Stiegler, B. (2014). *Symbolic Misery, Volume 1*. Polity, p. 9.
+> —— Stiegler, B. (2014). *Symbolic Misery, Volume 1*. Polity, p. 9. *(v0.3 标准引用·本地 evidence 中位置存疑,见证据来源 fulltext fallback 验证)*
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2014.md` — **29 hits**(*Symbolic Misery 1: The Hyper-industrial Epoch*,主源)
+- `_pdf_evidence/Stiegler2015.md` — 29 hits(*Symbolic Misery 2: La katastrophe du sensible*,与 organology 美学维度耦合)
+- `_pdf_evidence/Stiegler2014_Uncontrollable_Societies_of_Disaffected.md` — 2 hits(*Disbelief and Discredit Vol. 2* 序言节录,Nordic Journal)
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — 7 hits(晚期重述)
 
 ---
 
@@ -259,21 +346,47 @@ description: |
 
 **关键引文**:
 > "Proletarianization is not simply the impoverishment of the worker, but the destruction of knowledge — of *savoir-faire*, *savoir-vivre*, and *savoir théorique*."
-> —— Stiegler, B. (2015). *States of Shock*. Polity, p. 30.
+> —— Stiegler, B. (2015). *States of Shock*. Polity, p. 30. *(标准学术引用·本地 evidence 中无 States of Shock,本条按公开学界引证)*
+
+> "Digital tertiary retention thus creates a very specific state of proletarianization. Now, each type of hypomnesic pharmakon provokes such short-circuits, such a bypass of knowledge."
+> —— *Nanjing Lectures 2016-2019*, p. 32
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2013.md` — **43 hits**(*What Makes Life Worth Living: On Pharmacology*,与 pharmakon 双面整合)
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — 34 hits(三重废人化的晚期系统讲述)
+- `_pdf_evidence/Stiegler2014.md` — 24 hits(*Symbolic Misery 1*,与 symbolic_misery 配对)
+- `_pdf_evidence/Stiegler2015.md` — 11 hits(*Symbolic Misery 2*)
 
 ---
 
 ### 次级概念 A:文法化 *Grammatisation* / Grammatization
 
-借自 Sylvain Auroux(*La révolution technologique de la grammatisation*, 1994),Stiegler 系统化为分析工具:**任何"流"(语言、姿态、感性、行为模式)被技术化为离散单元从而可被记录、计算、传输的过程**。从书写(grammatize 口语)→ 印刷(grammatize 书写)→ 摄影/电影(grammatize 视觉)→ 数字化(grammatize 一切流)。当代最显著:行为数据化即"行为的 grammatization"。**主要著作**:*Misère 1*(2004), *Automatic Society*(2015/2017)。
+借自 Sylvain Auroux(*La révolution technologique de la grammatisation*, 1994),Stiegler 系统化为分析工具:**任何"流"(语言、姿态、感性、行为模式)被技术化为离散单元从而可被记录、计算、传输的过程**。从书写(grammatize 口语)→ 印刷(grammatize 书写)→ 摄影/电影(grammatize 视觉)→ 数字化(grammatize 一切流)。当代最显著:行为数据化即"行为的 grammatization"。**主要著作**:*Misère 1*(2004), *Automatic Society*(2015/2017), *Nanjing Lectures*(2016-2019,p. 39 系统讲述)。
+
+> "Fluxes or flows [flux] through which symbolic and existential acts are linked can be discretized, formalized and reproduced. The most well-known of these processes is written language. And digital tertiary retention is the most recent of these processes."
+> —— *Nanjing Lectures 2016-2019*, p. 39
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **44 hits**(grammatization 的 Auroux→Stiegler 系统讲述,主源)
+- `_pdf_evidence/Stiegler2014.md` — 24 hits(*Symbolic Misery 1*)
+- `_pdf_evidence/Stiegler2015.md` — 20 hits(*Symbolic Misery 2*)
+- `_pdf_evidence/Stiegler2013.md` — 15 hits(*WMLWL*,与 pharmacology 整合)
 
 ### 次级概念 B:中断 *Disruption*
 
 (2016/2019 *Dans la disruption*)Stiegler **重定义硅谷术语**:disruption 不是创新,而是**社会器官跟不上技术器官变化速度造成的方向感丧失**。"我们处于一个所有方向感都被算法治理蒸发的时代。"晚期与 *bifurquer*(分岔)对偶——前者是诊断,后者是治疗。
 
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **36 hits**(主源)
+- `_pdf_evidence/Stiegler2022_Une_limite_au_del_de_laquelle_est_l_inco_fr.md` — 4 hits(法语晚期表述,*Une limite au-delà de laquelle est l'inconnu*)
+
 ### 次级概念 C:逆熵 *Néguanthropie* / Neganthropy
 
 (2018 *The Neganthropocene* 起)Stiegler 自创(基于 Schrödinger 的 negentropy + anthropos):**对抗熵增的人类学技术-社会安排能力**。把 *pharmakon* 升级到热力学层,处理"集体方向感"问题。**晚期最重要的工具**——若分析当代生态紧急、气候政治,优先用此概念。
+
+**证据来源**(v0.4):
+- `_pdf_evidence/Stiegler2020_Nanjing_Lectures_2016_2019.md` — **50 hits**(neganthropy 体系的英文系统讲授,主源)
+- `_pdf_evidence/Stiegler2025_Towards_a_New_Industrial_Revolution_Entr.md` — 7 hits(死后期刊《Technophany》2.2,与 Montévil 等合著继续 neganthropy 路线)
 
 ---
 
@@ -733,6 +846,28 @@ Stiegler 2020-08-05 自杀身亡。本 skill **绝不**:
 
 > "There is no specific quality to the human; precisely, the human is that living being which has no specific qualities of its own and must take the qualities of its milieu as its own."
 > —— Stiegler, B. (1998). *Technics and Time, 1*. Stanford UP, p. 188.
+
+---
+
+## v0.4 修订记录(本次实质性变化)
+
+> 与 v0.3 相比,本版本由 scholar-wendao v0.4 元 skill 生成,主要增量来自**实际读 17 部本地 Stiegler PDF 的 evidence**(`_pdf_evidence/`),而非仅依赖 Obsidian Card 元数据。修订记录如下:
+
+**6 个核心 + 3 个次级概念全部增加"证据来源"小节**,链接到 `_pdf_evidence/{book}.md` 并标注命中数。这是 v0.4 P0 #2 的核心实施。
+
+**核心概念 1(第三持存)**:新增 Stiegler 的**四阶段分期**(literal / mechanical / analogue / digital tertiary retention),来自 *Nanjing Lectures* pp. 22-39 系统讲述——v0.3 漏掉的关键概念结构。引文替换为 Nanjing pp. 20 / 41 的可定位 verbatim。
+
+**核心概念 2(后种系生成)**:新增 *Symbolic Misery 1* p. 43 的精确关系命题(epiphylogenesis = 第三持存的生产过程,后者是前者的沉积物);新增晚期 Stiegler 借 Lotka 把 epiphylogenesis 升级为 *exosomatization* 的关键步骤(*Nanjing* p. 79)。这两点是 v0.3 没说清的。
+
+**核心概念 3(药理学)**:**v0.3 引文页码不可证修订**——v0.3 引"To live is always to take care of a pharmakon..."标 *Pharmacology* p. 19,本地 PDF p. 19 实际为 Valéry 那段。本版换用 *WMLWL* p. 12 / p. 10 / p. 30 三条可定位引文,同时新增 Stiegler 比德里达推进的两步(三层谱系扩展 + Winnicott 过渡客体作为"第一 pharmakon")。
+
+**核心概念 4(普遍器官学)**:**v0.3 引文页码不可证修订**——v0.3 引 *Pharmacology* p. 46 定义实际为意译,本地 PDF p. 43 才有"three organological levels arrange psychosomatic, technical and socio-ethnic programmes"原文。本版新增**美学维度**(SymMis 2 §22 标题"general organology as theory and practice in the struggle for the organization of the sensible")——v0.3 完全漏掉的核心面向。
+
+**OCR backlog 新发现**:17 部 Stiegler PDF 中**5 部为扫描无文字层**(*技术与时间 1* 中译 / Stiegler2016 / 2017 / 2021 / 2022),v0.4 元 skill 把这一类自动检测加入 Phase 1.0 步骤,并提示 `ocrmypdf --language fra+eng+chi_sim --skip-text` 修复路径。
+
+**剩余已知问题**(v0.4.1 backlog):
+- 人格章节 14 个形成性事件中 6 个缺事实层 / 叙事层 BRACKETING 双标注(Phase 4.6 检测出)。需在 v0.4.1 里逐段补标。
+- Library 目前 Stiegler 闭源 41 部待获取,网络出口受限暂未跑 `annas_acquire.py`(API key 已知)。
 
 ---
 

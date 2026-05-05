@@ -37,7 +37,7 @@ description: |
 - 默认输出**第三人称分析**（"从 Stiegler 的 organology 视角看，这个现象的技术外在化逻辑是……"），而非第一人称扮演
 - 对话/角色扮演为 opt-in，必须用户主动激活
 - 信息源严格分级（一手 / 二手 / 传记类 / 学生回忆，每条标注）
-- 直面五大学术批评（默会知识、思想化石化、公开 vs 私下、传记修辞、漫画化）
+- 直面六大学术批评（默会知识、思想化石化、公开 vs 私下、传记修辞、漫画化、死亡-尊重边界）
 
 ---
 
@@ -181,17 +181,49 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
    - 例：`export SCHOLAR_WENDAO_LIBRARY="$HOME/Documents/Obsidian/Library/_files"`
 3. 都没有 → 默认 `$HOME/scholar-wendao-library/`（脚本自动创建）
 
+#### Library 归档布局（v0.4 新增）
+
+用户的 Library 可能采用两种命名约定，本框架两种都支持但**必须显式配置**，否则下载脚本可能造成污染（例：v0.3 实战中 download_open_access.sh 自动创建 `_files/fr/` `_files/en/` 子目录与扁平命名约定冲突）：
+
+| 布局 | 命名 | 例 |
+|---|---|---|
+| `flat` | 全部 PDF 在 `_files/` 根目录，前缀+年份+语种 | `Stiegler2010_le_circuit_fr.pdf` |
+| `by-language` | 按语种子目录 `_files/{fr,en,zh}/` | `_files/fr/2010_le_circuit.pdf` |
+
+`Phase 0.5` 必须把所选布局写入 `references/research/_library_config.md` 的 `archive_layout` 字段。下载脚本（`download_open_access.sh`、`annas_acquire.py`）读此字段决定输出路径。**Phase 0.5 完成前必须确认布局**——询问用户「你的 Library 是扁平命名（建议）还是按语种子目录？」
+
 **为什么这样设计：**
 - ✅ Skill 产物可干净上 git（无版权 PDF 污染）
 - ✅ Library 跨 skill 复用（蒸馏 Foucault 时已有的二手文献，蒸馏 Stiegler 时不用重下）
 - ✅ 与已有学术工作流兼容（Obsidian / Calibre / Zotero / 自建文件夹都可以）
 - ✅ 用户保留对自己档案的完整控制
 
+#### Library 覆盖率扫描（v0.4 新增·"本地优先模式"判断条件具体化）
+
+v0.3 实战暴露的问题：「在 Library 有一些 PDF」介于无和全有之间，无清晰处理路径。v0.4 把这一步具体化为可计算指标：
+
+```
+LOCAL_PDFS=$(find "$SCHOLAR_WENDAO_LIBRARY" -iname "*[Ss]cholarSlug*.pdf" -type f | wc -l)
+EXPECTED_BOOKS=$(估算自学者主要专著数，可先用 5 作为 fallback)
+COVERAGE=$((LOCAL_PDFS * 100 / EXPECTED_BOOKS))
+```
+
+| 覆盖率 | 模式 | 行为 |
+|---|---|---|
+| 0% | 纯网络 | 7 agent 全网络采集 |
+| 1-30% | 本地补 | 网络 agent 优先；本地 PDF 进入 evidence 提取 |
+| 31-70% | 本地优先 | 本地 PDF 全量进入 evidence；网络仅补缺口 |
+| 71-100% | 纯本地 | 跳过部分网络 agent；evidence 提取作为主蒸馏源 |
+
+扫描结果写入 `_library_config.md` 的 `coverage_report` 字段。
+
 #### Phase 0.5 自动检查
 
 - [ ] 路径 A 目录已创建在 `~/.claude/skills/[scholar]-perspective/`
-- [ ] 解析 `$SCHOLAR_WENDAO_LIBRARY`，路径 B 目录已创建（按 slug 子目录）
-- [ ] `references/research/07-archive.md` 中的下载脚本调用使用路径 B 作为 `--output`
+- [ ] 解析 `$SCHOLAR_WENDAO_LIBRARY`，路径 B 目录已创建（按 slug 子目录或扁平命名前缀，依 `archive_layout`）
+- [ ] **`archive_layout` 已明确**（`flat` / `by-language`，写入 `_library_config.md`）
+- [ ] **`coverage_report` 已生成**（扫描 Library 现有 PDF 数量与预期主要专著数对比）
+- [ ] `references/research/07-archive.md` 中的下载脚本调用使用路径 B 作为 `--output`，并传入 `archive_layout`
 - [ ] 在 `references/research/_library_config.md` 记录使用的 Library 路径（供后续 update 时参照）
 
 **完成检查**（自动执行）：
@@ -203,7 +235,7 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
   - 英美学者：JSTOR、PhilPapers、机构仓库、本人主页
   - 中国学者：CNKI、万方、本人著作中文版、B 站/小宇宙学术访谈、官方采访（《思想的境界》《一席》《文化纵横》）；**永远排除知乎与微信公众号**
 - [ ] 如果是更新模式：已读取现有 SKILL.md 的"调研时间"，标注哪些需要刷新
-- [ ] 如果用户提供了本地语料：素材已分类入 `sources/`，标记为**本地语料优先模式**
+- [ ] 如果用户提供了本地语料 / Library 覆盖率 ≥ 30%：素材已分类入 `sources/` 或登记入 `_library_config.md`，标记为**本地优先模式**
 
 **关键规则**：
 - 每个 subagent 必须把调研结果写入对应的 md 文件。不存文件 = 没做
@@ -217,9 +249,10 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 
 | 模式 | 触发条件 | 策略 |
 |------|---------|------|
-| **纯网络** | 无本地素材 | 7 个 agent 全部走网络+开放档案 |
-| **本地优先** | 用户提供 PDF/transcript | 先分析本地，网络作为补充 |
-| **纯本地** | 用户明确说"只用我给的"或非公众学者 | 仅本地，不做网络 |
+| **纯网络** | Library 覆盖率 0%，无用户语料 | 7 个 agent 全部走网络+开放档案 |
+| **本地补** | Library 覆盖率 1-30% | 网络 agent 主线；Phase 1.0 同步抽取本地 evidence |
+| **本地优先** | Library 覆盖率 31-70% 或用户提供 PDF | Phase 1.0 抽取本地 evidence 为主，网络补缺口 |
+| **纯本地** | Library 覆盖率 ≥ 70% 或用户明确"只用我给的" | Phase 1.0 evidence 为唯一来源，网络仅补传记类信息 |
 
 **本地优先的执行逻辑：**
 
@@ -227,6 +260,53 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 2. **识别信息缺口**：哪些维度本地覆盖了？哪些薄弱？
 3. **定向补充搜索**：仅对缺失维度启动网络 agent
 4. **来源标记**：调研文件中明确区分"用户提供"vs"网络搜索"
+
+---
+
+#### Phase 1.0：PDF 证据强制提取（v0.4 新增·本地优先 / 纯本地模式触发）
+
+**为什么这一步必须存在**：v0.3 实战暴露——Phase 1 只读了用户已整理的 Obsidian Card 元数据，**任何一部本地 PDF 全文都没进入 Phase 2 蒸馏**，导致引文/页码/概念分期等关键细节失真（v0.3 SKILL.md 中至少 2 条引文页码不可在本地 PDF 验证）。
+
+v0.4 强制 Phase 1.0 在 7 个 agent 启动**之前**完成：
+
+```bash
+python3 scripts/extract_pdf_evidence.py \
+    --library "$SCHOLAR_WENDAO_LIBRARY" \
+    --filter "{ScholarSlug}*.pdf" \
+    --concepts examples/{slug}-perspective/_pdf_evidence/_concepts.json \
+    --out examples/{slug}-perspective/_pdf_evidence \
+    --head 30 --tail 30
+```
+
+`_concepts.json` 的多语言术语映射先用学者 1-2 个最高确定性概念冷启动（基于学者 Wikipedia 条目术语表），后续 Phase 2.1 蒸馏过程中可补全。
+
+**输出**：每部 PDF → `_pdf_evidence/{book_basename}.md`，含：
+- Head/Tail 页全文文本（前 30 + 末 30 页）
+- Concept anchor search：每概念 ≤50 个带页码上下文
+- `_index.json` + `_navigator.md`（概念 × 书命中矩阵 + OCR backlog 报告）
+
+**OCR Backlog 自动检测（v0.4 新增）**：
+
+`extract_pdf_evidence.py` 输出的 `_index.json` 含 `empty_pages` 字段。Phase 1.0 完成后必须扫描：
+
+```python
+# 任意 PDF 的 empty_pages / total head+tail pages > 50% → 标 OCR backlog
+ocr_backlog = [r for r in index if r["empty_pages"] / 60.0 > 0.5]
+```
+
+OCR backlog 列表写入 `_pdf_evidence/_ocr_backlog.md`，每条记录：文件名、页数、PDF 元数据推断的真实书名、估计语言。提示用户：
+
+> ⚠️ 检测到 N 部 PDF 无文字层（疑扫描版）。Phase 2 蒸馏将不能从这些书中抽证据。建议执行：
+> ```
+> brew install ocrmypdf  # 或 pip install ocrmypdf
+> ocrmypdf --language fra+eng+chi_sim --skip-text input.pdf input.pdf
+> ```
+> OCR 完成后重跑 `extract_pdf_evidence.py --force`。
+
+**Phase 1.0 退出条件**：
+- 所有可机读 PDF 已生成 evidence markdown
+- `_navigator.md` 已生成（含 9 概念 × top-3 书矩阵）
+- OCR backlog 已生成并提示用户
 
 ---
 
@@ -256,10 +336,12 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 
 #### 每个 Agent 的硬性要求
 
-- 调研结果必须写入 `references/research/0X-xxx.md`
+- 调研结果**必须用 Write 工具写入** `references/research/0X-xxx.md`
+- **返回前必须用 Read 或 `cat` 工具确认输出文件存在并展示前 50 行**（v0.4 新增·P1 #3 修复——v0.3 实战中多个 agent 写错路径或仅在消息里返回未真写文件）
 - 每条信息标注信息源 URL 与可信度等级（一手/二手/传记类/学生回忆）
 - 区分"学者本人写的"vs"他人转述的"vs"我推断的"
 - 发现矛盾保留矛盾，不要和稀泥
+- 如果是本地优先 / 纯本地模式：**优先引用 `_pdf_evidence/{book}.md` 中带页码的原文片段**作为论点证据，而非凭印象转述
 
 #### 信息源优先级
 
@@ -288,7 +370,27 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 
 ### Phase 1.5: 调研 Review 检查点
 
-**所有 agent 完成后，暂停展示调研质量摘要：**
+#### Step 1.5.0：主流程文件存在性兜底验证（v0.4 新增·P1 #3 修复）
+
+**所有 agent 返回后，主流程必须立刻执行**：
+
+```bash
+for f in references/research/0{1..7}-*.md; do
+    if [ ! -s "$f" ]; then
+        echo "❌ 缺失或空文件: $f"
+        # 主流程兜底：根据 agent 返回消息中的内容自写该文件
+        # 如果消息中也无内容 → 标记为"信息不足维度"
+    else
+        echo "✓ $f ($(wc -l < "$f") 行)"
+    fi
+done
+```
+
+**触发条件**：v0.3 实战中至少 3 个 agent 出现"返回声明完成但文件不存在 / 写到错误路径"。Phase 1.5 第一步永远是 `ls -la references/research/` 验证 + 缺失项兜底。
+
+#### Step 1.5.1：调研质量摘要
+
+**所有 agent 完成 + 文件存在性验证通过后，暂停展示调研质量摘要：**
 
 ```
 ┌──────────────────┬──────────┬──────────────────────────┐
@@ -301,6 +403,8 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 │ 5 论战           │ 4 起     │ 与 Latour 之争...         │
 │ 6 谱系           │ 完整     │ 师承: 德里达...           │
 │ 7 档案           │ 47 本+200篇│ OA 覆盖率: 60%, 闭源 X 本│
+├──────────────────┼──────────┼──────────────────────────┤
+│ Phase 1.0 PDF    │ N 部     │ M 部可读 / K 部 OCR backlog│
 ├──────────────────┼──────────┼──────────────────────────┤
 │ 矛盾点           │ 3 处     │ Agent1 vs Agent4 在 Y...  │
 │ 信息不足维度      │ 1 处     │ 私人通信很难采集到         │
@@ -321,6 +425,7 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 学者的"心智模型" = 他的核心理论概念及其相互关系。**不是普通用词，是被他系统化为分析工具的术语**。
 
 操作步骤：
+
 1. **扫描**：从 `01-monographs.md` 到 `05-debates.md` 列出所有候选概念
 2. **三重验证**：每个候选执行——
    - **概念体系化使用**：在 ≥2 部不同时期/不同主题的著作中作为分析工具被反复使用？
@@ -328,7 +433,49 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
    - **学派区分度**：是否区别于同代/同流派学者？（如果福柯和阿甘本都用"主权"，区分度低）
    - 三重通过 → 核心概念；仅 1-2 重 → 降级为"次级概念"；0 重 → 丢弃
 3. **取舍**：3-7 个核心概念。宁少勿多
-4. **记录格式**：每个概念——名称（含原语）、一句话定义、来源文献（≥2 个）、典型应用场景、与该学者其他概念的关系、局限性
+4. **PDF 证据锁定**（v0.4 新增·本地优先 / 纯本地模式强制）：
+   - 对每个核心概念，从 `_pdf_evidence/_navigator.md` 的「概念 × 书」矩阵读出 top-3 anchor 书
+   - 打开对应 `_pdf_evidence/{book}.md`，读完该概念在该书的所有 hits
+   - 每条引文必须能锁定到具体页码（`p.{N}`）
+   - **概念定义、关键引文、引文页码必须能在某一份 `_pdf_evidence/{book}.md` 中直接搜到**——禁止凭印象引用，禁止从二手文献转引
+   - 概念末尾"反复出现的著作"小节必须按 evidence 出现频次而非常识权重排序
+5. **记录格式**：每个概念——
+   - 名称（含原语）
+   - 一句话定义（含来源文献页码）
+   - 反复出现的著作（每条标 evidence 命中数 / 来源 anchor）
+   - 典型应用场景
+   - 与该学者其他概念的关系
+   - 局限性
+   - 关键引文（每条带书名+页码，必须可在 evidence 中定位）
+   - **证据来源**（v0.4 新增）：列出该概念在哪些 `_pdf_evidence/{book}.md` 出现及命中数
+
+**v0.4 概念条目模板**：
+
+```markdown
+### 核心概念 N：{中文名} *{原语}* / {English}
+
+**定义**（{学者+年}+{源著}, p. {N}）：…
+
+**[v0.4 选填] 子分期 / 进化 / 内部分类**（来自 evidence 系统讲述，例如 Stiegler 的"四阶段第三持存"必须直接来自 _pdf_evidence/Stiegler2020_Nanjing_Lectures.md pp. 22-39）：…
+
+**反复出现的著作**：
+- *Book A*（year）— evidence: `_pdf_evidence/{book_A}.md` (N hits)
+- *Book B*（year）— evidence: `_pdf_evidence/{book_B}.md` (M hits)
+
+**典型应用场景**：…
+
+**与其他概念的关系**：…（每条尽量挂一个 page anchor）
+
+**局限**：…
+
+**关键引文**（必须可在 evidence 中定位）：
+> "..."  —— *{Book}*, p. {N}
+
+**证据来源**（v0.4）：
+- `_pdf_evidence/{book_A}.md` — N hits（主源）
+- `_pdf_evidence/{book_B}.md` — M hits
+- `_pdf_evidence/{book_C}.md` — K hits
+```
 
 #### 2.2 方法论手稿（5-10 条分析进路）
 
@@ -410,13 +557,14 @@ $SCHOLAR_WENDAO_LIBRARY/[scholar-slug]/
 
 #### 2.8 诚实边界（最厚的章节）
 
-参见 `references/humble-epistemics.md`，必须明确写出五大局限：
+参见 `references/humble-epistemics.md`，必须明确写出六大局限：
 
 1. **波兰尼问题**：本镜片只能复现可显式表达的部分，学者的研究直觉与品味是默会的
 2. **思想化石化**：截止到调研时间点的快照，之后的演变需要 update
 3. **公开 vs 私下**：所有公开材料都是经过过滤的展演自我
 4. **传记修辞污染**：所有传记类信息已分级标注，但仍然可能被叙事框架扭曲
 5. **漫画化风险**：使用本镜片时如果发现自己在生产"段子集合"而非智识分析，立刻停止
+6. **死亡-尊重边界**（v0.4 新增）：涉及学者死亡 / 自杀 / 监禁 / 重大创伤事件时，仅记录可公开核实的事实，不戏剧化、不连接因果、不用学者第一人称回应（即使在对话模式中）
 
 ---
 
@@ -534,8 +682,56 @@ Phase 2 完成后暂停展示提炼摘要：
 - [ ] 传记修辞污染说明
 - [ ] 漫画化风险警示
 - [ ] 信息源分级标注
+- [ ] **死亡-自杀-尊重边界声明**（v0.4 新增·见 `humble-epistemics.md` 第六项）
 
-#### 4.5 通过标准
+#### 4.5 引文 page-anchor 强制核验（v0.4 新增·P0 #2 实施）
+
+**触发条件**：本地优先 / 纯本地模式（即 `_pdf_evidence/` 已生成的情况）。
+
+**检查规则**：
+
+```python
+# 概念地图中每条带页码的引文：
+# 模式 "p. N" 或 "p.{N}" 或 "页 N"
+for citation in extract_citations(skill_md):
+    book = citation.source_book
+    page = citation.page
+    quote = citation.quote_text
+    evidence_md = f"_pdf_evidence/{slug(book)}.md"
+    if not evidence_md_exists:
+        warn("引文 anchor 不可证（evidence 文件缺失）")
+        continue
+    # 读 evidence_md 中 p.{page} 段落，比对 quote 头 80 字符
+    if not quote_substring_in_evidence_page(quote, evidence_md, page):
+        FAIL(f"引文不可定位: '{quote[:60]}...' 标 {book} p.{page}，"
+             f"但 evidence_md 该页无此文本")
+```
+
+**v0.3 实战教训**：v0.3 SKILL.md 至少 2 条引文页码不可证（*WMLWL* 引文 p.19 不存在 / *Pharmacology* organology 定义实际在 p.43 而非 p.46）。这些引文都是凭 Obsidian Card 摘录或印象写出。v0.4 必须 fail-fast。
+
+**不通过处理**：
+- 该条引文末尾标注「⚠️ v{X} 引文页码不可在本地 PDF 中验证」
+- 在 evidence 中找替代引文，或删除该条
+- 在 SKILL.md 末尾"v0.X 修订记录"小节记下变更
+
+#### 4.6 Narrative-Bracketing 自动检测（v0.4 新增·P1 #4）
+
+**触发条件**：人格与处世章节（Phase 2.7 输出），尤其是含"形成性事件"段落。
+
+**v0.3 教训**：Stiegler "1978 年武装抢劫服刑 5 年期间读哲学"段落，子 agent 的 prompt 强调了 narrative-bracketing（事实层 + 叙事层并标），但主 SKILL.md 输出无强制校验，结果可能出现"狱中读哲学"作为浪漫化叙事写入而无双层标注。
+
+**检查**：
+
+```python
+formative_events = extract_formative_events(skill_md)  # heuristic：日期+事件+影响
+for event in formative_events:
+    has_fact_layer = bool(re.search(r"事实层|fact-level|来源等级", event.text))
+    has_narrative_layer = bool(re.search(r"叙事层|narrative-level|学者自述|传记修辞", event.text))
+    if not (has_fact_layer and has_narrative_layer):
+        WARN(f"形成性事件 '{event.summary[:40]}' 缺 BRACKETING 双层标注")
+```
+
+#### 4.7 通过标准
 
 | 检查项 | 通过标准 | 不通过信号 |
 |---|---|---|
@@ -546,7 +742,10 @@ Phase 2 完成后暂停展示提炼摘要：
 | 信息源分级 | 每条调研有等级标注 | 无标注/混淆 |
 | 一手来源占比 | >50% | 主要靠二手转述 |
 | 漫画化检测 | PASS | FAIL |
-| 五大诚实边界 | 全部声明 | 缺任意一条 |
+| **诚实边界（六项）** | 全部声明（含自杀-尊重边界） | 缺任意一条 |
+| **引文 page-anchor 核验** | 100% 引文可在 evidence 定位 | 任何一条不可证 |
+| **Narrative-Bracketing** | 形成性事件双层标注 | 缺事实/叙事层 |
+| **PDF Evidence 覆盖** | 每核心概念 ≥1 个证据来源 | 0 evidence 来源 |
 
 验证通过 → 交付。不通过 → 标注薄弱环节，回到对应 Phase。
 **迭代上限**：Phase 2→4 最多循环 2 次。2 轮后仍不达标 → 在诚实边界中标注薄弱维度，交付当前最优版本。

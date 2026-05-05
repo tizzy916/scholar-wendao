@@ -224,7 +224,11 @@ def acquire_for_scholar(
     lang_priority: list[str],
     api_key: str | None,
     only_books: bool,
+    archive_layout: str = "flat",
+    prefix: str = "",
+    manifest_only: bool = False,
 ) -> None:
+    """v0.4：archive_layout 'flat'/'by-language'；manifest_only 跳过下载只生清单。"""
     data = json.loads(json_input.read_text(encoding="utf-8"))
     works = data["works"]
 
@@ -233,14 +237,17 @@ def acquire_for_scholar(
     if only_books:
         targets = [w for w in targets if w.get("type") == "book"]
 
-    print(f"待 Anna's Archive 获取：{len(targets)} 部", file=sys.stderr)
-    if not api_key:
+    print(f"待 Anna's Archive 获取：{len(targets)} 部 "
+          f"(layout={archive_layout}, prefix='{prefix}')", file=sys.stderr)
+    if manifest_only:
+        print("ℹ️  --manifest-only：仅搜索 + 写清单，不实际下载（v0.4 新增）", file=sys.stderr)
+    elif not api_key:
         print("⚠️  未设置 ANNAS_API_KEY 环境变量。将只生成搜索/下载清单，不实际下载。", file=sys.stderr)
         print("   获取 API key: https://annas-archive.org/donate", file=sys.stderr)
 
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "_acquisition_manifest.json"
-    failed_path = output_dir / "_acquisition_failed.txt"
+    failed_path = output_dir / "_acquisition_failed.json"
 
     manifest = []
     failed = []
@@ -271,36 +278,53 @@ def acquire_for_scholar(
             continue
 
         lang = best.get("language", "und")
+        year = w.get("year", "0000")
         manifest_entry = {
             "title": title,
             "author": author,
+            "year": year,
             "doi": w.get("doi"),
             "matched_md5": best.get("md5"),
             "matched_lang": lang,
             "matched_title": best.get("title"),
         }
 
-        # 真实下载（仅当 api_key 存在）
-        if api_key and best.get("md5"):
-            safe_title = re.sub(r"\W+", "_", title)[:60]
-            dest = output_dir / lang / f"{w.get('year', '0000')}_{safe_title}.pdf"
-            if dest.exists():
-                print(f"  ✓ 已存在，跳过：{dest}", file=sys.stderr)
-                manifest_entry["status"] = "already_exists"
-                manifest_entry["path"] = str(dest)
-                success += 1
-            elif download_via_md5(best["md5"], dest, api_key):
-                print(f"  ✓ 下载成功：{dest}", file=sys.stderr)
-                manifest_entry["status"] = "downloaded"
-                manifest_entry["path"] = str(dest)
-                success += 1
+        # v0.4：archive_layout 决定输出路径
+        safe_title = re.sub(r"\W+", "_", title)[:60].strip("_")
+        if archive_layout == "flat":
+            if lang and lang != "und":
+                fname = f"{prefix}{year}_{safe_title}_{lang}.pdf"
             else:
-                print(f"  ✗ 下载失败", file=sys.stderr)
-                manifest_entry["status"] = "download_failed"
-                failed.append({"title": title, "md5": best["md5"], "reason": "download_failed"})
-        else:
-            print(f"  ⏸  仅记录（未下载）：md5={best.get('md5')}, lang={lang}", file=sys.stderr)
+                fname = f"{prefix}{year}_{safe_title}.pdf"
+            dest = output_dir / fname
+        else:  # by-language
+            dest = output_dir / lang / f"{year}_{safe_title}.pdf"
+
+        # manifest-only 模式或缺 api_key/md5 → 只记不下载
+        if manifest_only or not api_key or not best.get("md5"):
+            print(f"  ⏸  仅记录: md5={best.get('md5')}, lang={lang}, "
+                  f"target={dest.name}", file=sys.stderr)
             manifest_entry["status"] = "manifest_only"
+            manifest_entry["target_path"] = str(dest)
+            manifest.append(manifest_entry)
+            time.sleep(0.5)
+            continue
+
+        # 真实下载
+        if dest.exists():
+            print(f"  ✓ 已存在，跳过：{dest.name}", file=sys.stderr)
+            manifest_entry["status"] = "already_exists"
+            manifest_entry["path"] = str(dest)
+            success += 1
+        elif download_via_md5(best["md5"], dest, api_key):
+            print(f"  ✓ 下载成功：{dest.name}", file=sys.stderr)
+            manifest_entry["status"] = "downloaded"
+            manifest_entry["path"] = str(dest)
+            success += 1
+        else:
+            print(f"  ✗ 下载失败", file=sys.stderr)
+            manifest_entry["status"] = "download_failed"
+            failed.append({"title": title, "md5": best["md5"], "reason": "download_failed"})
 
         manifest.append(manifest_entry)
         time.sleep(1)  # 善意限速
@@ -319,12 +343,21 @@ def acquire_for_scholar(
 
 
 def main():
-    p = argparse.ArgumentParser(description="Anna's Archive 学术著作获取（多语言优先级）")
+    p = argparse.ArgumentParser(description="Anna's Archive 学术著作获取（v0.4，多语言优先级）")
     p.add_argument("json_input", help="harvest_works.py 输出的 JSON")
     p.add_argument("-o", "--output", default="sources/works", help="输出目录")
     p.add_argument("--lang-priority", default=",".join(DEFAULT_LANG_PRIORITY),
                    help=f"语言优先级，逗号分隔。默认 '{','.join(DEFAULT_LANG_PRIORITY)}'")
-    p.add_argument("--all-types", action="store_true", help="处理所有闭源作品（默认仅 book 类型）")
+    p.add_argument("--all-types", action="store_true",
+                   help="处理所有闭源作品（默认仅 book 类型）")
+    # v0.4 P3 #9：archive_layout
+    p.add_argument("--archive-layout", choices=["flat", "by-language"], default="flat",
+                   help="输出布局：flat (扁平命名，v0.4 推荐) 或 by-language (子目录)")
+    p.add_argument("--prefix", default="",
+                   help="flat 布局下的文件名前缀（如 'Stiegler'）")
+    # v0.4 P2 #8：manifest-only
+    p.add_argument("--manifest-only", action="store_true",
+                   help="仅搜索 + 写清单，不实际下载（受限网络 / 提前规划用）")
     args = p.parse_args()
 
     api_key = os.environ.get("ANNAS_API_KEY")
@@ -332,10 +365,13 @@ def main():
 
     acquire_for_scholar(
         Path(args.json_input),
-        Path(args.output),
+        Path(args.output).expanduser(),
         lang_priority,
         api_key,
         only_books=not args.all_types,
+        archive_layout=args.archive_layout,
+        prefix=args.prefix,
+        manifest_only=args.manifest_only,
     )
 
 
