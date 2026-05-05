@@ -87,15 +87,23 @@ THRESHOLDS = {
 
 
 def detect_scholar_type(skill_text: str) -> str:
-    """v0.5 启发式判定 SKILL.md 对应学者类型(用于 declaration / concept_count 阈值)。"""
-    if re.search(r"scholar_type:\s*[\"']?traditional", skill_text):
-        return "traditional"
-    if re.search(r"scholar_type:\s*[\"']?topic", skill_text):
-        return "topic"
-    # heuristic: 含 lineages 章节 + 4 派以上 → traditional
-    lineage_section = re.search(r"##\s*Lineages|###\s*Lineage\s*\d", skill_text)
-    if lineage_section:
-        return "traditional"
+    """v0.5 判定 SKILL.md 对应学者类型(用于 declaration / concept_count 阈值)。
+
+    v0.5.2 修复:严格基于 frontmatter `scholar_type` 字段(行首 YAML),
+    避免 markdown 内嵌代码 `scholar_type: traditional` 触发误识别。
+    """
+    # 仅 SKILL.md 顶部 frontmatter (--- ... ---) 内的 scholar_type 字段
+    fm_match = re.match(r"^---\s*\n([\s\S]*?)\n---\s*\n", skill_text)
+    if fm_match:
+        fm = fm_match.group(1)
+        if re.search(r"^scholar_type:\s*[\"']?traditional", fm, re.MULTILINE):
+            return "traditional"
+        if re.search(r"^scholar_type:\s*[\"']?topic", fm, re.MULTILINE):
+            return "topic"
+    # 标题第一行含 ·  traditional / · topic 标记(显式 v0.5 traditional skill)
+    h1 = re.search(r"^#\s+.*?·\s*(traditional|topic)\s*\)", skill_text, re.MULTILINE)
+    if h1:
+        return h1.group(1)
     return "contemporary"
 
 

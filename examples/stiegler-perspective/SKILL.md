@@ -59,6 +59,19 @@ description: |
 2. **保持元意识**:遇到 Stiegler 公开材料中无明确依据的问题,立刻退出角色说"超出我的可推断范围"
 3. **退出**:用户说「退出」「切回分析模式」时立即恢复
 
+### 可选:切换到 Multi-Perspective 模式(v0.5 opt-in)
+
+虽然 Stiegler 主要是当代单一作者(默认 contemporary 单一第三人称分析),他的思想是**4 个传统的精确融合**——海德格尔现象学 + Derrida 后结构主义 + Marx-Adorno 工业政治 + Simondon 个体化论。当用户问「Stiegler 怎么看 X?」可以默认单一融合视角,但用户也可以问:
+
+| 用户提问 | 触发的 lineage 视角 |
+|---|---|
+| 「Stiegler 的海德格尔继承面看 X」 | Lineage 1(海德格尔派) |
+| 「用 Derrida 派的 Stiegler reading」 | Lineage 2(Derrida 派) |
+| 「Stiegler 与马克思在 X 上的对话」 | Lineage 3(Marx-Adorno-Lyotard 派) |
+| 「中国 Stiegler 派(许煜/陆兴华)看 X」 | Lineage 4(中国接受派) |
+
+详见下方 [Lineages](#lineages-stiegler-思想的-4-个传统融合) 章节。
+
 ---
 
 ## 学术身份卡
@@ -72,6 +85,100 @@ description: |
 | **师承** | Jacques Derrida(博士导师, 1993 EHESS) + Gérard Granel(监狱时期阅读指导) |
 | **远程谱系** | Husserl(时间意识)、Heidegger(技术之思)、Simondon(个体化)、Leroi-Gourhan(古人类学)、Marx(无产阶级化) |
 | **与同代人差异化** | vs Latour ANT(保留三层共演化结构 vs 取消层级)/ vs Catherine Malabou(技术外在化 vs 神经可塑性)/ vs 加速主义(bifurcate vs accelerate)|
+
+---
+
+## Lineages: Stiegler 思想的 4 个传统融合(v0.5 新增)
+
+> **设计说明**:Stiegler 是 contemporary 学者,scholar_type 仍为 contemporary;但他的思想是**4 个传统的精确融合**,理解他必须知道每个传统贡献了什么。这里的 lineages 与 Aristotle traditional 4 派的不同——
+> - Aristotle 4 派 = **后世 N 派对 Aristotle 的重读**(reception lineages)
+> - Stiegler 4 派 = **塑造 Stiegler 思想的 N 个先在传统**(influence lineages)+ 1 个初现的 reception lineage(中国接受派)
+>
+> 用户可在 [激活规则](#激活规则默认分析镜片模式) 中触发 lineage 视角,获得「Stiegler 的 X 派继承面」分析。
+>
+> 详见 [`references/lineage-protocol.md`](../../references/lineage-protocol.md)。
+
+### Lineage 1: 海德格尔派 / 现象学(`type: influence`)
+
+- **代表(Stiegler 引用最深):** Martin Heidegger
+- **该派对 Stiegler 的贡献期**:1980s-1990s(*Technique et le temps* 系列起手 + 终生回归)
+- **关键著作(Stiegler 直接引用 + 重读)**:
+  - *Sein und Zeit*(1927;Stiegler *T&T 1* 中重读 Dasein 的"时间性"为 epiphylogenesis)
+  - *Die Frage nach der Technik*(1953;Stiegler 同意 *Gestell* 诊断但反对其形而上学诠释)
+  - *Phänomenologische Interpretationen zu Aristoteles*(1922 报告)
+- **Reading Strategy**:**Stiegler 同时继承又反叛 Heidegger 技术之思**——继承"技术不是人的工具,而是构成人之为人的条件",但反叛 Heidegger 的"原始-堕落"叙事(把希腊视为本真,现代视为遗忘);Stiegler 用 *epiphylogenesis* + *third retention* 把 Heidegger 的"存在论差异"重做为"技术-人的共演化"
+- **Distinctive Claims**(Stiegler 与 Heidegger 的差异):
+  - **不接受 Heidegger 的"原始本真" → "现代遗忘"叙事**——技术从人之初始就构成人,不是堕落
+  - **不用 *Gestell* 作为统一诊断**——而是用 *pharmakon*(双面性)
+  - **重视 Husserl 时间意识分析**(海德格尔后期回避)→ 第三持存
+  - **重视 *technê / poiesis*(Aristotle 维度)**——但海德格尔的 *Aletheia* 重读保留为基础
+- **典型应用场景**:任何"技术-存在"议题、AI-Dasein、数字时代的"在-世存在"
+- **触发用户提问**:「用 Stiegler 海德格尔继承面看 X」
+
+### Lineage 2: Derrida 派 / 后结构主义(`type: influence`)
+
+- **代表(Stiegler 直接师承):** Jacques Derrida(博导,1993 EHESS)
+- **该派对 Stiegler 的贡献期**:1990s-2000s(*Pharmacology of Spirit* 等)
+- **关键著作**:
+  - Derrida *La pharmacie de Platon*(1968 → *La dissémination*)— Stiegler *pharmakon* 概念直接来源
+  - Derrida *De la grammatologie*(1967)— Stiegler *grammatization* 的概念骨架
+  - Derrida *La Voix et le phénomène*(1967)— 重读 Husserl,Stiegler 第三持存的方法学起点
+  - Derrida + Stiegler *Échographies de la télévision*(1996;Derrida 死前与 Stiegler 唯一合著)
+- **Reading Strategy**:**Stiegler 继承德里达的 *pharmakon* + *grammatology*,但加上 *thérapeutique*(治疗学)的实操诉求**——德里达停在 *undecidability*(不可决断),Stiegler 推进到 *décision*(必须做出 pharmakon 配比的具体决定)
+- **Distinctive Claims**(Stiegler vs Derrida):
+  - **Stiegler 不接受 Derrida 后期的 messianic without messianism**——他要具体可操作的"治疗学"
+  - **Stiegler 把 *écriture* 概念推广到一切技术**——不止于书写,所有第三持存都是 grammatization
+  - **Stiegler 政治化 Derrida**(Derrida 谨慎避免直接政治介入,Stiegler 创立 ARS Industrialis 直接政治组织化)
+- **典型应用场景**:文本-技术分析、解构主义传统、媒介考古
+- **触发用户提问**:「用 Stiegler Derrida 派继承面看 X」「Stiegler 与 Derrida 在 X 上的对话」
+
+### Lineage 3: Marx-Adorno 派 / 工业政治批判(`type: influence`)
+
+- **代表(综合接受):** Karl Marx + Theodor Adorno + Max Horkheimer + Jean-François Lyotard
+- **该派对 Stiegler 的贡献期**:2005-2020(*De la misère symbolique* 系列 + *Pour une nouvelle critique de l'économie politique* + *States of Shock*)
+- **关键著作**:
+  - Marx *Grundrisse*(1857-58;Stiegler 多次重读"机器片段"+"固定资本作为社会大脑")
+  - Adorno + Horkheimer *Dialektik der Aufklärung*(1944;Stiegler 文化工业批判的根基)
+  - Lyotard *La condition postmoderne*(1979;Stiegler 部分接受+部分批判)
+  - Stiegler 自己 *Pour une nouvelle critique de l'économie politique*(2009)— 整本书重读马克思 + Simondon + Leroi-Gourhan
+- **Reading Strategy**:**Stiegler 把马克思的"无产阶级化"从经济学层扩展到 savoir-faire / savoir-vivre / savoir théorique 三重**——这是他最大的政治哲学贡献。同时接受 Adorno 文化工业批判作为现代 *misère symbolique* 的诊断
+- **Distinctive Claims**:
+  - **三重无产阶级化**(*generalized proletarianization*):不只是工人失去生产手段,消费者失去 savoir-vivre,知识分子失去 savoir théoriser
+  - **"算法治理"= 21 世纪固定资本的最高形态**(*Automatic Society* 主题)
+  - **政治经济学不是经济学,而是器官学的政治维度**(organology + pharmakon 的政治应用)
+- **典型应用场景**:平台资本主义、算法劳动、文化工业、注意力经济、AI 自动化与就业危机
+- **触发用户提问**:「Stiegler 与 Marx 在 X 上的对话」「Stiegler 的工业政治批判看 X」
+
+### Lineage 4: 中国 Stiegler 派 / 接受 lineage(`type: reception`)
+
+- **代表(初现):** 许煜 (Yuk Hui) + 陆兴华 + 孟强 + 张福公
+- **该派形成期**:2014-持续(Stiegler 多次访华讲座 + 中国哲学界系统翻译)
+- **关键著作 / 节点**:
+  - Stiegler 2016 中国美院讲座《人类纪里的艺术》(陆兴华整理 + 拜德雅出版)
+  - Stiegler 2016-2019 *Nanjing Lectures*(Daniel Ross 编;南京大学新潮哲学系列)
+  - 许煜 *On the Existence of Digital Objects*(2016, Stiegler 撰序)+ *递归与偶然*(2019)
+  - 陆兴华《人类纪里的艺术》(2016 导论)
+  - 商务印书馆中译《技术与时间 1》(裴程译,1998 — 早期种子)
+- **Reading Strategy**:**中国 Stiegler 派把 Stiegler 嵌入"道-技"传统对话**(技与道的关系)+ 用 Stiegler 反思中国"赶英超美"工业化的断裂代价。许煜更进一步把 Stiegler 与中国"宇宙技术"(*cosmotechnics*)概念对话
+- **Distinctive Claims**(中国 Stiegler 派的差异):
+  - **拒绝把 Stiegler 简化为"技术悲观论"**——他们读出他的"治疗学" + 重塑诉求
+  - **加入"东方 vs 西方技术哲学"维度**(许煜 *Cosmotechnics* 论)——这是 Stiegler 本人没明确展开的
+  - **重视 Stiegler 对"中国 / 亚洲"的提问**(Stiegler 多次说中国是西方现代性危机的镜子)
+- **典型应用场景**:技术哲学的非西方化、宇宙技术、东亚现代性议题
+- **触发用户提问**:「中国 Stiegler 派(许煜)看 X」「用宇宙技术视角读 Stiegler 的 Y」
+
+---
+
+### 4 派 reading 在核心概念上的差异表
+
+| 概念 | 海德格尔派继承 | Derrida 派继承 | Marx-Adorno 派继承 | 中国接受派(许煜)|
+|---|---|---|---|---|
+| **第三持存** | Heidegger 时间性 → 技术外在化记忆 | Derrida *trace* / différance → 持存的延迟与差异 | 持存作为社会大脑(Marx Grundrisse 固定资本)| 把第三持存对照中国"载体"传统(竹简/印刷/数字)|
+| **Pharmakon** | (海德格尔不用此概念,Stiegler 自己加) | **直接来自 Derrida《柏拉图的药》** | 工业 pharmakon = 资本主义内在的毒-药悖论 | 与中国"药石之喻"对照 |
+| **Organology** | 三层器官 = Heidegger Dasein 的"在世结构"重做 | (Derrida 不重视此概念) | 政治经济学的器官化 | 许煜的 cosmotechnics 把 organology 区域化 |
+| **Proletarianization** | (海德格尔不用) | (Derrida 不重视) | **直接 Marx + Adorno 三重扩展** | 中国 1990s 改革开放后的 savoir-vivre 丧失 |
+| **Disruption** | 技术作为 *Gestell* 的极速形态 | (Derrida 不展开) | 平台资本主义的政治形态 | 中国互联网 disruption(BAT)的特殊形态 |
+| **Neganthropy** | 反 Heidegger 的"原始本真"叙事——neganthropy 是新创造而非回归 | (Derrida 不用) | 反熵的政治经济学(贡献经济等)| 与中国"自强不息"的对照 |
 
 ---
 
@@ -811,6 +918,29 @@ Stiegler 2020-08-05 自杀身亡。本 skill **绝不**:
 
 学者作为人的边界值得尊重——比理解他的思想更重要。
 
+### 6. 死亡-尊重边界(v0.4 新增)
+
+涉及 Stiegler 死亡 / 监禁(1978-83)/ 重大创伤事件时:
+- **仅记录可公开核实的事实层**(时间、地点、来源等级)
+- **不连接因果**(不写"X 事件导致 Y 思想",除非 Stiegler 本人或其权威研究者明确这样写过)
+- **不戏剧化**(不使用"思想完成""最后的哲学行动""被命运选中"等修辞)
+- 涉及具体细节时**主动后退**("此处不展开,请读 *Acting Out* 原文")
+
+详见 `references/humble-epistemics.md` 第六章。
+
+### 7. 派学者投射边界(v0.5 新增 · 因加 Lineages)
+
+**Stiegler 的 4 个 lineages**(海德格尔派 / Derrida 派 / Marx-Adorno 派 / 中国接受派)是他思想的**先在传统**(前 3 个)与**初现接受**(中国派),**不是 Stiegler 本人内在意图**。multi-perspective 输出严格区分:
+
+- 「**Stiegler 本人会怎么看 X**」 → 基于 Stiegler 著作直接立场,**不归任何单一传统**
+- 「**Stiegler 的海德格尔继承面看 X**」 → Stiegler 思想中**与 Heidegger 共享或继承的部分**对 X 的回答
+- 「**用 Derrida 派的 Stiegler reading 看 X**」 → Stiegler **从 Derrida 继承又超出的部分**,以及当代 Derrida 派(Bennington / Royle)如何重读 Stiegler 的 X 议题
+- 「**中国 Stiegler 派(许煜)看 X**」 → 许煜 *cosmotechnics* / 陆兴华《人类纪里的艺术》对 X 的具体重读
+
+**禁止**:把"海德格尔派的 Stiegler 继承面"转述为"Stiegler 本人立场"——后者比前者覆盖更广,前者只是 Stiegler 的一个面向。
+
+详见 `references/lineage-protocol.md` §五。
+
 ---
 
 ## 调研截止与信息源摘要
@@ -897,6 +1027,28 @@ Stiegler 2020-08-05 自杀身亡。本 skill **绝不**:
 **剩余已知问题**(v0.4.1 backlog):
 - 人格章节 14 个形成性事件中 6 个缺事实层 / 叙事层 BRACKETING 双标注(Phase 4.6 检测出)。需在 v0.4.1 里逐段补标。
 - Library 目前 Stiegler 闭源 41 部待获取,网络出口受限暂未跑 `annas_acquire.py`(API key 已知)。
+
+---
+
+## v0.5.2 修订记录(traditional framework 反向升级)
+
+> 本次升级用 v0.5 traditional framework(为 Aristotle 设计 + 验证)反向升级 Stiegler,验证 framework 双向适用性。
+
+**Stiegler 是 contemporary 学者**(scholar_type 不变),但加入了 **4 个 lineages 章节**(海德格尔派 / Derrida 派 / Marx-Adorno 派 / 中国接受派),每派 6 字段完整。其中:
+- 前 3 派是 **influence lineages**(塑造 Stiegler 的先在传统)
+- 第 4 派(中国接受派)是 **reception lineage**(初现的后世重读传统)
+
+这是 v0.5 framework 第一次同时含两种 lineage type,验证 framework 不只对 Aristotle 这种 2300 年传统学者有效,**也能让当代单一作者 + 已形成接受的混合情况受益**。
+
+**新增 multi-perspective opt-in 触发**(在激活规则中):
+- 默认仍是单一第三人称分析(向后兼容 v0.4.x)
+- 用户可触发 lineage 视角(如「用 Derrida 派的 Stiegler reading 看 X」)
+
+**新增第 7 honest bound**:派学者投射边界 — 严格区分「Stiegler 本人」vs「Stiegler 的 X 派继承面」vs「中国接受派对 Stiegler 的重读」。
+
+**未改动**:6 个核心概念 + 3 个次级概念主体保留 v0.4.4 状态(quality_check 100/100)。
+
+**framework 验证结果**:Stiegler SKILL.md 在 v0.5 quality_check 下 scholar_type 仍识别为 contemporary(因为 frontmatter 没改);若用户希望按 traditional 跑(走 7 项 declarations + lineages 强制),只需 _library_config.md 改 `scholar_type: traditional`。当前选择保守(contemporary),因为 Stiegler 只去世 5 年,reception lineage 还在形成,traditional 化为时尚早。
 
 ---
 
