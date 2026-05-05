@@ -236,13 +236,29 @@ def main():
     if not pdfs:
         sys.exit(0)
 
+    # v0.4.4 修：filter 模式增量 merge —— 读取已有 _index.json,新数据 upsert
+    index_path = out_dir / "_index.json"
+    existing_index: dict[str, dict[str, Any]] = {}
+    if index_path.exists():
+        try:
+            existing_data = json.loads(index_path.read_text(encoding="utf-8"))
+            if isinstance(existing_data, list):
+                existing_index = {item.get("book"): item for item in existing_data
+                                  if item.get("book")}
+        except Exception:
+            pass
+
     summary: list[dict[str, Any]] = []
     for pdf in pdfs:
         slug = pdf.stem
         out = out_dir / f"{slug}.md"
         if out.exists() and out.stat().st_size > 0 and not args.force:
             print(f"  skip (exists): {slug}", file=sys.stderr)
-            summary.append({"book": slug, "status": "skipped_exists"})
+            # v0.4.4：保留已有 index 数据(完整 hits/chars),不要降级为 skipped_exists 单字段
+            if slug in existing_index and existing_index[slug].get("status") == "ok":
+                summary.append(existing_index[slug])
+            else:
+                summary.append({"book": slug, "status": "skipped_exists"})
             continue
         print(f"  extracting: {slug}", file=sys.stderr)
         try:
@@ -271,8 +287,15 @@ def main():
             print(f"    FAILED: {e}", file=sys.stderr)
             summary.append({"book": slug, "status": "failed", "error": str(e)})
 
-    (out_dir / "_index.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
+    # v0.4.4：filter 模式 merge — 用本次 summary 覆盖处理过的 slug,保留其他
+    final_index = dict(existing_index)
+    for s in summary:
+        if s.get("book"):
+            final_index[s["book"]] = s
+    final_summary = list(final_index.values())
+
+    index_path.write_text(
+        json.dumps(final_summary, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
     # 终端摘要
