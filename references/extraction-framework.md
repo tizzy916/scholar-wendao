@@ -216,11 +216,13 @@
 
 ### 概念地图
 - [ ] 每个概念都有 ≥2 部著作的来源？
-- [ ] 数量在 3-7 个？（少 = 浅，多 = 没提炼）
+- [ ] 数量在范围内?(v0.5:contemporary 3-7 / **traditional 5-15** / topic 5-10)
 - [ ] 每个概念都有局限性（什么情况下失效）？
 - [ ] 概念之间的关系（互补 / 张力 / 演化）有明确说明？
 - [ ] **每个概念都有"证据来源"小节，链接到 `_pdf_evidence/{book}.md` 并标注命中数？**（v0.4·本地优先 / 纯本地模式强制）
 - [ ] **每条带页码引文都能在对应 `_pdf_evidence/{book}.md` 的 `p.{N}` 段中直接搜到？**（v0.4·引文 page-anchor 强制核验）
+- [ ] **(v0.5 traditional)** 每个概念都有 N 派 reading 矩阵（本人 + 4-6 派各自定义 + 引文）？
+- [ ] **(v0.5 traditional)** 古典引文用 Bekker / Stephanus / 中典编号 + 现代译本页码并标？
 
 ### 方法论进路
 - [ ] 每条进路有具体触发条件（"碰到 X 类材料时"）？
@@ -254,8 +256,17 @@
 
 ### 诚实边界
 - [ ] **六大批评**（默会知识 / 化石化 / 公开-私下 / 传记修辞 / 漫画化 / **死亡-尊重边界**）都有具体声明？
+- [ ] **(v0.5 traditional)** 第 7 项 **派学者投射边界**(派 reading ≠ 本人立场)有具体声明？
 - [ ] 调研截止时间已标注？
 - [ ] 信息不足维度已明确列出？
+
+### v0.5 Traditional 学者额外检查项
+
+- [ ] Lineages 章节有 4-6 派？
+- [ ] 每派有完整 6 字段（name / representative / period / key_works / reading_strategy / distinctive_claims）？
+- [ ] 默认输出 mode 是 multi-perspective（本人 + N 派）？SKILL.md 含格式示例？
+- [ ] biography 降级 + intellectual genealogy 升级（树形图谱 + 跨派对话）？
+- [ ] 一手分级含 A^（派学者子一手）等级？
 
 ### 整体
 - [ ] 用此镜片分析一个新材料，能给出有学术深度的视角？

@@ -60,53 +60,121 @@ REQUIRED_DECLARATIONS = {
         r"creative\s+disclaimer", r"narrative-bracket",
         r"不戏剧化", r"不连接因果", r"创伤.*?(尊重|节制)",
     ],
+    # v0.5 第 7 项 · 派学者投射边界（仅 traditional 学者必填）
+    "lineage_projection_boundary": [
+        r"Lineage 投射", r"派学者.*?(投射|创造性误读)",
+        r"派.*?reading.*?(不应|不是).*?本人", r"creative\s+misreading",
+        r"该派.*?reading", r"派别投射边界",
+    ],
 }
 
-# Phase 4 通过标准（v0.4 含新增项）
+# Phase 4 通过标准（v0.5 升级：concept_count 上限按 scholar_type 浮动）
 THRESHOLDS = {
     "concept_count_min": 3,
-    "concept_count_max": 7,
+    "concept_count_max_contemporary": 7,   # v0.5 当代学者(向后兼容)
+    "concept_count_max_traditional": 15,   # v0.5 传统学者放宽到 15
+    "concept_count_max_topic": 10,
     "heuristic_count_min": 5,
     "primary_source_ratio_min": 0.5,
     "biography_grade_required": True,
-    "six_declarations_required": True,  # v0.4 从 5 升 6
-    "citation_anchor_min_pass_rate": 0.8,  # v0.4：≥80% 引文页码可证
+    "seven_declarations_required": True,    # v0.5 从 6 升 7（含 lineage_projection 仅 traditional）
+    "six_declarations_required": True,      # v0.4 兼容（contemporary 仍 6 项）
+    "citation_anchor_min_pass_rate": 0.8,
+    # v0.5 traditional 必填项
+    "lineages_count_min": 4,
+    "lineages_count_max": 6,
 }
+
+
+def detect_scholar_type(skill_text: str) -> str:
+    """v0.5 启发式判定 SKILL.md 对应学者类型(用于 declaration / concept_count 阈值)。"""
+    if re.search(r"scholar_type:\s*[\"']?traditional", skill_text):
+        return "traditional"
+    if re.search(r"scholar_type:\s*[\"']?topic", skill_text):
+        return "topic"
+    # heuristic: 含 lineages 章节 + 4 派以上 → traditional
+    lineage_section = re.search(r"##\s*Lineages|###\s*Lineage\s*\d", skill_text)
+    if lineage_section:
+        return "traditional"
+    return "contemporary"
+
+
+def check_lineages(skill_text: str) -> dict[str, Any]:
+    """v0.5 traditional 必填:lineages 4-6 派。"""
+    # 找 ## Lineages 章节内的 ### Lineage N: 子标题
+    sec = re.search(r"##\s*Lineages[\s\S]+?(?=\n##\s|\Z)", skill_text)
+    if not sec:
+        return {"pass": False, "count": 0, "note": "no Lineages section"}
+    block = sec.group(0)
+    headings = re.findall(r"###\s+Lineage\s*\d", block)
+    n = len(headings)
+    in_range = THRESHOLDS["lineages_count_min"] <= n <= THRESHOLDS["lineages_count_max"]
+    return {
+        "pass": in_range,
+        "count": n,
+        "min_required": THRESHOLDS["lineages_count_min"],
+        "max_allowed": THRESHOLDS["lineages_count_max"],
+    }
+
+
+def check_multi_perspective_output(skill_text: str) -> dict[str, Any]:
+    """v0.5 traditional 默认 multi-perspective 输出检测。"""
+    has_declaration = bool(re.search(
+        r"multi[-\s]?perspective|多视角输出|本人.{0,15}\+.{0,15}N\s*派|N\s*派.{0,15}各自", skill_text
+    ))
+    has_format_example = bool(re.search(
+        r"\[.+本人\][\s\S]{20,300}\[.+派|##\s*\[\w[^\]]+本人\]",
+        skill_text
+    ))
+    return {
+        "pass": has_declaration and has_format_example,
+        "has_declaration": has_declaration,
+        "has_format_example": has_format_example,
+    }
 
 
 def static_check(skill_path: Path, evidence_dir: Path | None = None) -> dict[str, Any]:
     text = skill_path.read_text(encoding="utf-8")
+    scholar_type = detect_scholar_type(text)
     results: dict[str, Any] = {
         "skill_path": str(skill_path),
         "checked_at": datetime.now().isoformat(),
+        "scholar_type": scholar_type,  # v0.5 新增
         "checks": {},
         "score": 0,
         "issues": [],
     }
 
-    # 1. 六大批评声明（v0.4：从 5 升 6）
+    # 1. 诚实边界声明 (v0.5: contemporary=6 项, traditional=7 项含 lineage_projection)
     declarations = {}
-    for key, patterns in REQUIRED_DECLARATIONS.items():
+    required_keys = list(REQUIRED_DECLARATIONS.keys())
+    if scholar_type != "traditional":
+        # 当代学者不强制 lineage_projection_boundary
+        required_keys = [k for k in required_keys if k != "lineage_projection_boundary"]
+    for key in required_keys:
+        patterns = REQUIRED_DECLARATIONS[key]
         present = any(re.search(pat, text, re.IGNORECASE) for pat in patterns)
         declarations[key] = present
         if not present:
             results["issues"].append(f"缺失诚实边界声明：{key}（任一关键词都未出现）")
-    results["checks"]["six_declarations"] = declarations
-    results["checks"]["six_declarations_pass"] = all(declarations.values())
+    results["checks"]["declarations"] = declarations
+    results["checks"]["declarations_pass"] = all(declarations.values())
+    results["checks"]["six_declarations_pass"] = results["checks"]["declarations_pass"]  # 向后兼容
 
-    # 2. 概念地图数量
+    # 2. 概念地图数量 (v0.5: 上限按 scholar_type 浮动)
     concept_blocks = re.findall(r"###\s+(?:核心)?概念\s*\d+[：:]", text)
     if not concept_blocks:
-        # 备用模式
         concept_blocks = re.findall(r"###\s+模型\s*\d+[：:]", text)
     cc = len(concept_blocks)
-    in_range = THRESHOLDS["concept_count_min"] <= cc <= THRESHOLDS["concept_count_max"]
+    cmax_key = f"concept_count_max_{scholar_type}"
+    cmax = THRESHOLDS.get(cmax_key, THRESHOLDS.get("concept_count_max_contemporary", 7))
+    in_range = THRESHOLDS["concept_count_min"] <= cc <= cmax
     results["checks"]["concept_count"] = cc
+    results["checks"]["concept_count_max"] = cmax
     results["checks"]["concept_count_pass"] = in_range
     if not in_range:
         results["issues"].append(
-            f"概念数量 {cc} 不在 [{THRESHOLDS['concept_count_min']}, "
-            f"{THRESHOLDS['concept_count_max']}] 范围内"
+            f"概念数量 {cc} 不在 [{THRESHOLDS['concept_count_min']}, {cmax}] 范围内 (scholar_type={scholar_type})"
         )
 
     # 3. 方法论进路数量
@@ -171,10 +239,30 @@ def static_check(skill_path: Path, evidence_dir: Path | None = None) -> dict[str
             f"{bracketing['without_bracketing']} 个缺事实层/叙事层双标注"
         )
 
-    # 计算总分（v0.4 重排：六大声明 25 + 概念 15 + 进路 15 + 调研日期 5 + 模式 10 + 一手 10 + 引文 10 + bracketing 10）
+    # 9. v0.5 新增：traditional 学者必填 lineages 4-6 派
+    if scholar_type == "traditional":
+        lin = check_lineages(text)
+        results["checks"]["lineages"] = lin
+        if not lin["pass"]:
+            results["issues"].append(
+                f"traditional 学者必须有 4-6 派 lineages (当前 {lin['count']} 派)"
+            )
+
+        # 10. v0.5 新增：multi-perspective 输出 mode 检测
+        mp = check_multi_perspective_output(text)
+        results["checks"]["multi_perspective"] = mp
+        if not mp["pass"]:
+            details = []
+            if not mp.get("has_declaration"): details.append("缺 multi-perspective 声明")
+            if not mp.get("has_format_example"): details.append("缺多派输出格式示例")
+            results["issues"].append(
+                f"traditional 学者必须默认 multi-perspective 输出: " + ", ".join(details)
+            )
+
+    # 计算总分 (v0.5: contemporary 100, traditional 100 同总分但权重重分配)
     score = 0
-    if results["checks"]["six_declarations_pass"]:
-        score += 25
+    if results["checks"]["declarations_pass"]:
+        score += 20  # v0.5: 25 → 20 (传统学者要 7 项,contemporary 仍 6 项)
     if results["checks"]["concept_count_pass"]:
         score += 15
     if results["checks"]["heuristic_count_pass"]:
@@ -182,17 +270,26 @@ def static_check(skill_path: Path, evidence_dir: Path | None = None) -> dict[str
     if has_research_date:
         score += 5
     if default_lens_mode and has_optin_dialogue:
-        score += 10
+        score += 5  # v0.5: 10 → 5 (因为 traditional 默认 multi-perspective 不再单一)
     pr = results["checks"].get("primary_ratio")
     if pr is not None and pr >= THRESHOLDS["primary_source_ratio_min"]:
         score += 10
     if citation_check is None:
-        # 没启用 evidence 校验：补满 10 分（向后兼容）
         score += 10
     elif citation_check["pass"]:
         score += 10
     if bracketing["pass"]:
         score += 10
+
+    # v0.5 新增项 (仅 traditional)
+    if scholar_type == "traditional":
+        if results["checks"].get("lineages", {}).get("pass"):
+            score += 10
+        if results["checks"].get("multi_perspective", {}).get("pass"):
+            score += 10
+    else:
+        # contemporary / topic 不需要这两项,补 20 分让总分仍可达 100
+        score += 20
 
     results["score"] = score
     results["pass"] = score >= 80 and not any(
@@ -211,21 +308,43 @@ def _slug(name: str) -> str:
     return re.sub(r"\W+", "", (name or "").lower())
 
 
-# 引文模式：匹配 "...书名/缩写, 20XX, p. NNN" 或 "in {Book} (year), p. NN"
-# 一个引文 = 一对 quote 文本 + source 标识 + page。
-# 我们用启发式扫所有 quote 块（> ... > —— ...）后跟 page 标记。
+# 引文模式：v0.5 含古典引文系统(Bekker/Stephanus/中典)
+# 一个引文 = 一对 quote 文本 + source 标识 + page (or 古典编号)
 CITATION_PATTERNS = [
-    # v0.4.5 扩展：支持 *Book* (year), p. N 与 *Book*, year, p. N 两种格式
+    # v0.4.5 模式: 现代页码引文
     # 形如  > "..." \n > —— *Book Title* (2021), p. 19
-    # 或    > "..." \n > —— *Book Title*, Polity, 2021, p. 19
     re.compile(
         r'>\s*["“"](?P<quote>[^"”"]{20,}?)["""]\s*\n\s*>\s*(?:——|--)\s*[^,\n]*?'
         r'(?P<source>(?:\*[^*]+\*|《[^》]+》|[A-Z][A-Za-z\s,:]+))'
-        r'\s*(?:\(\s*\d{4}\s*\))?'      # v0.4.5: optional (year) parenthetical
+        r'\s*(?:\(\s*\d{4}\s*\))?'
         r',?\s*'
         r'(?:[A-Z][a-z]+\s*(?:UP|Press|Polity|Galilée|Flammarion)?,?\s*)?'
         r'(?:\d{4},?\s*)?'
         r'(?:pp?\.|页)\s*(?P<page>\d+)',
+        re.MULTILINE
+    ),
+    # v0.5 新增 · Bekker 编号(Aristotle): NNN[abcd]NN 形如 1097b22 / 1098a20-30
+    # 例: > "..."  > —— *EN* 1097b22-1098a20
+    re.compile(
+        r'>\s*["“"](?P<quote>[^"”"]{20,}?)["""]\s*\n\s*>\s*(?:——|--)\s*[^,\n]*?'
+        r'(?P<source>(?:\*[^*]+\*|《[^》]+》|[A-Z][A-Za-z\s.]+))\s*'
+        r'(?P<page>\d{3,4}[ab]\d{1,2}(?:[-–]\d{3,4}?[ab]?\d{1,2})?)',
+        re.MULTILINE
+    ),
+    # v0.5 新增 · Stephanus 编号(Plato): NNN[abcde] 形如 514a / 514a-518b
+    # 例: > "..." > —— *Rep.* 514a-518b
+    re.compile(
+        r'>\s*["“"](?P<quote>[^"”"]{20,}?)["""]\s*\n\s*>\s*(?:——|--)\s*[^,\n]*?'
+        r'(?P<source>(?:\*[^*]+\*|《[^》]+》))\s*'
+        r'(?P<page>\d{3}[a-e](?:[-–]\d{3}[a-e])?)\b',
+        re.MULTILINE
+    ),
+    # v0.5 新增 · 中典页码(SBCK / 篇章页): 《X》篇 N / 卷 N · 第 N 章
+    # 例: > "..." > —— 《论语·学而》第 3 章
+    re.compile(
+        r'>\s*["“"](?P<quote>[^"”"]{10,}?)["""]\s*\n\s*>\s*(?:——|--)\s*[^,\n]*?'
+        r'(?P<source>《[^》]+》)'
+        r'[\s·]*第?\s*(?P<page>[一二三四五六七八九十百\d]+)\s*[章节卷篇]',
         re.MULTILINE
     ),
 ]
@@ -637,7 +756,8 @@ def print_analysis(result: dict[str, Any]) -> None:
     s = result["static_check"]
     c = result["caricature_check"]
 
-    print("\n=== 静态检查 (v0.4: 8 项) ===")
+    st_label = result["static_check"].get("scholar_type", "?")
+    print(f"\n=== 静态检查 v0.5 (scholar_type={st_label}, contemporary=8 项 / traditional=10 项) ===")
     print(f"  得分：{s['score']} / 100")
     print(f"  通过：{'✓' if s['pass'] else '✗'}")
     if s["checks"].get("citation_anchor") is not None:
@@ -706,7 +826,8 @@ def main():
     else:
         # 默认只跑静态检查（含 v0.4 新增检查项，若提供 --evidence-dir）
         result = static_check(skill_path, evidence_dir=evidence_dir)
-        print(f"=== 静态检查 v0.4（仅 SKILL.md{'，含 page-anchor 核验' if evidence_dir else ''}） ===")
+        st_label = result.get("scholar_type", "?")
+        print(f"=== 静态检查 v0.5 (scholar_type={st_label}{'，含 page-anchor 核验' if evidence_dir else ''}) ===")
         print(f"得分：{result['score']} / 100")
         print(f"通过：{'✓' if result['pass'] else '✗'}")
         if result["checks"].get("citation_anchor") is not None:

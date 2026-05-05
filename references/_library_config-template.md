@@ -12,11 +12,42 @@
 ```yaml
 ---
 # === 学者标识 ===
-scholar_slug: ""             # 用于文件命名（小写无空格，如 "stiegler"、"foucault"、"yuk-hui"）
-scholar_name: ""             # 中文/原语全名（用于 People 笔记路径，如 "贝尔纳·斯蒂格勒"）
-scholar_name_en: ""          # 英文全名（如 "Bernard Stiegler"）
-scholar_birth_year: 0
-scholar_death_year: null     # 已故学者填年份；在世留 null
+scholar_slug: ""             # 用于文件命名（小写无空格，如 "stiegler"、"foucault"、"yuk-hui"、"aristotle"）
+scholar_name: ""             # 中文/原语全名（用于 People 笔记路径，如 "贝尔纳·斯蒂格勒"、"亚里士多德"）
+scholar_name_en: ""          # 英文全名（如 "Bernard Stiegler"、"Aristotle"）
+scholar_birth_year: 0        # 公元前用负数（Aristotle: -384）
+scholar_death_year: null     # 已故学者填年份（Aristotle: -322）；在世留 null
+
+# === v0.5 学者类型分流（决定 Workflow B 走哪条分支）===
+scholar_type: "contemporary"   # contemporary | traditional | topic
+# - contemporary: 当代单一作者(20-21 世纪)，默认 v0.4.x 现有流程
+# - traditional:  古典/经典学者(去世 ≥ 100 年 + 已形成多派解读传统)
+#                  必须填 lineages 字段；默认 multi-perspective 输出
+# - topic:        方法论传统/流派(critical theory / ANT 等)
+
+# === v0.5 Lineages（仅 traditional 必填，4-6 派）===
+lineages: []
+# 示例（Aristotle）:
+# lineages:
+#   - name: "经院派 / Thomism"
+#     representative: "Thomas Aquinas"
+#     period: "13世纪"
+#     key_works: ["Summa Theologiae"]
+#     reading_strategy: "把 Aristotle 整合进基督教神学"
+#     distinctive_claims:
+#       - "首要 ousia = essence + esse"
+#   - name: "阿拉伯派"
+#     representative: "Avicenna (Ibn Sina)"
+#     ...
+
+# === v0.5 古典引文系统（仅 traditional 用）===
+classical_citation_system: ""   # bekker | stephanus | sbck | "" (留空 = 不用古典)
+# bekker:    Aristotle - 例 *EN* 1097b22-1098a20
+# stephanus: Plato     - 例 *Rep.* 514a-518b
+# sbck:      中国典籍   - 例 《论语·学而》第三章
+
+# === 默认输出 mode（v0.5 自动按 scholar_type 决定）===
+default_output_mode: "auto"     # auto | single_third_person | multi_perspective
 
 # === 调研时间窗 ===
 research_started_at: ""      # ISO date，如 "2026-05-05"
