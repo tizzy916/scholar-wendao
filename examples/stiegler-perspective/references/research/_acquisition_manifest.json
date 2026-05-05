@@ -1,0 +1,483 @@
+{
+  "scholar": "Bernard Stiegler",
+  "openalex_author_id": "A5055549487",
+  "generated": "2026-05-05",
+  "have_local_pdfs": [
+    1998,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2021,
+    2022
+  ],
+  "total_closed_books": 46,
+  "lang_priority": [
+    "fr",
+    "en",
+    "zh"
+  ],
+  "items": [
+    {
+      "year": 2024,
+      "lang": "und",
+      "title": "Going Along with Trans, Queer, and Non-Binary Youth",
+      "venue": "",
+      "doi": "10.1515/9781438497075",
+      "openalex_id": null,
+      "cited_by": null,
+      "have_local_year": false
+    },
+    {
+      "year": 2022,
+      "lang": "und",
+      "title": "Adapt!",
+      "venue": "",
+      "doi": "10.2307/j.ctv2fmxznr",
+      "openalex_id": null,
+      "cited_by": null,
+      "have_local_year": true
+    },
+    {
+      "year": 2021,
+      "lang": "en",
+      "title": "Bifurcate: there is no alternative",
+      "venue": "Sussex Research Online (University of Sussex)",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W4413851884",
+      "cited_by": 0,
+      "have_local_year": true
+    },
+    {
+      "year": 2020,
+      "lang": "fr",
+      "title": "Bifurquer: Il n'y a pas d'alternative",
+      "venue": "Sussex Research Online (University of Sussex)",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W3084429452",
+      "cited_by": 21,
+      "have_local_year": false
+    },
+    {
+      "year": 2020,
+      "lang": "fr",
+      "title": "Bifurquer. Il n'y a pas d'alternatives",
+      "venue": "SPIRE - Sciences Po Institutional REpository",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W4413851886",
+      "cited_by": 0,
+      "have_local_year": false
+    },
+    {
+      "year": 2020,
+      "lang": "und",
+      "title": "Technics and Time, 3",
+      "venue": "",
+      "doi": "10.1515/9780804799362",
+      "openalex_id": null,
+      "cited_by": null,
+      "have_local_year": false
+    },
+    {
+      "year": 2019,
+      "lang": "en",
+      "title": "The Age of Disruption: Technology and Madness in Computational Capitalism",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W2973270145",
+      "cited_by": 68,
+      "have_local_year": false
+    },
+    {
+      "year": 2017,
+      "lang": "en",
+      "title": "Philosophising by Accident",
+      "venue": "Edinburgh University Press eBooks",
+      "doi": "https://doi.org/10.1515/9781474408240",
+      "openalex_id": "https://openalex.org/W4291470595",
+      "cited_by": 26,
+      "have_local_year": true
+    },
+    {
+      "year": 2017,
+      "lang": "und",
+      "title": "Philosophising by Accident",
+      "venue": "",
+      "doi": "10.1515/9781474408240",
+      "openalex_id": null,
+      "cited_by": null,
+      "have_local_year": true
+    },
+    {
+      "year": 2016,
+      "lang": "und",
+      "title": "On the Existence of Digital Objects",
+      "venue": "",
+      "doi": "10.5749/minnesota/9780816698905.001.0001",
+      "openalex_id": null,
+      "cited_by": null,
+      "have_local_year": true
+    },
+    {
+      "year": 2015,
+      "lang": "fr",
+      "title": "L'avenir du travail",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W1631656833",
+      "cited_by": 1,
+      "have_local_year": true
+    },
+    {
+      "year": 2015,
+      "lang": "en",
+      "title": "States of shock : stupidity and knowledge in the twenty-first century",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W2147612672",
+      "cited_by": 62,
+      "have_local_year": true
+    },
+    {
+      "year": 2015,
+      "lang": "en",
+      "title": "The katastrophē of the sensible",
+      "venue": "Polity eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W2173206382",
+      "cited_by": 0,
+      "have_local_year": true
+    },
+    {
+      "year": 2014,
+      "lang": "fr",
+      "title": "Réenchanter le monde : la valeur esprit contre le populisme industriel",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W1573976359",
+      "cited_by": 33,
+      "have_local_year": true
+    },
+    {
+      "year": 2014,
+      "lang": "en",
+      "title": "The lost spirit of capitalism",
+      "venue": "Polity eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W427334940",
+      "cited_by": 15,
+      "have_local_year": true
+    },
+    {
+      "year": 2014,
+      "lang": "en",
+      "title": "The hyper-industrial epoch",
+      "venue": "Polity eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W2180371638",
+      "cited_by": 5,
+      "have_local_year": true
+    },
+    {
+      "year": 2013,
+      "lang": "fr",
+      "title": "Pharmacologie du Front national . Suivi du, Vocabulaire d'ars industrialis",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W406317711",
+      "cited_by": 17,
+      "have_local_year": true
+    },
+    {
+      "year": 2013,
+      "lang": "en",
+      "title": "What Makes Life Worth Living: On Pharmacology",
+      "venue": "Research Online (Goldsmiths University of London)",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W2280345438",
+      "cited_by": 63,
+      "have_local_year": true
+    },
+    {
+      "year": 2013,
+      "lang": "en",
+      "title": "Uncontrollable societies of disaffected individuals",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W639594292",
+      "cited_by": 53,
+      "have_local_year": true
+    },
+    {
+      "year": 2010,
+      "lang": "en",
+      "title": "For a New Critique of Political Economy",
+      "venue": "Research Online (Goldsmiths University of London)",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W1547822216",
+      "cited_by": 361,
+      "have_local_year": false
+    },
+    {
+      "year": 2010,
+      "lang": "en",
+      "title": "Technics and Time, 3: Cinematic Time and the Question of Malaise",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W3080423592",
+      "cited_by": 262,
+      "have_local_year": false
+    },
+    {
+      "year": 2009,
+      "lang": "fr",
+      "title": "Pour en finir avec la mécroissance : quelques réflexions d'Ars industrialis",
+      "venue": "Flammarion eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W615857020",
+      "cited_by": 8,
+      "have_local_year": false
+    },
+    {
+      "year": 2009,
+      "lang": "fr",
+      "title": "Faut-il interdire les écrans aux enfants?",
+      "venue": "Medical Entomology and Zoology",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W575715120",
+      "cited_by": 6,
+      "have_local_year": false
+    },
+    {
+      "year": 2009,
+      "lang": "fr",
+      "title": "Passer à l'acte",
+      "venue": "Medical Entomology and Zoology",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W375602857",
+      "cited_by": 3,
+      "have_local_year": false
+    },
+    {
+      "year": 2008,
+      "lang": "fr",
+      "title": "La télécratie contre la démocratie : lettre ouverte aux représentants politiques",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W1568757206",
+      "cited_by": 12,
+      "have_local_year": false
+    },
+    {
+      "year": 2008,
+      "lang": "fr",
+      "title": "Economie de l'hypermatériel et psychopouvoir",
+      "venue": "Mille et une nuits eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W624227449",
+      "cited_by": 11,
+      "have_local_year": false
+    },
+    {
+      "year": 2007,
+      "lang": "fr",
+      "title": "De la démocratie participative : fondements et limites",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W608137993",
+      "cited_by": 6,
+      "have_local_year": false
+    },
+    {
+      "year": 2006,
+      "lang": "fr",
+      "title": "Les sociétés incontrôlables d'individus désaffectés",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W658180907",
+      "cited_by": 2,
+      "have_local_year": false
+    },
+    {
+      "year": 2006,
+      "lang": "fr",
+      "title": "L'esprit perdu du capitalisme",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W578467912",
+      "cited_by": 2,
+      "have_local_year": false
+    },
+    {
+      "year": 2006,
+      "lang": "fr",
+      "title": "Le théâtre, le peuple, la passion",
+      "venue": "Solitaires intempestifs eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W625619002",
+      "cited_by": 1,
+      "have_local_year": false
+    },
+    {
+      "year": 2006,
+      "lang": "fr",
+      "title": "Des pieds et des mains",
+      "venue": "Bayard eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W560480028",
+      "cited_by": 0,
+      "have_local_year": false
+    },
+    {
+      "year": 2005,
+      "lang": "fr",
+      "title": "La catastrophè du sensible",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W649840757",
+      "cited_by": 7,
+      "have_local_year": false
+    },
+    {
+      "year": 2005,
+      "lang": "fr",
+      "title": "Dans un monde sans vergogne",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W651447900",
+      "cited_by": 1,
+      "have_local_year": false
+    },
+    {
+      "year": 2005,
+      "lang": "fr",
+      "title": "Le motif européen",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W367940650",
+      "cited_by": 0,
+      "have_local_year": false
+    },
+    {
+      "year": 2004,
+      "lang": "fr",
+      "title": "Philosopher par accident",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W591592787",
+      "cited_by": 23,
+      "have_local_year": false
+    },
+    {
+      "year": 2004,
+      "lang": "fr",
+      "title": "L'époque hyperindustrielle",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W566833174",
+      "cited_by": 4,
+      "have_local_year": false
+    },
+    {
+      "year": 2004,
+      "lang": "en",
+      "title": "The Decadence of Industrial Democracies",
+      "venue": "Medical Entomology and Zoology",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W570668576",
+      "cited_by": 78,
+      "have_local_year": false
+    },
+    {
+      "year": 2003,
+      "lang": "fr",
+      "title": "Aimer, s'aimer, nous aimer : du 11 septembre au 21 avril",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W568826445",
+      "cited_by": 8,
+      "have_local_year": false
+    },
+    {
+      "year": 2002,
+      "lang": "en",
+      "title": "Echographies of Television: Filmed Interviews",
+      "venue": "Medical Entomology and Zoology",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W1957880285",
+      "cited_by": 305,
+      "have_local_year": false
+    },
+    {
+      "year": 2002,
+      "lang": "en",
+      "title": "Jacques Derrida and the Humanities",
+      "venue": "Cambridge University Press eBooks",
+      "doi": "https://doi.org/10.1017/cbo9780511483134",
+      "openalex_id": "https://openalex.org/W628154675",
+      "cited_by": 84,
+      "have_local_year": false
+    },
+    {
+      "year": 2001,
+      "lang": "fr",
+      "title": "Le temps du cinéma et la question du mal-être",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W598833518",
+      "cited_by": 3,
+      "have_local_year": false
+    },
+    {
+      "year": 1998,
+      "lang": "en",
+      "title": "Technics and Time, 1",
+      "venue": "Stanford University Press eBooks",
+      "doi": "https://doi.org/10.1515/9780804799362",
+      "openalex_id": "https://openalex.org/W2798349024",
+      "cited_by": 133,
+      "have_local_year": true
+    },
+    {
+      "year": 1998,
+      "lang": "en",
+      "title": "The fault of Epimetheus",
+      "venue": "Stanford University Press eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W603921932",
+      "cited_by": 47,
+      "have_local_year": true
+    },
+    {
+      "year": 1998,
+      "lang": "und",
+      "title": "Technics and Time, 1",
+      "venue": "",
+      "doi": "10.1515/9781503616738",
+      "openalex_id": null,
+      "cited_by": null,
+      "have_local_year": true
+    },
+    {
+      "year": 1996,
+      "lang": "fr",
+      "title": "Échographies de la télévision : entretiens filmés",
+      "venue": "",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W1491568462",
+      "cited_by": 25,
+      "have_local_year": false
+    },
+    {
+      "year": 1986,
+      "lang": "fr",
+      "title": "La faute d'Épiméthée",
+      "venue": "Galilée eBooks",
+      "doi": null,
+      "openalex_id": "https://openalex.org/W590805853",
+      "cited_by": 10,
+      "have_local_year": false
+    }
+  ]
+}

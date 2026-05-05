@@ -1,0 +1,266 @@
+{
+  "summary": {
+    "ok": 3,
+    "exists": 6,
+    "skip_doi": 7,
+    "fail_not_pdf": 17,
+    "fail_exc": 9
+  },
+  "total_oa": 42,
+  "log": [
+    {
+      "i": 1,
+      "status": "exists",
+      "filename": "Stiegler2025_Towards_a_New_Industrial_Revolution_Entr.pdf"
+    },
+    {
+      "i": 2,
+      "status": "exists",
+      "filename": "Stiegler2022_Une_limite_au_del_de_laquelle_est_l_inco_fr.pdf"
+    },
+    {
+      "i": 3,
+      "status": "skip_doi",
+      "title": "Penser la technique dans la disruption : éléments pour une n"
+    },
+    {
+      "i": 4,
+      "status": "skip_doi",
+      "title": "Anticipation et futurition comme moments de la sélection dan"
+    },
+    {
+      "i": 5,
+      "status": "skip_doi",
+      "title": "De la cognition au savoir, de  l’organique à l’organologique"
+    },
+    {
+      "i": 6,
+      "status": "fail_not_pdf",
+      "title": "Anthropocène, Exosomatisation et Néguentropie",
+      "url": "https://ens.hal.science/hal-03320846"
+    },
+    {
+      "i": 7,
+      "status": "exists",
+      "filename": "Stiegler2020_Nanjing_Lectures_2016_2019.pdf"
+    },
+    {
+      "i": 8,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "Detox politics: thinking-salving the retreat of the public",
+      "url": "https://durham-repository.worktribe.com/file/1628486/1/Accepted%20Book%20Chapter"
+    },
+    {
+      "i": 9,
+      "status": "skip_doi",
+      "title": "For a Neganthropology of Automatic Society"
+    },
+    {
+      "i": 10,
+      "status": "fail_not_pdf",
+      "title": "Entretien sur l'entropie, le vivant et la technique : Deuxiè",
+      "url": "https://hal.science/hal-02398779"
+    },
+    {
+      "i": 11,
+      "status": "fail_not_pdf",
+      "title": "Entretien sur l'entropie, le vivant et la technique : Premiè",
+      "url": "https://hal.science/hal-02398778"
+    },
+    {
+      "i": 12,
+      "status": "exists",
+      "filename": "Stiegler2017_Notes_on_the_English_Translation.pdf"
+    },
+    {
+      "i": 13,
+      "status": "exists",
+      "filename": "Stiegler2017_Contents.pdf"
+    },
+    {
+      "i": 14,
+      "status": "exists",
+      "filename": "Stiegler2017_Frontmatter.pdf"
+    },
+    {
+      "i": 15,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 429: Too Many Requests",
+      "title": "On the Existence of Digital Objects",
+      "url": "http://www.gbv.de/dms/bowker/toc/9780816698905.pdf"
+    },
+    {
+      "i": 16,
+      "status": "fail_not_pdf",
+      "title": "The Digital Regime of Truth: From the Algorithmic Government",
+      "url": "https://researchportal.unamur.be/en/publications/beeac553-4d3c-4d6c-83a0-c69a6f00164f"
+    },
+    {
+      "i": 17,
+      "status": "skip_doi",
+      "title": "Digital knowledge, obsessive computing, short-termism and ne"
+    },
+    {
+      "i": 18,
+      "status": "skip_doi",
+      "title": "Dans la disruption"
+    },
+    {
+      "i": 19,
+      "status": "fail_not_pdf",
+      "title": "Il regime di verità digitale. Dalla governamentalità algorit",
+      "url": "https://doaj.org/article/cd11c94949fe4702ac602f9ce0c41952"
+    },
+    {
+      "i": 20,
+      "status": "fail_not_pdf",
+      "title": "Automatic Society 1: The Future of Work – Introduction",
+      "url": "https://doaj.org/article/b73d0d549ea245848365684498f49864"
+    },
+    {
+      "i": 21,
+      "status": "skip_doi",
+      "title": "Le régime de vérité numérique"
+    },
+    {
+      "i": 22,
+      "status": "fail_not_pdf",
+      "title": "Du psychopouvoir au neuropouvoir",
+      "url": "http://books.openedition.org/pupo/25602"
+    },
+    {
+      "i": 23,
+      "status": "fail_not_pdf",
+      "title": "Uscire dall’Antropocene",
+      "url": "https://doaj.org/article/8fd6438d8fbe4c73878c4eceab9d44aa"
+    },
+    {
+      "i": 24,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "Sortir de l’anthropocène",
+      "url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=MULT_060_0137&download=1"
+    },
+    {
+      "i": 25,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 405: Not Allowed",
+      "title": "S\"affranchir des automatismes",
+      "url": "http://infoscience.epfl.ch/record/225589"
+    },
+    {
+      "i": 26,
+      "status": "fail_not_pdf",
+      "title": "Autonomie et automatisation dans l’épistémè numérique",
+      "url": "https://books.openedition.org/msha/1344"
+    },
+    {
+      "i": 27,
+      "status": "ok",
+      "filename": "Stiegler2014_Uncontrollable_Societies_of_Disaffected.pdf",
+      "size_kb": 78,
+      "url": "https://tidsskrift.dk/nja/article/download/8185/6754",
+      "title": "Uncontrollable Societies of Disaffected Individuals: Disbelief and Discredit [Ex"
+    },
+    {
+      "i": 28,
+      "status": "fail_not_pdf",
+      "title": "Digital studies : organologie des savoirs et technologies de",
+      "url": "http://ci.nii.ac.jp/ncid/BB17861324"
+    },
+    {
+      "i": 29,
+      "status": "fail_not_pdf",
+      "title": "Trace et archive, image et art . Suivi de Pour Jacques Derri",
+      "url": "http://ci.nii.ac.jp/ncid/BB17653382"
+    },
+    {
+      "i": 30,
+      "status": "fail_not_pdf",
+      "title": "D'une pharmacologie positive",
+      "url": "https://books.openedition.org/editionsmsh/60859"
+    },
+    {
+      "i": 31,
+      "status": "fail_not_pdf",
+      "title": "De la misère symbolique",
+      "url": "http://ci.nii.ac.jp/ncid/BB19332313"
+    },
+    {
+      "i": 32,
+      "status": "fail_not_pdf",
+      "title": "Bernard Stiegler: 'A Rational Theory of Miracles: on Pharmac",
+      "url": "https://figshare.com/articles/journal_contribution/Bernard_Stiegler_a_rational_theory_of_miracles_on_pharmacology_and_transindividuation_/23422217"
+    },
+    {
+      "i": 33,
+      "status": "ok",
+      "filename": "Stiegler2010_Le_circuit_du_d_sir_musical_fr.pdf",
+      "size_kb": 2298,
+      "url": "https://www.erudit.org/fr/revues/circuit/2004-v15-n1-circuit3619/902340ar.pdf",
+      "title": "Le circuit du désir musical"
+    },
+    {
+      "i": 34,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "Chute et élévation.",
+      "url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=RPHI_063_0325&download=1"
+    },
+    {
+      "i": 35,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "La peau de chagrin ou L'accident franco-européen de la philo",
+      "url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=RDES_052_0103&download=1"
+    },
+    {
+      "i": 36,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "Individuation et grammatisation : quand la technique fait se",
+      "url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=DOCSI_426_0354&download=1"
+    },
+    {
+      "i": 37,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "Nous entrons dans le revenir de Jacques Derrida",
+      "url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=RDES_048_0064&download=1"
+    },
+    {
+      "i": 38,
+      "status": "fail_not_pdf",
+      "title": "Les 25 ans de la Bpi",
+      "url": "http://books.openedition.org/bibpompidou/866"
+    },
+    {
+      "i": 39,
+      "status": "ok",
+      "filename": "Stiegler2003_De_l_actualit_la_m_moire_de_l_actualit_fr.pdf",
+      "size_kb": 334,
+      "url": "https://books.openedition.org/bibpompidou/pdf/888",
+      "title": "De l’actualité à la mémoire de l’actualité ?"
+    },
+    {
+      "i": 40,
+      "status": "fail_not_pdf",
+      "title": "Les guerres du temps",
+      "url": "https://shs.hal.science/halshs-01741251"
+    },
+    {
+      "i": 41,
+      "status": "fail_exc",
+      "exc": "HTTPError: HTTP Error 403: Forbidden",
+      "title": "Leroi-Gourhan : l'inorganique organisé",
+      "url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=CDM_006_0187&download=1"
+    },
+    {
+      "i": 42,
+      "status": "fail_not_pdf",
+      "title": "La technoscience : entre découverte de l’être et invention d",
+      "url": "https://books.openedition.org/pusl/12405"
+    }
+  ]
+}
