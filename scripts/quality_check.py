@@ -215,10 +215,14 @@ def _slug(name: str) -> str:
 # 一个引文 = 一对 quote 文本 + source 标识 + page。
 # 我们用启发式扫所有 quote 块（> ... > —— ...）后跟 page 标记。
 CITATION_PATTERNS = [
-    # 形如  > "..." \n > —— *Book Title*, year, p. 19
+    # v0.4.5 扩展：支持 *Book* (year), p. N 与 *Book*, year, p. N 两种格式
+    # 形如  > "..." \n > —— *Book Title* (2021), p. 19
+    # 或    > "..." \n > —— *Book Title*, Polity, 2021, p. 19
     re.compile(
         r'>\s*["“"](?P<quote>[^"”"]{20,}?)["""]\s*\n\s*>\s*(?:——|--)\s*[^,\n]*?'
-        r'(?P<source>(?:\*[^*]+\*|《[^》]+》|[A-Z][A-Za-z\s,:]+)),?\s*'
+        r'(?P<source>(?:\*[^*]+\*|《[^》]+》|[A-Z][A-Za-z\s,:]+))'
+        r'\s*(?:\(\s*\d{4}\s*\))?'      # v0.4.5: optional (year) parenthetical
+        r',?\s*'
         r'(?:[A-Z][a-z]+\s*(?:UP|Press|Polity|Galilée|Flammarion)?,?\s*)?'
         r'(?:\d{4},?\s*)?'
         r'(?:pp?\.|页)\s*(?P<page>\d+)',
