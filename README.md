@@ -5,258 +5,285 @@
 > *问道于古今学者* · *Ask the way of scholars across time*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
+[![Agent-Agnostic](https://img.shields.io/badge/agent-agnostic-blueviolet)](#agent-agnostic--任何-llm-agent-都能用)
 [![Inspired by Nuwa](https://img.shields.io/badge/Inspired%20by-%E5%A5%B3%E5%A8%B2.skill-orange)](https://github.com/alchaincyf/nuwa-skill)
-[![v0.4.1](https://img.shields.io/badge/version-v0.4.1-blue)](#)
+[![v0.5](https://img.shields.io/badge/version-v0.5-blue)](#)
+[![5 Skills](https://img.shields.io/badge/skills_validated-5-green)](#已有案例)
 
-**为人文社科研究者建立的、由 agent 驱动的、端到端学术研究工作流系统。**
+**一个 agent-agnostic 的、为人文社科研究者准备的、端到端学术研究 + 论文写作工作流系统。**
 
-输入一个学者的名字 → 自动多语言多源采集 → PDF 证据提取 → 概念地图蒸馏 → 同时丰富用户的图书馆（PDF + Cards）/ 概念笔记 / 主题地图 → 生成可调用的"分析镜片"skill → 提交到 GitHub。
+输入一个学者的名字 → agent 自动多语言多源采集 → PDF 证据提取 → 概念地图蒸馏 → 同时丰富你的图书馆(PDF + Cards)/ 概念笔记 / 主题地图 → 生成可被**任何 LLM agent** 调用的"分析镜片" → 提交到 GitHub。
 
-不是 AI 陪聊。不是角色扮演。**是研究者每天用的工作流。**
+不是 AI 陪聊。不是角色扮演。**是研究者每天写论文用的工作流。**
 
-[**这是什么**](#这是什么) · [**三大产物**](#三大产物) · [**端到端工作流**](#端到端工作流) · [**配置规范**](#配置规范) · [**已有案例**](#已有案例) · [**诚实边界**](#诚实边界--humble-epistemics) · [English](README_EN.md)
+[**核心定位**](#agent-agnostic--任何-llm-agent-都能用) · [**三大产物**](#三大产物) · [**用它写论文**](#用-scholar-wendao-写论文--完整工作流) · [**架构**](#双工作流架构) · [**已有案例**](#已有案例) · [**安装**](#安装) · [**诚实边界**](#诚实边界--humble-epistemics) · [English](README_EN.md)
 
 </div>
 
 ---
 
+## Agent-Agnostic · 任何 LLM agent 都能用
+
+scholar-wendao **不是某个 agent 平台的专属插件**——它是一套**可被任何 LLM agent 加载执行的标准化工作流**:
+
+| 你的 agent | 怎么用 scholar-wendao |
+|---|---|
+| **Claude(Code / Desktop / API)** | 软链到 `~/.claude/skills/` 自动加载,触发词激活 |
+| **OpenAI ChatGPT(Custom GPTs)** | 上传 SKILL.md 作为 instructions + scripts 作为 actions |
+| **Cursor / Windsurf / Cline** | 把 SKILL.md 放到 `.cursorrules` 或 `.windsurfrules` |
+| **LangChain / LlamaIndex 自建 agent** | SKILL.md 作为 system prompt,scripts 作为 tools |
+| **国产 agent**(豆包 / Kimi / 通义) | SKILL.md 文本上传 + agent 调用本地脚本 |
+| **Aider / Continue / 任意 IDE agent** | 项目根放 `SKILL.md` 即可 |
+| **完全本地 agent**(Ollama / vLLM) | 同上,任何能读 markdown 的 agent 都行 |
+
+### 为什么 agent-agnostic 是设计前提
+
+- **SKILL.md 是纯 markdown** — 任何 LLM 都能读
+- **scripts/*.py 是标准 Python**(`pymupdf` / `pyyaml` / `requests` 三个常见依赖)— 任何 agent 工具调用机制都能跑
+- **数据格式开放**(JSON manifest + markdown evidence + YAML config)— 不绑定任何 vendor
+- **触发词是中文+英文自然语言** — 不依赖任何特定 agent 的 DSL
+- **产物是开放标准**(SKILL.md / Library Cards / Obsidian Vault wikilinks) — 不锁定任何工具
+
+### 当前已实测的 agent 平台
+
+| Agent | 状态 | 验证方式 |
+|---|---|---|
+| **Claude Code** | ✅ 主开发环境 | 5 个 perspective skill 全部 deploy |
+| **Claude Desktop** | ✅ deploy 验证 | 通过 `~/.claude/skills/` 软链加载 |
+| **GPT / Cursor / 自建** | ⏳ 理论可用 | 待社区验证(欢迎 PR 报告) |
+
+---
+
 ## 这是什么
 
-人文社科研究者面对一个学者的实际工作量包括四件事，过去是分散在四套工具里：
+人文社科研究者(尤其论文作者)面对一个学者的实际工作量包括四件事,过去分散在四套工具里:
 
 | 工作 | 传统工具 | 痛点 |
 |---|---|---|
-| 1. **资料搜集** | Google Scholar / Zotero / 手动下载 | OA 链接失败率 75%；闭源专著要个个找；非 book 资料（讲座/访谈/集体著作）无统一入口 |
+| 1. **资料搜集** | Google Scholar / Zotero / 手动下载 | OA 链接失败率 75%;闭源专著要个个找;非 book 资料(讲座/访谈/集体著作)无统一入口 |
 | 2. **PDF 全文阅读** | Adobe / Preview | 17 部书逐本读概念抽取太慢 |
-| 3. **思想分析** | 自己写读书笔记 | 重复写"X 的核心概念"段，跨学者难复用 |
-| 4. **知识库整合** | Obsidian + 手工 wikilink | 蒸馏完成后再手工把材料归档到图书馆/笔记/MOC，常常拖延 |
+| 3. **思想分析** | 自己写读书笔记 | 重复写"X 的核心概念"段,跨学者难复用 |
+| 4. **知识库整合** | Obsidian + 手工 wikilink | 蒸馏完成后再手工把材料归档到图书馆/笔记/MOC,常常拖延 |
 
-**学者问道把这四件事合并成一个 agent 驱动的端到端流程。** 用户的角色降为：决策点确认 + 提供配置参数。
+**学者问道把这四件事合并成一个 agent 驱动的端到端流程。** 用户的角色降为:决策点确认 + 提供配置参数 + **写出更好的论文**。
 
 ---
 
 ## 三大产物
 
-每跑一次蒸馏，scholar-wendao **同时**生产三件成品：
+每跑一次蒸馏,scholar-wendao **同时**生产三件成品:
 
 ### 🏛️ 1. Library 图书馆增长
 
-把多源采集到的 PDF 落入用户既有的扁平命名 Library（如 `Library/_files/{Author}{Year}_{slug}.pdf`），并自动生成符合用户模板的 Library Card（`Library/Cards/{Author}{Year}.md`，含 frontmatter / APA 引用 / 多语言版本表 / 概念命中分布 / Top 引用片段）。
+把多源采集到的 PDF 落入用户既有的扁平命名 Library(如 `Library/_files/{Author}{Year}_{slug}.pdf`),并自动生成符合用户模板的 Library Card(`Library/Cards/{Author}{Year}.md`,含 frontmatter / APA 引用 / 多语言版本表 / 概念命中分布 / Top 引用片段)。
 
-### 🔬 2. Perspective Skill
+### 🔬 2. Perspective Skill(论文写作的核心资产)
 
-`examples/{slug}-perspective/SKILL.md`：当前学者的可调用分析镜片。包括：
+`examples/{slug}-perspective/SKILL.md`:当前学者的可调用分析镜片。包括:
 
-- 3-7 个核心概念（每个含定义、与他人关系、局限、关键引文，引文必须 page-anchor 可证）
-- 5-10 条方法论进路（碰到 X 类材料的分析步骤）
-- 学术坐标 + 智识谱系（上游 / 横向 / 下游）
+- 3-15 个核心概念(每个含定义、与他人关系、局限、关键引文,引文必须 page-anchor 可证)
+- 5-10 条方法论进路(碰到 X 类材料的分析步骤)
+- 学术坐标 + 智识谱系(上游 / 横向 / 下游)
+- **(v0.5 新增)Lineages**:对古典学者(Aristotle / Arendt 等)是 N 派 reception 传统;对当代学者(Stiegler 等)是 N 个 influence + 接受 lineages
 - 重大论战与立场转变
-- 人格与处世（独立章节，BRACKETING 双层标注）
-- 六大诚实边界（默会知识 / 化石化 / 公开-私下 / 传记修辞 / 漫画化 / 死亡-尊重）
+- 人格与处世(独立章节,BRACKETING 双层标注)
+- **七大诚实边界**(默会知识 / 化石化 / 公开-私下 / 传记修辞 / 漫画化 / 死亡-尊重 / **派学者投射**)
 
 ### 🕸️ 3. Knowledge Base 联结
 
-把蒸馏过程产出的素材**落入用户 Vault 的对应位置**，并在 MOC / 概念笔记 / 谱系笔记 / 人物志中追加 wikilink 索引：
-
-- `Library 数字图书馆/Cards/` ← 17 个 Card
-- `Concepts 概念与理论/{第三持存,药理学,...}.md` 末尾追加"📎 v0.4 PDF Evidence Anchors"
-- `Permanent Notes 永久笔记/{斯蒂格勒与德里达,...}.md` 谱系笔记加 wikilink
-- `MOC Maps 主题地图/{学者}研究 MOC.md` 加"🔬 v0.4 蒸馏素材库"段
-- `People 人物志/{学者中文名}.md` 加 biography 链接
-- `Projects 项目/学者问道/{学者} 蒸馏/` 完整工作区（research / biography / pdf_evidence / SKILL.md）
+把蒸馏过程产出的素材**落入用户 Vault 的对应位置**(默认 Obsidian,任何支持 markdown wikilink 的 vault 都行),并在 MOC / 概念笔记 / 谱系笔记 / 人物志中追加 wikilink 索引。
 
 ---
 
-## 双工作流架构（v0.4.2）
+## 用 scholar-wendao 写论文 · 完整工作流
 
-> 本节面向 agent。scholar-wendao 显式分为**两个独立可触发的子工作流** + 共享数据层。每个 Workflow 可单独跑、可重复跑，组合形式由触发词决定。
+> 这是 scholar-wendao 的**核心 use case** — 不是"做一个 agent demo",是"完成一篇博士论文/期刊文章的实际研究流程"。
+
+### 场景:你正在写一篇关于 Stiegler vs Rancière 在数字技术问题上的对比论文
+
+#### Day 1 · 建库
+```
+你: "为 Bernard Stiegler 建图书馆"
+agent: → 跑 Workflow A
+   - harvest_works.py 拉 OpenAlex 全部 Stiegler 著作元数据
+   - 跑 download_open_access.sh 自动下 OA 部分
+   - 输出 _acquisition_manifest.md(列出哪些要手动下)
+   → 你浏览器从 OHP / archive.org 找到 OA 版本
+你: "我下了 Bifurcate.pdf 和 Neganthropocene.pdf,加进去"
+agent: → 跑 intake_manual_pdf.py(自动重命名 + 归档 + 抽 evidence + 生成 Card)
+       Library 从 17 → 19 部 PDF
+```
+
+#### Day 2 · 蒸馏
+```
+你: "蒸馏 Stiegler"
+agent: → 跑 Workflow B
+   - extract_pdf_evidence(19 部 PDF → 概念锚点)
+   - 7 agent 并行调研(专著/访谈/风格/二手/论战/谱系/档案)
+   - 框架提炼(6 核心概念 + 3 次级 + 4 lineages)
+   - 生成 SKILL.md(1117 行)
+   - quality_check(100/100 通过)
+   - sync_to_vault(回灌 wikilinks 到 6 概念笔记 + MOC + 人物志)
+```
+
+#### Day 3+ · 写论文
+```
+你: "用 Stiegler 视角分析这段 ChatGPT 现象材料"
+agent: 调用 stiegler-perspective skill
+       → 6 核心概念分析 + 引文 + 局限 + 不要漫画化的自检
+
+你: "用朗西埃检验我斯蒂格勒论点"   ← 跨 skill 协作
+agent: 同时调用 stiegler-perspective + ranciere-perspective
+       → 显式处理两个学者的不对称关系
+       → 输出"朗-斯接口论证"(论文修订专用 entry point)
+
+你: "Aristotle 各派如何看技术与德性"   ← v0.5 multi-perspective
+agent: 调用 aristotle-perspective(traditional)
+       → 默认 5 段输出(本人 + Aquinas + Avicenna + Heidegger + MacIntyre)
+       → 用 Bekker 编号 + 各派代表作引文锚点
+```
+
+#### Day N · 补料 + 重蒸
+```
+你: "我又下了 3 部 Stiegler 法语原版,加进 Stiegler 的库"
+agent: → intake_manual_pdf.py × 3 (累积式增长)
+
+你: "重蒸 Stiegler"   ← Library 增长后整体重做
+agent: → 旧 SKILL.md 进 _archive/
+       → 重跑 Workflow B 全部
+       → 概念引文升级为更精确的法语原版页码
+```
+
+**这就是 v0.5 双工作流 + 跨 skill 协作的实际写论文流程**。
+
+---
+
+## 双工作流架构
+
+> scholar-wendao 显式分为**两个独立可触发的子工作流** + 共享数据层。每个 Workflow 可单独跑、可重复跑,组合形式由触发词决定。
 
 ### 触发词路由
 
 | 用户输入意图 | Workflow | 路径 |
 |---|---|---|
-| "**搜集 X 的资料**" / "**为 X 建图书馆**" / `build-library X` | **A 单跑** | A.0 → A.5 |
-| "**蒸馏 X**" / "**做 X 的分析镜片**" / `distill X` | **B 单跑** | B.1 → B.6 |
-| "**学者问道 X**"（默认端到端） | **A → B** | 完整流程 |
-| "**重蒸 X**" | **B 重做模式** | 旧 SKILL.md 进 archive |
-| "**更新 X 的 skill**" | **B 轻量 update** | 增补不重写 |
-| "**我有 PDF 想加到 X 的库**" / "intake PDF for X" | **A.4 单步** | `intake_manual_pdf.py` |
+| 「**搜集 X 的资料**」/「**为 X 建图书馆**」/ `build-library X` | **A 单跑** | A.0 → A.5 |
+| 「**蒸馏 X**」/「**做 X 的分析镜片**」/ `distill X` | **B 单跑** | B.1 → B.6 |
+| 「**学者问道 X**」(默认端到端) | **A → B** | 完整流程 |
+| 「**重蒸 X**」 | **B 重做模式** | 旧 SKILL.md 进 archive |
+| 「**更新 X 的 skill**」 | **B 轻量 update** | 增补不重写 |
+| 「**我有 PDF 想加到 X 的库**」 | **A.4 单步** | `intake_manual_pdf.py` |
 
 ### Workflow A · 图书馆建设
 
 | Phase | 内容 | 工具 |
 |---|---|---|
-| **A.0** | 配置（`_library_config.md`）+ Library 覆盖率扫描 | (config) |
-| **A.1** | Metadata 全收集（"无漏" manifest） | `harvest_works.py` + 4 harvester(v0.4.3) |
-| **A.2** | Tier 1+2 自动下载（OA / yt-dlp / scrape） | `download_open_access.sh` |
-| **A.3** | Tier 3+4 manifest 输出（待手动 / 浏览器助手项） | `annas_acquire.py`（默认 manifest-only） |
+| **A.0** | 配置(`_library_config.md`)+ Library 覆盖率扫描 | (config) |
+| **A.1** | Metadata 全收集("无漏" manifest) | `harvest_works.py` + 多源 harvester |
+| **A.2** | Tier 1+2 自动下载(OA / yt-dlp / scrape) | `download_open_access.sh` |
+| **A.3** | Tier 3+4 manifest 输出(待手动 / 浏览器助手项) | `annas_acquire.py`(默认 manifest-only) |
 | **A.4** | **用户主动导入** ← 一等公民入口 | `intake_manual_pdf.py` |
 | **A.5** | 生成 / 增量更新 Library Cards | `generate_library_cards.py` |
 
-### Workflow B · 学者蒸馏
+### Workflow B · 学者蒸馏(v0.5 双路径)
 
 | Phase | 内容 | 工具 |
 |---|---|---|
-| **B.1** | extract_pdf_evidence（基于 Library 当前状态） | `extract_pdf_evidence.py` |
-| **B.2** | 7 agent 调研（research / biography） | spawn agents |
-| **B.3** | 框架提炼（concepts / heuristics / genealogy / etc） | (LLM synthesis) |
+| **B.0** | scholar_type 判定(`contemporary` / `traditional` / `topic`)| (Phase 0A) |
+| **B.1** | extract_pdf_evidence(基于 Library 当前状态) | `extract_pdf_evidence.py` |
+| **B.2** | 7 agent 调研(research / biography) | spawn agents |
+| **B.3a/b/c** | 框架提炼(按 scholar_type 分支) | (LLM synthesis) |
 | **B.4** | SKILL.md 构建 | (template fill) |
-| **B.5** | 质量验证（含引文 page-anchor 核验） | `quality_check.py` |
-| **B.6** | Vault 同步（回灌 wikilinks） | `sync_to_vault.py` |
+| **B.5** | 质量验证(7 项 declarations + page-anchor + bracketing) | `quality_check.py` |
+| **B.6** | Vault 同步(回灌 wikilinks) | `sync_to_vault.py` |
 
-### 4 层资料采集架构（acquisition_tier）
+### v0.5 学者类型差异
 
-每条资料在 `_acquisition_manifest.json` 中标注 `acquisition_tier` + `priority`：
-
-| Tier | 自动化程度 | 适用源 | 工具 |
+| 维度 | contemporary | **traditional** | topic |
 |---|---|---|---|
-| **1 · 完全 API** | 100% 自动 | OpenAlex / Crossref / Semantic Scholar / unpaywall | `harvest_works.py` |
-| **2 · 友好 scrape** | 90% 自动 | YouTube / Vimeo / 学者主页 / 出版社 OA | `harvest_*.py`（4 个 v0.4.3） |
-| **3 · 浏览器助手** | 50% 自动 | annas / paywall / Cairn 锁定文章 | 浏览器 cookies → 工具 |
-| **4 · 完全手动** | 0% 自动，工具辅助归档 | annas 严格反爬 / 闭源专著 / 罕见档案 | `intake_manual_pdf.py` |
+| 概念地图 size | 3-7 | **5-15** | 5-10 |
+| 默认输出 mode | 单一第三人称 | **multi-perspective**(本人+N 派) | 共识+分歧 |
+| Lineages 强制 | 否(可选) | **是**(必填 4-6 派) | 否 |
+| 引文系统 | PDF page anchor | **+ Bekker / Stephanus / 中典** | page anchor |
 
-**核心设计原则**：scholar-wendao 不假设"全自动化采集"。**"无漏"原则的实操含义是 metadata 无漏，不是 PDF 全到手**。Tier 3+4 资料显式列入 manifest，让用户决策。
+### 4 层资料采集架构
+
+| Tier | 自动化 | 适用源 | 工具 |
+|---|---|---|---|
+| **1 · 完全 API** | 100% | OpenAlex / Crossref / Semantic Scholar / unpaywall | `harvest_works.py` |
+| **2 · 友好 scrape** | 90% | OHP / DOAB / archive.org / 学者主页 | `harvest_oa_publishers.py` |
+| **3 · 浏览器助手** | 50% | annas / paywall(机构 access)/ Cairn 锁定 | 浏览器 cookies → 工具 |
+| **4 · 完全手动** | 0% | annas 严格反爬 / 闭源专著 / 罕见档案 | `intake_manual_pdf.py` |
+
+**核心设计原则**:**"无漏"原则的实操含义是 metadata 无漏,不是 PDF 全到手**。Tier 3+4 资料显式列入 manifest 让用户决策。
 
 ---
 
-## 端到端工作流（命令清单）
+## 端到端工作流(命令清单)
 
-> 本节面向 agent。每一 Phase 给出**具体命令**与**退出条件**。
+> 本节面向 agent。每一 Phase 给出**具体命令**与**退出条件**。命令是 Python / Bash,任何 agent 工具调用机制都能跑。
 
-### Phase 0：入口分流
+### Phase 0:入口分流
 
-agent 收到用户请求后，按 `SKILL.md` Phase 0 表格判定路径（直接 / 主题 / 诊断）。
+agent 收到用户请求后,按 `SKILL.md` Phase 0 表格判定路径(直接 / 主题 / 诊断),并判定 scholar_type(contemporary / traditional / topic)。
 
-### Phase 0.5：配置 + Library 覆盖率扫描
+### Phase 0.5:配置
 
-**1. 创建 `examples/{slug}-perspective/` 目录结构**
-
-```bash
-SLUG="stiegler"   # 学者标识
-mkdir -p examples/${SLUG}-perspective/references/{research,biography}
-mkdir -p examples/${SLUG}-perspective/_pdf_evidence
-```
-
-**2. 写 `_library_config.md`**
-
-按 [`references/_library_config-template.md`](references/_library_config-template.md) 模板填 frontmatter（13 个字段，含 7 个 Vault 子路径），保存到：
+按 [`references/_library_config-template.md`](references/_library_config-template.md) 模板填 frontmatter(13+ 字段),保存到:
 `examples/${SLUG}-perspective/references/research/_library_config.md`
 
-**3. 询问归档策略**
-
-- `archive_layout`: `flat`（推荐）/ `by-language`
-- `examples_retention`: `minimal` / `lightweight`（默认）/ `full`
+关键字段:
+- `scholar_type`: `contemporary` / `traditional` / `topic`
+- `archive_layout`: `flat`(推荐)/ `by-language`
 - `vault_archive_path`: 用户 Vault 的"知识库"根
+- `lineages`(traditional 必填 4-6 派,见 [`references/lineage-protocol.md`](references/lineage-protocol.md))
 
-**4. 扫描覆盖率**
-
-```bash
-# Library 中已有该学者的 PDF 数 → 决定纯网络/本地补/本地优先/纯本地模式
-COUNT=$(find "$LIBRARY_ROOT" -iname "${PREFIX}*.pdf" | wc -l)
-```
-
-写入 `_library_config.md` 的 `coverage_report.coverage_percent`。
-
-### Phase 1.0：多源信息采集（v0.4.1 加 4 个新源）
+### Phase 1.0:多源信息采集
 
 ```bash
-# 学术 archive (OpenAlex / Crossref / Semantic Scholar / arXiv via Academix MCP)
+# 学术 metadata (OpenAlex / Crossref / Semantic Scholar)
 python3 scripts/harvest_works.py "Bernard Stiegler" \
-    -o examples/${SLUG}-perspective/references/research/07-archive
+    --output examples/${SLUG}-perspective/references/research/07-archive
 
-# OA 资源批量下载（v0.4 新增 unpaywall + HTML 落地页 fallback）
+# OA 资源批量下载(unpaywall + HTML 落地页 fallback)
 bash scripts/download_open_access.sh \
     examples/${SLUG}-perspective/references/research/07-archive.json \
-    "${LIBRARY_FILES_DIR}" \
-    flat \
-    "${PREFIX}"
+    "${LIBRARY_FILES_DIR}" flat "${PREFIX}"
 
-# v0.4.3 backlog: 4 个非 book harvester（"无漏"原则）—— 待写
-# python3 scripts/harvest_lectures.py "Bernard Stiegler"        # YouTube/Vimeo
-# python3 scripts/harvest_french_journals.py "Bernard Stiegler" # Cairn/OpenEdition
-# python3 scripts/harvest_homepages.py "Bernard Stiegler"       # Semantic Scholar/PhilPapers
-# python3 scripts/harvest_collectives.py "Bernard Stiegler"     # ARS Industrialis/Internation
+# Tier 2 OA 出版社 harvester(OHP / DOAB / archive.org)
+python3 scripts/harvest_oa_publishers.py "Bernard Stiegler" \
+    --output examples/${SLUG}-perspective/references/research/ \
+    --slug stiegler --manifest examples/${SLUG}-perspective/references/research/_acquisition_manifest.json
 ```
 
-### Phase A.3：Tier 3+4 acquisition manifest 输出（v0.4.2）
-
-把 annas-archive 等反爬严格的源**仅生成 manifest 不实际下载**。manifest 写出待手动下载清单 + 获取建议。
+### Phase A.4:用户主动导入(可重复入口)
 
 ```bash
-# v0.4.2 默认即 manifest-only（不实际下载）
-python3 scripts/annas_acquire.py \
-    examples/${SLUG}-perspective/references/research/07-archive.json \
-    -o examples/${SLUG}-perspective/references/research/ \
-    --archive-layout flat \
-    --prefix "${PREFIX}"
-```
-
-输出：
-- `_acquisition_manifest.json`（机器可读，4 tier 标注 + priority）
-- `_acquisition_manifest.md`（人类可读，按 priority 排序）
-
-### Phase A.4：用户主动导入（v0.4.2 一等公民入口）
-
-用户从浏览器手动下载 PDF 后，用本工具一行命令归档：
-
-```bash
-# 单部导入（fully spec）
-python3 scripts/intake_manual_pdf.py \
-    ~/Downloads/Bifurquer-Stiegler.pdf \
+# 单部
+python3 scripts/intake_manual_pdf.py ~/Downloads/Bifurquer.pdf \
     --config examples/${SLUG}-perspective/references/research/_library_config.md \
-    --year 2020 --slug Bifurquer --lang fr \
-    --execute
+    --year 2020 --slug Bifurquer --lang fr --execute
 
-# 关联 manifest 中已有条目
-python3 scripts/intake_manual_pdf.py PDF \
-    --config CONFIG \
-    --manifest-id stiegler-2020-bifurquer-fr \
-    --execute
-
-# 批量（auto-infer year + lang from filenames）
-python3 scripts/intake_manual_pdf.py \
-    ~/Downloads/Stiegler*.pdf \
-    --config CONFIG \
-    --auto-infer \
-    --execute
+# 批量 + auto-infer
+python3 scripts/intake_manual_pdf.py ~/Downloads/Stiegler*.pdf \
+    --config CONFIG --auto-infer --execute
 ```
 
-自动行为：
-1. 重命名为 `{prefix}{year}_{slug}_{lang}.pdf`（按 `archive_layout`）
-2. 移动（`--copy` 改为复制）到 Library/_files
-3. 跑 `extract_pdf_evidence`（仅该新 PDF）
-4. 跑 `generate_library_cards`（增量）→ Card
-5. 在 `_acquisition_manifest.json` 标记 `intake_completed`
-
-**Phase A.4 是可重复入口** —— 用户每天补一两本，scholar-wendao 累积式增长 Library。不需要重跑 Workflow A 全部。
-
-### Phase 1.0.5：PDF Evidence 强制提取（v0.4 新增）
-
-**触发条件**：本地优先 / 纯本地模式（覆盖率 ≥ 30%）。
+### Phase B.1:PDF Evidence 强制提取
 
 ```bash
 python3 scripts/extract_pdf_evidence.py \
     --library "${LIBRARY_FILES_DIR}" \
     --filter "${PREFIX}*.pdf" \
     --concepts examples/${SLUG}-perspective/_pdf_evidence/_concepts.json \
-    --out examples/${SLUG}-perspective/_pdf_evidence \
-    --head 30 --tail 30
+    --out examples/${SLUG}-perspective/_pdf_evidence
+
+# 重生 navigator(从 _index.json 自动)
+python3 scripts/regenerate_navigator.py \
+    --evidence-dir examples/${SLUG}-perspective/_pdf_evidence \
+    --scholar-name "Bernard Stiegler"
 ```
 
-输出：每部 PDF → `_pdf_evidence/{book}.md`（head + tail + 概念锚点）+ `_index.json` + 自动检测 OCR backlog。
-
-### Phase 1：7 个并行 Agent
-
-按 `SKILL.md` Phase 1 表格 spawn 7 个 agent。**每个 agent 必须 `cat` 输出文件路径作为退出条件**（v0.4 P1 #3 修复）。
-
-主流程在 Phase 1.5 用 `ls -la references/research/` 兜底验证 + 自写缺失文件。
-
-### Phase 2.x：框架提炼
-
-按 SKILL.md Phase 2.1-2.8 填充。**v0.4 强制**：每核心概念末尾"证据来源"小节链接 `_pdf_evidence/{book}.md`，引文必须 page-anchor 可证。
-
-### Phase 2.9：Library Card 生成（v0.4.1 新增）
+### Phase 2.9:Library Card 生成
 
 ```bash
 python3 scripts/generate_library_cards.py \
@@ -265,13 +292,7 @@ python3 scripts/generate_library_cards.py \
     --archive-json examples/${SLUG}-perspective/references/research/07-archive.json
 ```
 
-对每部 PDF 生成 / 增量更新 Library Card 写入 `{vault}/Library/Cards/{Author}{Year}.md`。已有 Card → 仅追加"📎 v0.4 PDF Evidence Anchors"段不破坏用户手写内容。
-
-### Phase 3：SKILL.md 构建
-
-按 `references/scholar-template.md` 填充组装。
-
-### Phase 4：质量验证
+### Phase 4:质量验证
 
 ```bash
 python3 scripts/quality_check.py \
@@ -279,174 +300,178 @@ python3 scripts/quality_check.py \
     --evidence-dir examples/${SLUG}-perspective/_pdf_evidence
 ```
 
-**v0.4 8 项静态检查**（升级版）：
+**v0.5 检查项**:
+| 检查 | contemporary | traditional |
+|---|---|---|
+| 诚实边界声明 | 6 项 | **7 项**(含 lineage 投射) |
+| 概念地图 | 3-7 | **3-15** |
+| 方法论进路 | ≥ 5 | ≥ 5 |
+| 引文 page-anchor | ≥ 80% | ≥ 80%(含 Bekker / Stephanus) |
+| Narrative-bracketing | 形成性事件 100% 双标注 | 同 |
+| **Lineages**(v0.5) | (可选) | **必填 4-6 派** |
+| **Multi-perspective 输出**(v0.5) | (opt-in) | **默认必填** |
 
-| 检查 | 阈值 |
-|---|---|
-| 6 大诚实边界声明 | 全部 |
-| 概念地图 3-7 个 | hard limit |
-| 方法论进路 ≥ 5 条 | hard limit |
-| 调研时间标注 | regex bold-resilient |
-| 默认分析镜片 + opt-in 对话 | 必须 |
-| 一手来源占比 | ≥ 50% |
-| **引文 page-anchor 核验** | ≥ 80% 可在 evidence 定位 |
-| **Narrative-bracketing 双标注** | 形成性事件 100% |
-
-不通过 → 标注薄弱环节 → 回到对应 Phase。
-
-### Phase 5.5：Vault 同步（v0.4.1 新增）
+### Phase 5.5:Vault 同步
 
 ```bash
 python3 scripts/sync_to_vault.py \
     --config examples/${SLUG}-perspective/references/research/_library_config.md
+# 确认无误后可加 --prune 瘦身项目仓库
 ```
 
-把 `references/research/` + `references/biography/` + `_pdf_evidence/` + `SKILL.md` 复制到用户 Vault 的 `{project_workspace_path}/` 子目录。生成 `_vault_paths.md` 索引。
-
-确认 Vault 内容无误后，可加 `--prune` 按 `examples_retention` 策略瘦身项目仓库（不可逆）。
-
-**额外手工步骤**（v0.4.1 暂未自动化）：
-
-- 6 概念笔记（Concepts/）末尾追加"📎 v0.4 PDF Evidence Anchors"
-- 5 谱系笔记（Permanent Notes/）末尾追加 wikilink
-- MOC 末尾追加"🔬 v0.4 蒸馏素材库"段
-- 人物志末尾追加 biography wikilinks
-
-stiegler 案例已实现（[examples/stiegler-perspective/](examples/stiegler-perspective/)）；这部分将在 v0.4.2 中合并到 `sync_to_vault.py --update-wikilinks`。
-
-### Phase 6：GitHub 工作流
+### Phase 6:GitHub 工作流
 
 ```bash
 git add SKILL.md scripts/ references/ examples/${SLUG}-perspective/ README.md
-git commit -F /tmp/commit_msg.txt   # commit 消息含 quality_check 得分 + Vault 路径概览
+git commit -F /tmp/commit_msg.txt
 git push origin main
+
+# Optional: 派生为 standalone repo (便于单独分发)
+gh repo create ${SLUG}-perspective --public --description "..."
+git subtree push --prefix=examples/${SLUG}-perspective \
+    https://github.com/USER/${SLUG}-perspective.git main
 ```
-
----
-
-## 配置规范
-
-### `_library_config.md` 模板
-
-每个学者案例的配置文件，必须包含 v0.4.1 frontmatter（13 字段）：
-
-```yaml
----
-scholar_slug: "stiegler"
-scholar_name: "贝尔纳·斯蒂格勒"
-scholar_name_en: "Bernard Stiegler"
-scholar_birth_year: 1952
-scholar_death_year: 2020          # 已故 / null
-
-archive_layout: "flat"            # flat | by-language
-file_prefix: "Stiegler"
-
-# Vault 路径（v0.4.1 必填）
-vault_archive_path: "$HOME/.../02 · Knowledge"
-library_files_path: "Library 数字图书馆/_files"
-library_cards_path: "Library 数字图书馆/Cards"
-concepts_path: "Concepts 概念与理论"
-permanent_notes_path: "Permanent Notes 永久笔记"
-moc_path: "MOC Maps 主题地图"
-people_path: "People 人物志"
-project_workspace_path: "Projects 项目/学者问道 Scholar-Wendao/{slug} 蒸馏"
-
-examples_retention: "lightweight"  # minimal | lightweight | full
-
-# Phase 0.5 自动填充
-coverage_report:
-  local_pdfs_count: 0
-  expected_books_count: 0
-  coverage_percent: 0
-  mode: ""                        # 纯网络 | 本地补 | 本地优先 | 纯本地
----
-```
-
-完整模板见 [`references/_library_config-template.md`](references/_library_config-template.md)。
-
-### `examples_retention` 策略
-
-| 选项 | 项目仓库 `examples/{slug}-perspective/` 保留 |
-|---|---|
-| `minimal` | `SKILL.md` + `_vault_paths.md` 索引 |
-| `lightweight`（默认） | 上述 + `references/research/` + `_pdf_evidence/_navigator.md` |
-| `full` | 全部双份（Vault + 项目仓库；体积大，不推荐） |
 
 ---
 
 ## 已有案例
 
-### stiegler-perspective（v0.4.1）
+5 个 perspective skill 已通过 quality_check 验证 + deploy 验证:
 
-[`examples/stiegler-perspective/`](examples/stiegler-perspective/)
+| Skill | scholar_type | Lineages | 概念 | 行数 | quality | 论文写作用途 |
+|---|---|---:|---:|---:|---|---|
+| [stiegler-perspective](examples/stiegler-perspective/) | contemporary(+lineages) | 4(影响 3 + 接受 1) | 6+3 | 1117 | **100/100** | 数字技术 / 算法治理 / 平台资本 / 注意力经济 |
+| [aristotle-perspective](examples/aristotle-perspective/) | traditional | 4(经院/阿拉伯/海德格尔/分析) | 7 | 707 | **100/100** | 古典德性论 / 政治哲学 / 形而上学 / 城邦理论 |
+| ranciere-perspective(待补 examples/) | contemporary | 0(纯 v0.4.x 风格) | 6 | 730 | **95/100** | 美学体制 / 感性分配 / 解放观众 / 平等公理 |
+| arendt-perspective(待补 examples/) | traditional | **5** | 14 | 1073 | **90/100** | 公共领域 / 极权主义诊断 / banality of evil / labor-work-action |
+| mumford-perspective | (Workflow A 完成,B 未启动) | - | - | - | - | (待蒸) |
 
-| 维度 | 数据 |
-|---|---|
-| 概念地图 | 6 核心 + 3 次级，全部含证据来源 |
-| 一手来源占比 | ~70% |
-| Library 增长 | 17 PDF + 17 Cards 落入用户 Vault |
-| Vault 同步 | research/biography/pdf_evidence + 6 概念笔记 + MOC + 人物志 全部 wikilink 化 |
-| Quality check | 90/100，引文 page-anchor 92% 可证（12/13） |
-| 已知 backlog | 5 部扫描 PDF 待 OCR · 41 闭源 book 待 annas（代理出口受限）· 349 部非 book 待 v0.4.2 harvester |
+**跨 skill 协作示例**:`ranciere-perspective` 显式处理与 `stiegler-perspective` 的不对称关系,含"论文 #06 朗-斯接口论证"专用 entry point — 这是真实学术研究中**两个学者交叉对话**的工程化范式。
+
+### Standalone 分发
+
+每个 perspective skill 都可作为独立 repo 分发(via `git subtree push`):
+- [stiegler-perspective](https://github.com/tizzy916/stiegler-perspective) (standalone)
+- [aristotle-perspective](https://github.com/tizzy916/aristotle-perspective) (standalone)
+
+任何 agent 用户可直接 `git clone https://github.com/tizzy916/{slug}-perspective.git` 单独使用。
 
 ---
 
 ## 区别于女娲
 
-[女娲.skill](https://github.com/alchaincyf/nuwa-skill) 证明了"把人的思维框架蒸馏成可调用 skill"是可行的。**学者问道**专为人文社科学者重新设计：
+[女娲.skill](https://github.com/alchaincyf/nuwa-skill) 证明了"把人的思维框架蒸馏成可调用 skill"是可行的。**学者问道**专为人文社科学者重新设计:
 
 | 女娲 | 学者问道 | 差异理由 |
 |---|---|---|
 | 默认第一人称扮演 | 默认第三人称分析镜片 | 学者圈最反感把哲学家变成聊天机器 |
-| 决策启发式（商业） | 方法论进路 + 立场转变 | 学者没有商业决策但有学术论战 |
-| 表达 DNA = 语气模仿 | 行文风格 + 概念语言 | 强调术语使用，避免译者风格污染 |
-| 5 项诚实边界 | 6 项（加死亡-尊重边界） | Stiegler/Benjamin/Althusser 案例 |
-| 单一产物 SKILL.md | **三大产物**（Library + Skill + KB） | 蒸馏 = 同时建图书馆 |
-| 不涉及 Vault | **强制 Vault 同步**（Phase 5.5） | 工具必须进入研究者实际工作流 |
+| 决策启发式(商业) | 方法论进路 + 立场转变 | 学者没有商业决策但有学术论战 |
+| 表达 DNA = 语气模仿 | 行文风格 + 概念语言 | 强调术语使用,避免译者风格污染 |
+| 5 项诚实边界 | **7 项**(加死亡-尊重 + 派学者投射) | Stiegler/Benjamin/Althusser 案例 + traditional 学者派别问题 |
+| 单一产物 SKILL.md | **三大产物**(Library + Skill + KB) | 蒸馏 = 同时建图书馆 |
+| 不涉及 Vault | **强制 Vault 同步**(Phase 5.5) | 工具必须进入研究者实际工作流 |
+| 单一作者模型 | **传统学者多视角支持**(v0.5) | 古典学者(Aristotle / Plato / Kant 等)需要 N 派 reading |
 
-致敬而非取代。本项目方法论受女娲启发，但定位、设计哲学、目标用户均独立。
+致敬而非取代。本项目方法论受女娲启发,但定位、设计哲学、目标用户均独立。
 
 ---
 
 ## 安装
 
-```bash
-# 1. 装到 Claude Skills
-git clone https://github.com/tizzy916/scholar-wendao-skill.git
-ln -sfn $(pwd)/scholar-wendao-skill ~/.claude/skills/scholar-wendao-skill
+### 通用步骤(任何 agent)
 
-# 2. Python 依赖
+```bash
+# 1. clone 主仓
+git clone https://github.com/tizzy916/scholar-wendao-skill.git
+
+# 2. Python 依赖(scripts 用)
 pip3 install pymupdf pyyaml requests
 
-# 3. 可选：annas-py（受版权资料获取需要 ANNAS_API_KEY）
+# 3. (可选)annas-py(受版权资料获取需要 ANNAS_API_KEY)
 pip3 install annas-py
 
-# 4. Library 路径（如果还没有）
+# 4. Library 路径
 export SCHOLAR_WENDAO_LIBRARY="$HOME/.../Library 数字图书馆/_files"
+```
+
+### Agent 平台特定 deploy
+
+#### Claude(Code / Desktop)
+
+```bash
+ln -sfn $(pwd)/scholar-wendao-skill ~/.claude/skills/scholar-wendao-skill
+# 重启 Claude
+```
+
+触发:任意自然语言含「学者问道 X」/「蒸馏 X」/「为 X 建库」即激活。
+
+#### OpenAI ChatGPT(Custom GPT)
+
+1. ChatGPT → "Create a GPT" → Configure → Instructions → 粘贴 `SKILL.md` 全文
+2. Add Actions → 用 OpenAPI schema 包装 `scripts/*.py` 为 HTTP endpoints(或本地 docker container)
+3. 触发词在用户对话中自然语言激活
+
+#### Cursor / Windsurf / Cline / Aider
+
+```bash
+cp scholar-wendao-skill/SKILL.md /path/to/your/project/.cursorrules
+# 或: ln -s scholar-wendao-skill/SKILL.md /path/to/project/.cursorrules
+```
+
+scripts 通过 IDE 内 terminal 调用。
+
+#### LangChain / LlamaIndex / 自建 agent
+
+```python
+# system prompt
+with open("scholar-wendao-skill/SKILL.md") as f:
+    system_prompt = f.read()
+
+# tools
+from langchain.tools import ShellTool
+tools = [
+    ShellTool(name="harvest_works", command="python3 scripts/harvest_works.py {scholar}"),
+    ShellTool(name="extract_evidence", command="python3 scripts/extract_pdf_evidence.py ..."),
+    # ... 所有 scripts/*.py
+]
 ```
 
 ---
 
 ## 诚实边界 · Humble Epistemics
 
-scholar-wendao 与市面其他人格 skill 的核心差异化：**正面回应六大学术批评**。每个生成的 perspective skill 必须明确包含：
+scholar-wendao 与市面其他人格 skill 的核心差异化:**正面回应七大学术批评**。每个生成的 perspective skill 必须明确包含:
 
-1. **波兰尼问题** —— 默会知识不可蒸馏；本镜片只能复现学者可显式表达的部分
-2. **思想化石化** —— 调研时间点的快照；演变需要 update
+1. **波兰尼问题** —— 默会知识不可蒸馏;本镜片只能复现学者可显式表达的部分
+2. **思想化石化** —— 调研时间点的快照;演变需要 update
 3. **公开 vs 私下** —— 所有公开材料是经过过滤的展演自我
 4. **传记修辞污染** —— 来源等级 + 多源交叉
 5. **漫画化风险** —— 警觉用 skill 时是否在生产"段子集合"而非智识分析
-6. **死亡-尊重边界**（v0.4 新增） —— 涉及学者自杀 / 监禁 / 重大创伤事件，仅记录可公开核实事实，不戏剧化、不连接因果、不用学者第一人称回应
+6. **死亡-尊重边界**(v0.4) —— 涉及学者自杀 / 监禁 / 重大创伤事件,仅记录可公开核实事实,不戏剧化
+7. **派学者投射边界**(v0.5) —— 4-6 派 lineages 的 reading 是各派的"创造性误读",不是学者本人内在意图
 
-详见 [`references/humble-epistemics.md`](references/humble-epistemics.md)。
+详见 [`references/humble-epistemics.md`](references/humble-epistemics.md) + [`references/lineage-protocol.md`](references/lineage-protocol.md)。
 
 ---
 
-## 许可
+## 路线图
+
+- ✅ **v0.4.x** · 端到端工作流 + Library 联动 + intake_manual_pdf 一等公民
+- ✅ **v0.5.x** · Traditional 学者支持(lineages + multi-perspective + Bekker 引文)
+- ⏳ **v0.6** · 跨 skill 协作框架(基于 ranciere↔stiegler 的不对称对话案例文档化)
+- ⏳ **v0.7** · `harvest_classical.py`(Perseus / Loeb / Stoa 古典学专项)+ word-boundary _concepts 增强
+- ⏳ **v1.0** · 多 agent 平台 deploy 验证(GPT / Cursor / 自建 agent)+ 国际化 + paper-writing dashboard
+
+---
+
+## License
 
 MIT License. 详见 [LICENSE](LICENSE)。
 
 ---
 
 > 致谢 [女娲.skill](https://github.com/alchaincyf/nuwa-skill) 提供方法论启发。
-> 创建者：[shencong](https://github.com/shencong)。
+> 创建者:[shencong](https://github.com/shencong)。
+>
+> *用别人的概念地图,看自己的研究材料;用别人的方法论,问自己未问的问题。*
+> *不为了模仿他们,是为了拓展你的思维边界——这是与古今学者建立的真正学术对话。*
