@@ -702,6 +702,15 @@ phronesis 处理**可变的、特殊的、关于行动的**事,与 ethical virtu
 
 ---
 
+## 关于作者
+
+> **沈聪** · 中央美术学院实验艺术本科 · 清华大学科学史系硕士(导师 [胡翌霖](https://yilinhut.net/author/admin)) · [天与视界 TIANYU VISION](https://tianyu.art/) 创始人 & CEO
+>
+> 「学者问道 / Scholar-Wendao」开源框架作者。本 perspective skill 是该框架的具体应用案例,也是作者本人写学位论文《技术自由主义》时的实际使用工具——一个研究者为自己造的研究工具。
+>
+> 📮 [GitHub @tizzy916](https://github.com/tizzy916) · shencong916@gmail.com · 论文、合作、纠错欢迎来信
+
+---
+
 > 本 skill 由 [学者问道 / Scholar-Wendao v0.5](https://github.com/tizzy916/scholar-wendao-skill) 生成
 > 方法论受 [女娲.skill](https://github.com/alchaincyf/nuwa-skill) 启发,专为人文学术场景重新设计
-> 创建者:[shencong](https://github.com/shencong)

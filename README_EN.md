@@ -376,10 +376,11 @@ Special thanks to the humanities and social sciences scholar community — your 
 
 ## About the Author
 
-**shencong** — Humanities and social sciences researcher at Tsinghua University
+Shen Cong — BFA, Experimental Art, Central Academy of Fine Arts (CAFA); MA, History of Science, Tsinghua University (advisor: [Hu Yilin](https://yilinhut.net/author/admin)); Founder & CEO of [Tianyu Vision](https://tianyu.art/), a sci-art studio working on scientific visualization, science communication, and sci-art convergence. Research interests sit at the intersection of experimental art, history of science, and philosophy of technology.
 
-- Research areas: philosophy of technology, cultural studies, AI ethics
-- Personal projects: [GitHub](https://github.com/shencong)
+Scholar-Wendao was born from a concrete writing problem. While working on his MA thesis *Technical Liberalism*, the author didn't need to "chat with Stiegler" — he needed to load multiple scholars' analytical lenses (Stiegler, Rancière, Arendt, Aristotle, …) into his research workflow so he could invoke them inline while reading source material. No such tool existed, so he built one. That's Scholar-Wendao.
+
+📮 [GitHub @tizzy916](https://github.com/tizzy916) · shencong916@gmail.com · Corrections, collaboration, and conversation welcome.
 
 > *Scholar-Wendao does not replace scholars. It lends you their analytical lens.*
 > *Use someone else's concept map to look at your own research material.*
