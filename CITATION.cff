@@ -41,6 +41,11 @@ license: CC-BY-NC-4.0
 repository-code: "https://github.com/tizzy916/scholar-wendao-skill"
 url: "https://github.com/tizzy916/scholar-wendao-skill"
 
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20281929
+    description: "Zenodo archive (Concept DOI; resolves to latest release)"
+
 references:
   - type: software
     authors:

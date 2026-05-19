@@ -5,6 +5,7 @@
 > *Ask the way of scholars across time*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20281929.svg)](https://doi.org/10.5281/zenodo.20281929)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
 [![Inspired by Nuwa](https://img.shields.io/badge/Inspired%20by-nuwa.skill-orange)](https://github.com/alchaincyf/nuwa-skill)
 

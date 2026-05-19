@@ -5,9 +5,10 @@
 > *问道于古今学者* · *Ask the way of scholars across time*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20281929.svg)](https://doi.org/10.5281/zenodo.20281929)
 [![Agent-Agnostic](https://img.shields.io/badge/agent-agnostic-blueviolet)](#agent-agnostic--任何-llm-agent-都能用)
 [![Inspired by Nuwa](https://img.shields.io/badge/Inspired%20by-%E5%A5%B3%E5%A8%B2.skill-orange)](https://github.com/alchaincyf/nuwa-skill)
-[![v0.5](https://img.shields.io/badge/version-v0.5-blue)](#)
+[![v0.6](https://img.shields.io/badge/version-v0.6-blue)](#)
 [![5 Skills](https://img.shields.io/badge/skills_validated-5-green)](#已有案例)
 
 **一个 agent-agnostic 的、为人文社科研究者准备的、端到端学术研究 + 论文写作工作流系统。**
