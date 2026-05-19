@@ -1,0 +1,42 @@
+{
+  "title": "Scholar-Wendao: A Framework for Distilling Scholar Perspectives into Runnable Analytical Lenses",
+  "description": "<p>An open-source framework for distilling scholar perspectives into runnable analytical lenses for humanities researchers. Input a scholar's name or research area; the framework automatically harvests multilingual works, secondary literature, biographies, and academic controversies, then produces a 'perspective skill' — a portable analytical lens you can invoke in your research workflow rather than a chatbot to converse with. Supports two scholar types: contemporary (single-author, e.g., Stiegler, Yuk Hui) and traditional (multi-reception lineages, e.g., Aristotle, Plato, Confucius). Traditional-scholar mode produces multi-perspective output showing how each interpretive lineage reads the source. Designed for humanities-paper writing workflows — not for casual chat or persona role-play. Methodology inspired by Huashu's nuwa-skill, redesigned for academic humanities use. Bilingual: documentation in English and Chinese.</p>",
+  "creators": [
+    {
+      "name": "Shen, Cong",
+      "affiliation": "Tianyu Vision (TIANYU VISION); MA, History of Science, Tsinghua University"
+    }
+  ],
+  "keywords": [
+    "claude-skill",
+    "claude-code",
+    "humanities",
+    "philosophy",
+    "intellectual-history",
+    "scholar-perspective",
+    "analytical-lens",
+    "academic-writing",
+    "prompt-engineering",
+    "bilingual",
+    "meta-skill",
+    "perspective-distillation"
+  ],
+  "license": "CC-BY-NC-4.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "mul",
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/tizzy916/scholar-wendao-skill",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/alchaincyf/nuwa-skill",
+      "relation": "isInspiredBy",
+      "resource_type": "software"
+    }
+  ]
+}
