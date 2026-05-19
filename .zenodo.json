@@ -35,7 +35,7 @@
     {
       "scheme": "url",
       "identifier": "https://github.com/alchaincyf/nuwa-skill",
-      "relation": "isInspiredBy",
+      "relation": "references",
       "resource_type": "software"
     }
   ]
